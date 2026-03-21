@@ -40,8 +40,12 @@ build/Release
 
 # Dependency directories
 node_modules/
+frontend/node_modules/
+server/node_modules/
 jspm_packages/
 .bun/
+frontend/.bun/
+server/.bun/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
