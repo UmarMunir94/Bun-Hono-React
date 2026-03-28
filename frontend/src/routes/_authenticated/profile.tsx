@@ -1,4 +1,4 @@
-import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { userQueryOptions } from "@/lib/api";
 import { signOut } from "@/lib/auth-client";
@@ -11,7 +11,6 @@ export const Route = createFileRoute("/_authenticated/profile")({
 });
 
 function Profile() {
-  const router = useRouter();
   const queryClient = useQueryClient();
   const { isPending, error, data } = useQuery(userQueryOptions);
 
@@ -28,23 +27,18 @@ function Profile() {
 
   const handleLogout = async () => {
     try {
-      const res = await signOut();
-      if (res?.error) {
-        console.error("Logout error:", res.error);
-        alert(`Logout failed: ${res.error.message || "Unknown error"}`);
-        return;
-      }
+      await signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            queryClient.clear();
+            window.location.href = "/";
+          },
+        },
+      });
     } catch (err) {
       console.error("Logout exception:", err);
       alert("An unexpected error occurred during logout.");
-      return;
     }
-
-    // Clear all cached query data so protected routes see no user
-    queryClient.clear();
-    // Navigate to root — _authenticated beforeLoad will redirect to login
-    await router.navigate({ to: "/" });
-    router.invalidate();
   };
 
   return (
