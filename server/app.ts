@@ -20,14 +20,14 @@ app.use("*", sessionMiddleware);
 // Better Auth handles all /api/auth/* routes (sign-in, sign-up, callback, sign-out, …)
 app.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
 
-// /api/me — kept for frontend compatibility (replaces old Kinde /api/me)
-app.get("/api/me", (c) => {
-  const user = c.get("user");
-  if (!user) return c.json({ error: "Unauthorized" }, 401);
-  return c.json({ user });
-});
-
-const apiRoutes = app.basePath("/api").route("/expenses", expensesRoute);
+const apiRoutes = app
+  .basePath("/api")
+  .get("/me", (c) => {
+    const user = c.get("user");
+    if (!user) return c.json({ error: "Unauthorized" }, 401);
+    return c.json({ user });
+  })
+  .route("/expenses", expensesRoute);
 
 app.get("*", serveStatic({ root: "./frontend/dist" }));
 app.get("*", serveStatic({ path: "./frontend/dist/index.html" }));

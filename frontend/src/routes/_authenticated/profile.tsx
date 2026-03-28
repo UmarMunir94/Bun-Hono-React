@@ -17,6 +17,10 @@ function Profile() {
   if (isPending) return "loading";
   if (error) return "not logged in";
 
+  if ("error" in data) {
+    return <div>{data.error}</div>;
+  }
+
   const initials = data.user.name
     ? data.user.name
         .split(" ")
