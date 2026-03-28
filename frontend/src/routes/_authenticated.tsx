@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signIn, signUp } from "@/lib/auth-client";
 import { useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Login = () => {
   const router = useRouter();
@@ -41,24 +43,21 @@ const Login = () => {
   };
 
   return (
-    <div className="flex min-h-[60vh] items-center justify-center">
-      <div className="w-full max-w-sm space-y-6 rounded-xl border border-border bg-card p-8 shadow-sm">
-        {/* Tabs */}
-        <div className="flex gap-1 rounded-lg bg-muted p-1">
-          {(["login", "register"] as const).map((t) => (
-            <button
-              key={t}
-              onClick={() => { setTab(t); setError(null); }}
-              className={`flex-1 rounded-md py-1.5 text-sm font-medium transition-colors ${
-                tab === t
-                  ? "bg-background text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {t === "login" ? "Sign In" : "Register"}
-            </button>
-          ))}
-        </div>
+    <div className="flex min-h-[60vh] items-center justify-center p-4">
+      <Card className="w-full max-w-sm">
+        <CardHeader className="text-center space-y-2">
+          <CardTitle className="text-2xl font-bold">Welcome</CardTitle>
+          <CardDescription>
+            {tab === "login" ? "Sign in to your account" : "Create a new account"}
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <Tabs value={tab} onValueChange={(t) => { setTab(t as any); setError(null); }}>
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="login">Sign In</TabsTrigger>
+              <TabsTrigger value="register">Register</TabsTrigger>
+            </TabsList>
+          </Tabs>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {tab === "register" && (
@@ -141,7 +140,8 @@ const Login = () => {
           </svg>
           Continue with Google
         </Button>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
