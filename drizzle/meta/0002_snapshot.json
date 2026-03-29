@@ -1,10 +1,8 @@
 {
-  "id": "10c93f69-1fe8-4893-8e14-f287a51952b1",
-  "prevId": "29296dfc-bd64-4440-98ab-d8f0ecfc6689",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "expenses": {
+    "public.expenses": {
       "name": "expenses",
       "schema": "",
       "columns": {
@@ -48,23 +46,40 @@
       },
       "indexes": {
         "name_idx": {
-          "name": "name_idx",
           "columns": [
-            "user_id"
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "name_idx",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     }
   },
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "10c93f69-1fe8-4893-8e14-f287a51952b1",
+  "prevId": "29296dfc-bd64-4440-98ab-d8f0ecfc6689",
+  "sequences": {},
+  "policies": {},
+  "views": {},
+  "roles": {}
 }

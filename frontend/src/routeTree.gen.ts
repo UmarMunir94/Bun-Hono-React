@@ -16,6 +16,7 @@ import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedProfileImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedExpensesImport } from './routes/_authenticated/expenses'
+import { Route as AuthenticatedEducationImport } from './routes/_authenticated/education'
 import { Route as AuthenticatedCreateExpenseImport } from './routes/_authenticated/create-expense'
 
 // Create/Update Routes
@@ -45,6 +46,11 @@ const AuthenticatedExpensesRoute = AuthenticatedExpensesImport.update({
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 
+const AuthenticatedEducationRoute = AuthenticatedEducationImport.update({
+  path: '/education',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
 const AuthenticatedCreateExpenseRoute = AuthenticatedCreateExpenseImport.update(
   {
     path: '/create-expense',
@@ -68,6 +74,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCreateExpenseImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/_authenticated/education': {
+      preLoaderRoute: typeof AuthenticatedEducationImport
+      parentRoute: typeof AuthenticatedImport
+    }
     '/_authenticated/expenses': {
       preLoaderRoute: typeof AuthenticatedExpensesImport
       parentRoute: typeof AuthenticatedImport
@@ -88,6 +98,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   AuthenticatedRoute.addChildren([
     AuthenticatedCreateExpenseRoute,
+    AuthenticatedEducationRoute,
     AuthenticatedExpensesRoute,
     AuthenticatedProfileRoute,
     AuthenticatedIndexRoute,

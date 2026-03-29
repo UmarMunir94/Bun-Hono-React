@@ -32,6 +32,9 @@ function NavBar() {
         <Link to="/profile" className="[&.active]:font-bold">
           Profile
         </Link>
+        <Link to="/education" className="[&.active]:font-bold">
+          Education
+        </Link>
       </div>
     </div>
   );

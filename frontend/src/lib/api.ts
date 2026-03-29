@@ -1,7 +1,7 @@
 import { hc } from "hono/client";
 import { type ApiRoutes } from "@server/app";
 import { queryOptions } from "@tanstack/react-query";
-import { type CreateExpense } from "@server/sharedTypes";
+import { type CreateExpense, type CreateEducation } from "@server/sharedTypes";
 
 const client = hc<ApiRoutes>("/");
 
@@ -64,4 +64,39 @@ export async function deleteExpense({ id }: { id: number }) {
   if (!res.ok) {
     throw new Error("server error");
   }
+}
+
+// ── Education ──────────────────────────────────────────────────────────────
+
+export async function getAllEducation() {
+  const res = await api.education.$get();
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export const getAllEducationQueryOptions = queryOptions({
+  queryKey: ["get-all-education"],
+  queryFn: getAllEducation,
+  staleTime: 1000 * 60 * 5,
+});
+
+export const loadingCreateEducationQueryOptions = queryOptions<{
+  education?: CreateEducation;
+}>({
+  queryKey: ["loading-create-education"],
+  queryFn: async () => ({}),
+  staleTime: Infinity,
+});
+
+export async function createEducation({ value }: { value: CreateEducation }) {
+  const res = await api.education.$post({ json: value });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export async function deleteEducation({ id }: { id: number }) {
+  const res = await api.education[":id{[0-9]+}"].$delete({
+    param: { id: id.toString() },
+  });
+  if (!res.ok) throw new Error("server error");
 }

@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { serveStatic } from "hono/bun";
 import { expensesRoute } from "./routes/expenses";
+import { educationRoute } from "./routes/education";
 import { auth } from "./auth";
 import { sessionMiddleware } from "./auth-middleware";
 
@@ -27,7 +28,8 @@ const apiRoutes = app
     if (!user) return c.json({ error: "Unauthorized" }, 401);
     return c.json({ user });
   })
-  .route("/expenses", expensesRoute);
+  .route("/expenses", expensesRoute)
+  .route("/education", educationRoute);
 
 app.get("*", serveStatic({ root: "./frontend/dist" }));
 app.get("*", serveStatic({ path: "./frontend/dist/index.html" }));

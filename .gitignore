@@ -142,4 +142,4 @@ dist/
 dist-ssr/
 build/
 .bun/
-bun.lockb
+tsc-out.txt

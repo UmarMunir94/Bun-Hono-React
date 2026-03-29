@@ -5,7 +5,7 @@ const ServeEnv = z.object({
   PORT: z
     .string()
     .regex(/^\d+$/, "Port must be a numeric string")
-    .default("3000")
+    .default("5173")
     .transform(Number),
 });
 const ProcessEnv = ServeEnv.parse(process.env);
