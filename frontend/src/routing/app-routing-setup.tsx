@@ -93,6 +93,7 @@ import {
   WishlistPage,
 } from '@/pages/store-client';
 import { EducationPage } from '@/pages/education/education-page';
+import { WorkExperiencePage } from '@/pages/work-experience/work-experience-page';
 import { ExpensesPage } from '@/pages/expenses/expenses-page';
 import { CreateExpensePage } from '@/pages/expenses/create-expense-page';
 import { Navigate, Route, Routes } from 'react-router';
@@ -104,6 +105,7 @@ export function AppRoutingSetup() {
         <Route element={<Demo1Layout />}>
           <Route path="/" element={<DefaultPage />} />
           <Route path="/education" element={<EducationPage />} />
+          <Route path="/work-experience" element={<WorkExperiencePage />} />
           <Route path="/expenses" element={<ExpensesPage />} />
           <Route path="/create-expense" element={<CreateExpensePage />} />
           <Route path="/dark-sidebar" element={<Demo1DarkSidebarPage />} />

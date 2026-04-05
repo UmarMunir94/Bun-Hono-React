@@ -136,8 +136,16 @@ export const MENU_SIDEBAR: MenuConfig = [
             path: '/account/home/settings-enterprise',
           },
           { title: 'Settings - Plain', path: '/account/home/settings-plain' },
-          { title: 'Settings - Modal', path: '/account/home/settings-modal' },
+          { title: 'Settings - Modal', path: '/account/settings-modal' },
         ],
+      },
+      {
+        title: 'Education',
+        path: '/education',
+      },
+      {
+        title: 'Work Experience',
+        path: '/work-experience',
       },
       {
         title: 'Billing',
@@ -528,6 +536,14 @@ export const MENU_SIDEBAR_COMPACT: MenuConfig = [
         ],
       },
       {
+        title: 'Education',
+        path: '/education',
+      },
+      {
+        title: 'Work Experience',
+        path: '/work-experience',
+      },
+      {
         title: 'Billing',
         children: [
           { title: 'Billing - Basic', path: '/account/billing/basic' },
@@ -899,6 +915,8 @@ export const MENU_MEGA: MenuConfig = [
             path: '/account/notifications',
           },
           { title: 'API Keys', icon: Key, path: '/account/api-keys' },
+          { title: 'Education', icon: Book, path: '/education' },
+          { title: 'Work Experience', icon: Briefcase, path: '/work-experience' },
           { title: 'Appearance', icon: Eye, path: '/account/appearance' },
           {
             title: 'Invite a Friend',

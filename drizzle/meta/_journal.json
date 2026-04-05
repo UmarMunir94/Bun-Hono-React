@@ -36,6 +36,13 @@
       "when": 1774739063812,
       "tag": "0004_adorable_serpent_society",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1775143552939,
+      "tag": "0005_greedy_the_anarchist",
+      "breakpoints": true
     }
   ]
 }

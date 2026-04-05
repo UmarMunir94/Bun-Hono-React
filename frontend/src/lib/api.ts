@@ -1,7 +1,7 @@
 import { hc } from "hono/client";
 import { type ApiRoutes } from "@server/app";
 import { queryOptions } from "@tanstack/react-query";
-import { type CreateExpense, type CreateEducation } from "@server/sharedTypes";
+import { type CreateExpense, type CreateEducation, type CreateWorkExperience } from "@server/sharedTypes";
 
 const client = hc<ApiRoutes>("/");
 
@@ -96,6 +96,45 @@ export async function createEducation({ value }: { value: CreateEducation }) {
 
 export async function deleteEducation({ id }: { id: number }) {
   const res = await api.education[":id{[0-9]+}"].$delete({
+    param: { id: id.toString() },
+  });
+  if (!res.ok) throw new Error("server error");
+}
+
+// ── Work Experience ────────────────────────────────────────────────────────
+
+export async function getAllWorkExperience() {
+  const res = await api["work-experience"].$get();
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export const getAllWorkExperienceQueryOptions = queryOptions({
+  queryKey: ["get-all-work-experience"],
+  queryFn: getAllWorkExperience,
+  staleTime: 1000 * 60 * 5,
+});
+
+export const loadingCreateWorkExperienceQueryOptions = queryOptions<{
+  workExperience?: CreateWorkExperience;
+}>({
+  queryKey: ["loading-create-work-experience"],
+  queryFn: async () => ({}),
+  staleTime: Infinity,
+});
+
+export async function createWorkExperience({
+  value,
+}: {
+  value: CreateWorkExperience;
+}) {
+  const res = await api["work-experience"].$post({ json: value });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export async function deleteWorkExperience({ id }: { id: number }) {
+  const res = await api["work-experience"][":id{[0-9]+}"].$delete({
     param: { id: id.toString() },
   });
   if (!res.ok) throw new Error("server error");
