@@ -143,3 +143,6 @@ dist-ssr/
 build/
 .bun/
 tsc-out.txt
+
+# Google Sign-in
+client_secret_google.json

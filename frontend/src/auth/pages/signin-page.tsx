@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SupabaseAdapter } from '@/auth/adapters/supabase-adapter';
+
 import { signIn } from '@/lib/auth-client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Check, Eye, EyeOff } from 'lucide-react';
@@ -115,26 +115,25 @@ export function SignInPage() {
     }
   }
 
-  // Handle Google Sign In with Supabase OAuth
+  // Handle Google Sign In via Better Auth social provider
   const handleGoogleSignIn = async () => {
     try {
       setIsGoogleLoading(true);
       setError(null);
 
-      // Get the next path if available
       const nextPath = searchParams.get('next');
+      const callbackURL = nextPath ? nextPath : '/';
 
-      // Calculate the redirect URL
-      const redirectTo = nextPath
-        ? `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`
-        : `${window.location.origin}/auth/callback`;
+      const res = await signIn.social({
+        provider: 'google',
+        callbackURL,
+      });
 
-      console.log('Initiating Google sign-in with redirect:', redirectTo);
+      if (res?.error) {
+        throw new Error(res.error.message ?? 'Google sign-in failed.');
+      }
 
-      // Use our adapter to initiate the OAuth flow
-      await SupabaseAdapter.signInWithOAuth('google', { redirectTo });
-
-      // The browser will be redirected automatically
+      // Better Auth will redirect the browser automatically
     } catch (err) {
       console.error('Google sign-in error:', err);
       setError(
