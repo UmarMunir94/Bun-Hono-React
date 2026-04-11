@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { serveStatic } from "hono/bun";
+import { cors } from "hono/cors";
 import { expensesRoute } from "./routes/expenses";
 import { educationRoute } from "./routes/education";
 import { workExperienceRoute } from "./routes/work-experience";
@@ -14,6 +15,13 @@ type AppVariables = {
 
 const app = new Hono<{ Variables: AppVariables }>();
 
+app.use(
+  "*",
+  cors({
+    origin: ["http://localhost:8080", "http://127.0.0.1:8080", "http://localhost:5173"],
+    credentials: true,
+  })
+);
 app.use("*", logger());
 
 // Populate c.var.user and c.var.session on every request

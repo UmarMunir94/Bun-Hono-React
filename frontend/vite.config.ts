@@ -1,33 +1,46 @@
-import { fileURLToPath, URL } from 'node:url';
-import tailwindcss from '@tailwindcss/vite';
-import react from '@vitejs/plugin-react';
+import path from 'path';
+import checker from 'vite-plugin-checker';
 import { defineConfig } from 'vite';
-// import path from "path";
+import react from '@vitejs/plugin-react-swc';
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+// ----------------------------------------------------------------------
+
+const PORT = 8080;
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  base: process.env.VITE_BASE_URL || '/',
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@server': fileURLToPath(new URL('../server', import.meta.url)),
-      // hono: path.resolve(__dirname, "../node_modules/hono"),
-    },
-  },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
+  plugins: [
+    react(),
+    checker({
+      typescript: true,
+      eslint: {
+        useFlatConfig: true,
+        lintCommand: 'eslint "./src/**/*.{js,jsx,ts,tsx}"',
+        dev: { logLevel: ['error'] },
       },
+      overlay: {
+        position: 'tl',
+        initialIsOpen: false,
+      },
+    }),
+  ],
+  resolve: {
+    alias: [
+      {
+        find: /^src(.+)/,
+        replacement: path.resolve(process.cwd(), 'src/$1'),
+      },
+      {
+        find: '@server',
+        replacement: path.resolve(process.cwd(), '../server'),
+      },
+    ],
+  },
+  server: { 
+    port: PORT, 
+    host: true,
+    proxy: {
+      '/api': 'http://localhost:3000',
     },
   },
-  build: {
-    chunkSizeWarningLimit: 3000,
-    sourcemap: true, // This generates separate .map files
-  },
+  preview: { port: PORT, host: true },
 });
-

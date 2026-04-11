@@ -3,7 +3,7 @@ import { type ApiRoutes } from "@server/app";
 import { queryOptions } from "@tanstack/react-query";
 import { type CreateExpense, type CreateEducation, type CreateWorkExperience } from "@server/sharedTypes";
 
-const client = hc<ApiRoutes>("/");
+const client = hc<ApiRoutes>(import.meta.env.VITE_SERVER_URL);
 
 export const api = client.api;
 
@@ -50,9 +50,7 @@ export const loadingCreateExpenseQueryOptions = queryOptions<{
   expense?: CreateExpense;
 }>({
   queryKey: ["loading-create-expense"],
-  queryFn: async () => {
-    return {};
-  },
+  queryFn: async () => ({}),
   staleTime: Infinity,
 });
 

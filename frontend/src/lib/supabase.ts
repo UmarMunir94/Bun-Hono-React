@@ -1,24 +1,16 @@
-import { createClient } from '@supabase/supabase-js';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://mock.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'mock-key';
+import { createClient } from '@supabase/supabase-js';
 
-/**
- * Creates and exports a Supabase client instance configured with
- * environment variables.
- *
- * This client can be imported and used throughout the application for
- * authentication and database operations.
- */
-export const supabase: SupabaseClient = createClient(
-  supabaseUrl,
-  supabaseAnonKey,
-  {
-    auth: {
-      autoRefreshToken: true,
-      persistSession: true,
-      detectSessionInUrl: true,
-    },
-  },
-);
+import { CONFIG } from 'src/global-config';
+
+// ----------------------------------------------------------------------
+
+const isSupabase = CONFIG.auth.method === 'supabase';
+
+const supabaseUrl = CONFIG.supabase.url;
+const supabaseKey = CONFIG.supabase.key;
+
+export const supabase = isSupabase
+  ? createClient(supabaseUrl, supabaseKey)
+  : ({} as SupabaseClient<any, 'public', any>);

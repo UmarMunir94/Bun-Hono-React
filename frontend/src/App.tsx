@@ -1,33 +1,80 @@
-import { ThemeProvider } from 'next-themes';
-import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter } from 'react-router-dom';
-import { LoadingBarContainer } from 'react-top-loading-bar';
-import { Toaster } from '@/components/ui/sonner';
-import { AppRoutingSetup } from '@/routing/app-routing-setup';
-import { ProvidersWrapper } from './providers/providers-wrapper';
+import 'src/global.css';
 
-const { BASE_URL } = import.meta.env;
+import { useEffect } from 'react';
 
-export function App() {
+import { usePathname } from 'src/routes/hooks';
+
+import { CONFIG } from 'src/global-config';
+import { LocalizationProvider } from 'src/locales';
+import { themeConfig, ThemeProvider } from 'src/theme';
+import { I18nProvider } from 'src/locales/i18n-provider';
+
+import { Snackbar } from 'src/components/snackbar';
+import { ProgressBar } from 'src/components/progress-bar';
+import { MotionLazy } from 'src/components/animate/motion-lazy';
+import { SettingsDrawer, defaultSettings, SettingsProvider } from 'src/components/settings';
+
+import { CheckoutProvider } from 'src/sections/checkout/context';
+
+import { AuthProvider as JwtAuthProvider } from 'src/auth/context/jwt';
+import { AuthProvider as Auth0AuthProvider } from 'src/auth/context/auth0';
+import { AuthProvider as AmplifyAuthProvider } from 'src/auth/context/amplify';
+import { AuthProvider as SupabaseAuthProvider } from 'src/auth/context/supabase';
+import { AuthProvider as FirebaseAuthProvider } from 'src/auth/context/firebase';
+import { AuthProvider as BetterAuthProvider } from 'src/auth/context/better-auth';
+
+// ----------------------------------------------------------------------
+
+const AuthProvider =
+  (CONFIG.auth.method === 'amplify' && AmplifyAuthProvider) ||
+  (CONFIG.auth.method === 'firebase' && FirebaseAuthProvider) ||
+  (CONFIG.auth.method === 'supabase' && SupabaseAuthProvider) ||
+  (CONFIG.auth.method === 'auth0' && Auth0AuthProvider) ||
+  (CONFIG.auth.method === 'better-auth' && BetterAuthProvider) ||
+  JwtAuthProvider;
+
+// ----------------------------------------------------------------------
+
+type AppProps = {
+  children: React.ReactNode;
+};
+
+export default function App({ children }: AppProps) {
+  useScrollToTop();
+
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="light"
-      storageKey="vite-theme"
-      enableSystem
-      disableTransitionOnChange
-      enableColorScheme
-    >
-      <HelmetProvider>
-        <LoadingBarContainer>
-          <BrowserRouter basename={BASE_URL}>
-            <Toaster />
-            <ProvidersWrapper>
-              <AppRoutingSetup />
-            </ProvidersWrapper>
-          </BrowserRouter>
-        </LoadingBarContainer>
-      </HelmetProvider>
-    </ThemeProvider>
+    <I18nProvider>
+      <AuthProvider>
+        <SettingsProvider defaultSettings={defaultSettings}>
+          <LocalizationProvider>
+            <ThemeProvider
+              modeStorageKey={themeConfig.modeStorageKey}
+              defaultMode={themeConfig.defaultMode}
+            >
+              <MotionLazy>
+                <CheckoutProvider>
+                  <Snackbar />
+                  <ProgressBar />
+                  <SettingsDrawer defaultSettings={defaultSettings} />
+                  {children}
+                </CheckoutProvider>
+              </MotionLazy>
+            </ThemeProvider>
+          </LocalizationProvider>
+        </SettingsProvider>
+      </AuthProvider>
+    </I18nProvider>
   );
+}
+
+// ----------------------------------------------------------------------
+
+function useScrollToTop() {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
 }
