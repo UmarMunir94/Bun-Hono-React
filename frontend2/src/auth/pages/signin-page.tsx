@@ -121,8 +121,10 @@ export function SignInPage() {
       setIsGoogleLoading(true);
       setError(null);
 
-      const nextPath = searchParams.get('next');
-      const callbackURL = nextPath ? nextPath : '/';
+      const nextPath = searchParams.get('next') ?? '/';
+      // Must be an absolute URL — Better Auth resolves relative paths
+      // against the backend baseURL, which would redirect to localhost:3000.
+      const callbackURL = new URL(nextPath, window.location.origin).href;
 
       const res = await signIn.social({
         provider: 'google',
