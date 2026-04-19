@@ -57,7 +57,7 @@ async function fetchWithRefresh(
 
   if (!refreshed) {
     // Refresh token is also expired — force re-login
-    window.location.href = "/sign-in";
+    window.location.href = "/auth/sign-in";
     return response;
   }
 

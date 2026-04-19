@@ -103,16 +103,18 @@ export function BetterAuthSignUpView() {
         <Field.Text
           name="firstName"
           label="First name"
+          placeholder="John"
           slotProps={{ inputLabel: { shrink: true } }}
         />
         <Field.Text
           name="lastName"
           label="Last name"
+          placeholder="Doe"
           slotProps={{ inputLabel: { shrink: true } }}
         />
       </Box>
 
-      <Field.Text name="email" label="Email address" slotProps={{ inputLabel: { shrink: true } }} />
+      <Field.Text name="email" placeholder="john.doe@email.com" label="Email address" slotProps={{ inputLabel: { shrink: true } }} />
 
       <Field.Text
         name="password"
