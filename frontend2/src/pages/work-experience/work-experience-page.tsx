@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient, useQuery } from '@tanstack/react-query';
-import { Trash2, PlusCircle, LoaderCircleIcon, BriefcaseIcon } from 'lucide-react';
+import { Trash2, PlusCircle, LoaderCircleIcon, BriefcaseIcon, Pencil } from 'lucide-react';
 import { toast } from 'sonner';
 
+import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -31,6 +32,7 @@ import {
 } from '@server/sharedTypes';
 import {
   createWorkExperience,
+  updateWorkExperience,
   deleteWorkExperience,
   getAllWorkExperienceQueryOptions,
   loadingCreateWorkExperienceQueryOptions,
@@ -42,6 +44,7 @@ export function WorkExperiencePage() {
   const { data, isPending } = useQuery(getAllWorkExperienceQueryOptions);
   const { data: loadingData } = useQuery(loadingCreateWorkExperienceQueryOptions);
 
+  const [editingId, setEditingId] = useState<number | null>(null);
   const [isCurrent, setIsCurrent] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -63,27 +66,50 @@ export function WorkExperiencePage() {
       getAllWorkExperienceQueryOptions
     );
 
-    // Optimistic UI
-    queryClient.setQueryData(loadingCreateWorkExperienceQueryOptions.queryKey, {
-      workExperience: values,
-    });
-
     try {
-      const newEntry = await createWorkExperience({ value: values });
+      if (editingId !== null) {
+        // Update logic
+        const { workExperience: updatedEntry } = await updateWorkExperience({
+          id: editingId,
+          value: values,
+        });
 
-      queryClient.setQueryData(getAllWorkExperienceQueryOptions.queryKey, {
-        ...existing,
-        workExperience: [newEntry, ...(existing.workExperience ?? [])],
-      });
+        queryClient.setQueryData(getAllWorkExperienceQueryOptions.queryKey, {
+          ...existing,
+          workExperience: (existing.workExperience ?? []).map((e: any) =>
+            e.id === editingId ? updatedEntry : e
+          ),
+        });
 
-      toast('Work Experience Added', {
-        description: `Added ${newEntry.position} at ${newEntry.company}`,
-      });
+        toast('Work Experience Updated', {
+          description: `Updated ${updatedEntry.position} at ${updatedEntry.company}`,
+        });
+        setEditingId(null);
+      } else {
+        // Create logic
+        // Optimistic UI
+        queryClient.setQueryData(loadingCreateWorkExperienceQueryOptions.queryKey, {
+          workExperience: values,
+        });
+
+        const newEntry = await createWorkExperience({ value: values });
+
+        queryClient.setQueryData(getAllWorkExperienceQueryOptions.queryKey, {
+          ...existing,
+          workExperience: [newEntry, ...(existing.workExperience ?? [])],
+        });
+
+        toast('Work Experience Added', {
+          description: `Added ${newEntry.position} at ${newEntry.company}`,
+        });
+      }
 
       form.reset();
       setIsCurrent(false);
     } catch {
-      toast('Error', { description: 'Failed to add work experience entry' });
+      toast('Error', {
+        description: `Failed to ${editingId !== null ? 'update' : 'add'} work experience entry`,
+      });
     } finally {
       queryClient.setQueryData(
         loadingCreateWorkExperienceQueryOptions.queryKey,
@@ -91,6 +117,34 @@ export function WorkExperiencePage() {
       );
       setIsProcessing(false);
     }
+  }
+
+  function handleEdit(entry: any) {
+    setEditingId(entry.id);
+    const isNowCurrent = entry.endDate === null;
+    setIsCurrent(isNowCurrent);
+    form.reset({
+      company: entry.company,
+      location: entry.location,
+      position: entry.position,
+      startDate: entry.startDate,
+      endDate: entry.endDate,
+      description: entry.description,
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function handleCancelEdit() {
+    setEditingId(null);
+    setIsCurrent(false);
+    form.reset({
+      company: '',
+      location: '',
+      position: '',
+      startDate: '',
+      endDate: null,
+      description: '',
+    });
   }
 
   async function handleDelete(id: number) {
@@ -109,6 +163,7 @@ export function WorkExperiencePage() {
     try {
       await deleteWorkExperience({ id });
       toast('Removed', { description: 'Work experience entry deleted' });
+      if (editingId === id) handleCancelEdit();
     } catch {
       // Roll back
       queryClient.setQueryData(
@@ -125,11 +180,13 @@ export function WorkExperiencePage() {
   return (
     <div className="max-w-2xl mx-auto p-4 space-y-8">
       {/* Form Card */}
-      <Card>
+      <Card className={editingId !== null ? 'border-primary ring-1 ring-primary' : ''}>
         <CardHeader>
-          <CardTitle>Add Work Experience</CardTitle>
+          <CardTitle>{editingId !== null ? 'Edit Work Experience' : 'Add Work Experience'}</CardTitle>
           <CardDescription>
-            Add a new position or role to your work history.
+            {editingId !== null
+              ? 'Modify your position or role in your work history.'
+              : 'Add a new position or role to your work history.'}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -269,17 +326,41 @@ export function WorkExperiencePage() {
                 )}
               />
 
-              <Button type="submit" className="w-full" disabled={isProcessing}>
-                {isProcessing ? (
-                  <span className="flex items-center gap-2">
-                    <LoaderCircleIcon className="h-4 w-4 animate-spin" /> Adding...
-                  </span>
-                ) : (
-                  <>
-                    <PlusCircle className="mr-2 h-4 w-4" /> Add Work Experience
-                  </>
+              <div className="flex gap-2">
+                <Button
+                  type="submit"
+                  className="flex-1"
+                  disabled={isProcessing}
+                >
+                  {isProcessing ? (
+                    <span className="flex items-center gap-2">
+                      <LoaderCircleIcon className="h-4 w-4 animate-spin" /> {editingId !== null ? 'Updating...' : 'Adding...'}
+                    </span>
+                  ) : (
+                    <>
+                      {editingId !== null ? (
+                        <>
+                          <Pencil className="mr-2 h-4 w-4" /> Update Work Experience
+                        </>
+                      ) : (
+                        <>
+                          <PlusCircle className="mr-2 h-4 w-4" /> Add Work Experience
+                        </>
+                      )}
+                    </>
+                  )}
+                </Button>
+                {editingId !== null && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleCancelEdit}
+                    disabled={isProcessing}
+                  >
+                    Cancel
+                  </Button>
                 )}
-              </Button>
+              </div>
             </form>
           </Form>
         </CardContent>
@@ -320,6 +401,8 @@ export function WorkExperiencePage() {
             startDate={entry.startDate}
             endDate={entry.endDate}
             description={entry.description}
+            isEditing={editingId === entry.id}
+            onEdit={() => handleEdit(entry)}
             onDelete={() => handleDelete(entry.id)}
           />
         ))}
@@ -342,8 +425,10 @@ function WorkExperienceCard({
   startDate,
   endDate,
   description,
+  onEdit,
   onDelete,
   isPending,
+  isEditing,
 }: {
   company: string;
   location: string;
@@ -351,11 +436,13 @@ function WorkExperienceCard({
   startDate: string;
   endDate: string | null;
   description: string | null;
+  onEdit?: () => void;
   onDelete?: () => void;
   isPending?: boolean;
+  isEditing?: boolean;
 }) {
   return (
-    <Card className={isPending ? 'opacity-50' : ''}>
+    <Card className={cn(isPending && 'opacity-50', isEditing && 'border-primary ring-1 ring-primary')}>
       <CardContent className="pt-4">
         <div className="flex items-start justify-between gap-2">
           <div className="flex gap-3">
@@ -375,18 +462,32 @@ function WorkExperienceCard({
               )}
             </div>
           </div>
-          {onDelete && (
-            <Button
-              size="icon"
-              variant="ghost"
-              onClick={onDelete}
-              className="shrink-0 text-destructive hover:text-destructive"
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
-          )}
+          <div className="flex gap-1 shrink-0">
+            {onEdit && (
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={onEdit}
+                className="h-8 w-8 text-muted-foreground hover:text-primary"
+                disabled={isEditing}
+              >
+                <Pencil className="h-4 w-4" />
+              </Button>
+            )}
+            {onDelete && (
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={onDelete}
+                className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
       </CardContent>
     </Card>
   );
 }
+

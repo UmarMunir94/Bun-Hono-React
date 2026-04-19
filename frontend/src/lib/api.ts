@@ -1,7 +1,7 @@
 import { hc } from "hono/client";
 import { type ApiRoutes } from "@server/app";
 import { queryOptions } from "@tanstack/react-query";
-import { type CreateEducation, type CreateWorkExperience, type UpdateEducation, type UpdateWorkExperience } from "@server/sharedTypes";
+import { type CreateEducation, type UpdateEducation, type CreateWorkExperience, type UpdateWorkExperience } from "@server/sharedTypes";
 
 // ─── Silent refresh interceptor ──────────────────────────────────────────────
 // When any API call returns 401, try to silently refresh the session using the

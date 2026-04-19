@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient, useQuery } from '@tanstack/react-query';
-import { Trash2, PlusCircle, LoaderCircleIcon } from 'lucide-react';
+import { Trash2, PlusCircle, LoaderCircleIcon, Pencil } from 'lucide-react';
 import { toast } from 'sonner';
 
+import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -24,10 +24,14 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 
-import { createEducationSchema, type CreateEducation } from '@server/sharedTypes';
+import {
+  createEducationSchema,
+  type CreateEducation,
+} from '@server/sharedTypes';
 import {
   createEducation,
   deleteEducation,
+  updateEducation,
   getAllEducationQueryOptions,
   loadingCreateEducationQueryOptions,
 } from '@/lib/api';
@@ -37,6 +41,9 @@ export function EducationPage() {
 
   const { data, isPending } = useQuery(getAllEducationQueryOptions);
   const { data: loadingData } = useQuery(loadingCreateEducationQueryOptions);
+
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const form = useForm<CreateEducation>({
     resolver: zodResolver(createEducationSchema),
@@ -50,38 +57,81 @@ export function EducationPage() {
     },
   });
 
-  const [isProcessing, setIsProcessing] = useState(false);
-
   async function onSubmit(values: CreateEducation) {
     setIsProcessing(true);
     const existing = await queryClient.ensureQueryData(
       getAllEducationQueryOptions
     );
 
-    // Optimistic UI
-    queryClient.setQueryData(loadingCreateEducationQueryOptions.queryKey, {
-      education: values,
-    });
-
     try {
-      const newEntry = await createEducation({ value: values });
+      if (editingId !== null) {
+        // Update logic
+        const { education: updatedEntry } = await updateEducation({ id: editingId, value: values });
 
-      queryClient.setQueryData(getAllEducationQueryOptions.queryKey, {
-        ...existing,
-        education: [newEntry, ...(existing.education ?? [])],
-      });
+        queryClient.setQueryData(getAllEducationQueryOptions.queryKey, {
+          ...existing,
+          education: (existing.education ?? []).map((e: any) =>
+            e.id === editingId ? updatedEntry : e
+          ),
+        });
 
-      toast('Education Added', {
-        description: `Added ${newEntry.degree} at ${newEntry.institution}`,
-      });
+        toast('Education Updated', {
+          description: `Updated ${updatedEntry.degree} at ${updatedEntry.institution}`,
+        });
+        setEditingId(null);
+      } else {
+        // Create logic
+        // Optimistic UI
+        queryClient.setQueryData(loadingCreateEducationQueryOptions.queryKey, {
+          education: values,
+        });
+
+        const newEntry = await createEducation({ value: values });
+
+        queryClient.setQueryData(getAllEducationQueryOptions.queryKey, {
+          ...existing,
+          education: [newEntry, ...(existing.education ?? [])],
+        });
+
+        toast('Education Added', {
+          description: `Added ${newEntry.degree} at ${newEntry.institution}`,
+        });
+      }
 
       form.reset();
     } catch {
-      toast('Error', { description: 'Failed to add education entry' });
+      toast('Error', {
+        description: `Failed to ${editingId !== null ? 'update' : 'add'} education entry`,
+      });
     } finally {
       queryClient.setQueryData(loadingCreateEducationQueryOptions.queryKey, {});
       setIsProcessing(false);
     }
+  }
+
+  function handleEdit(entry: any) {
+    setEditingId(entry.id);
+    form.reset({
+      institution: entry.institution,
+      degree: entry.degree,
+      fieldOfStudy: entry.fieldOfStudy,
+      startYear: entry.startYear,
+      endYear: entry.endYear,
+      description: entry.description,
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function handleCancelEdit() {
+    setEditingId(null);
+    form.reset({
+      institution: '',
+      degree: '',
+      fieldOfStudy: '',
+      startYear: new Date().getFullYear(),
+      endYear: null,
+      description: '',
+    });
   }
 
   async function handleDelete(id: number) {
@@ -98,6 +148,7 @@ export function EducationPage() {
     try {
       await deleteEducation({ id });
       toast('Removed', { description: 'Education entry deleted' });
+      if (editingId === id) handleCancelEdit();
     } catch {
       // Roll back
       queryClient.setQueryData(getAllEducationQueryOptions.queryKey, existing);
@@ -111,11 +162,13 @@ export function EducationPage() {
   return (
     <div className="max-w-2xl mx-auto p-4 space-y-8">
       {/* Form Card */}
-      <Card>
+      <Card className={editingId !== null ? 'border-primary ring-1 ring-primary' : ''}>
         <CardHeader>
-          <CardTitle>Add Education</CardTitle>
+          <CardTitle>{editingId !== null ? 'Edit Education' : 'Add Education'}</CardTitle>
           <CardDescription>
-            Add a new educational qualification or certification.
+            {editingId !== null
+              ? 'Modify your educational qualification or certification.'
+              : 'Add a new educational qualification or certification.'}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -243,21 +296,41 @@ export function EducationPage() {
                 )}
               />
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isProcessing}
-              >
-                {isProcessing ? (
-                  <span className="flex items-center gap-2">
-                    <LoaderCircleIcon className="h-4 w-4 animate-spin" /> Adding...
-                  </span>
-                ) : (
-                  <>
-                    <PlusCircle className="mr-2 h-4 w-4" /> Add Education
-                  </>
+              <div className="flex gap-2">
+                <Button
+                  type="submit"
+                  className="flex-1"
+                  disabled={isProcessing}
+                >
+                  {isProcessing ? (
+                    <span className="flex items-center gap-2">
+                      <LoaderCircleIcon className="h-4 w-4 animate-spin" /> {editingId !== null ? 'Updating...' : 'Adding...'}
+                    </span>
+                  ) : (
+                    <>
+                      {editingId !== null ? (
+                        <>
+                          <Pencil className="mr-2 h-4 w-4" /> Update Education
+                        </>
+                      ) : (
+                        <>
+                          <PlusCircle className="mr-2 h-4 w-4" /> Add Education
+                        </>
+                      )}
+                    </>
+                  )}
+                </Button>
+                {editingId !== null && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleCancelEdit}
+                    disabled={isProcessing}
+                  >
+                    Cancel
+                  </Button>
                 )}
-              </Button>
+              </div>
             </form>
           </Form>
         </CardContent>
@@ -275,8 +348,8 @@ export function EducationPage() {
             degree={optimisticEntry.degree}
             fieldOfStudy={optimisticEntry.fieldOfStudy}
             startYear={optimisticEntry.startYear}
-            endYear={optimisticEntry.endYear}
-            description={optimisticEntry.description}
+            endYear={optimisticEntry.endYear ?? null}
+            description={optimisticEntry.description ?? null}
             isPending
           />
         )}
@@ -296,6 +369,8 @@ export function EducationPage() {
             startYear={entry.startYear}
             endYear={entry.endYear}
             description={entry.description}
+            isEditing={editingId === entry.id}
+            onEdit={() => handleEdit(entry)}
             onDelete={() => handleDelete(entry.id)}
           />
         ))}
@@ -311,8 +386,10 @@ function EducationCard({
   startYear,
   endYear,
   description,
+  onEdit,
   onDelete,
   isPending,
+  isEditing,
 }: {
   institution: string;
   degree: string;
@@ -320,11 +397,13 @@ function EducationCard({
   startYear: number;
   endYear: number | null;
   description: string | null;
+  onEdit?: () => void;
   onDelete?: () => void;
   isPending?: boolean;
+  isEditing?: boolean;
 }) {
   return (
-    <Card className={isPending ? 'opacity-50' : ''}>
+    <Card className={cn(isPending && 'opacity-50', isEditing && 'border-primary ring-1 ring-primary')}>
       <CardContent className="pt-4">
         <div className="flex items-start justify-between gap-2">
           <div className="space-y-0.5">
@@ -337,18 +416,32 @@ function EducationCard({
             </p>
             {description && <p className="text-sm mt-1">{description}</p>}
           </div>
-          {onDelete && (
-            <Button
-              size="icon"
-              variant="ghost"
-              onClick={onDelete}
-              className="shrink-0 text-destructive hover:text-destructive"
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
-          )}
+          <div className="flex gap-1 shrink-0">
+            {onEdit && (
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={onEdit}
+                className="h-8 w-8 text-muted-foreground hover:text-primary"
+                disabled={isEditing}
+              >
+                <Pencil className="h-4 w-4" />
+              </Button>
+            )}
+            {onDelete && (
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={onDelete}
+                className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
       </CardContent>
     </Card>
   );
 }
+
