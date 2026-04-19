@@ -1,23 +1,46 @@
-import path from "path"
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { TanStackRouterVite } from '@tanstack/router-vite-plugin'
+import path from 'path';
+import checker from 'vite-plugin-checker';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
 
-// https://vitejs.dev/config/
+// ----------------------------------------------------------------------
+
+const PORT = 8080;
+
 export default defineConfig({
-  plugins: [react(), TanStackRouterVite(),],
+  plugins: [
+    react(),
+    checker({
+      typescript: true,
+      eslint: {
+        useFlatConfig: true,
+        lintCommand: 'eslint "./src/**/*.{js,jsx,ts,tsx}"',
+        dev: { logLevel: ['error'] },
+      },
+      overlay: {
+        position: 'tl',
+        initialIsOpen: false,
+      },
+    }),
+  ],
   resolve: {
-    alias: {
-      "@": path.resolve(import.meta.dir, "./src"),
-      "@server": path.resolve(import.meta.dir, "../server"),
+    alias: [
+      {
+        find: /^src(.+)/,
+        replacement: path.resolve(process.cwd(), 'src/$1'),
+      },
+      {
+        find: '@server',
+        replacement: path.resolve(process.cwd(), '../backend/server'),
+      },
+    ],
+  },
+  server: { 
+    port: PORT, 
+    host: true,
+    proxy: {
+      '/api': 'http://localhost:3000',
     },
   },
-  server: {
-    proxy: {
-      "/api": {
-        target: 'http://127.0.0.1:3000',
-        changeOrigin: true,
-      }
-    }
-  }
+  preview: { port: PORT, host: true },
 });

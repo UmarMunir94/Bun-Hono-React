@@ -1,30 +1,54 @@
-# React + TypeScript + Vite
+## Prerequisites
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Node.js >=20 (Recommended)
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Using Yarn (Recommended)**
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```sh
+yarn install
+yarn dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+**Using Npm**
+
+```sh
+npm i
+npm run dev
+```
+
+## Build
+
+```sh
+yarn build
+# or
+npm run build
+```
+
+## Mock server
+
+By default we provide demo data from : `https://api-dev-minimal-[version].vercel.app`
+
+To set up your local server:
+
+- **Guide:** [https://docs.minimals.cc/mock-server](https://docs.minimals.cc/mock-server).
+
+- **Resource:** [Download](https://www.dropbox.com/scl/fo/bopqsyaatc8fbquswxwww/AKgu6V6ZGmxtu22MuzsL5L4?rlkey=8s55vnilwz2d8nsrcmdo2a6ci&dl=0).
+
+## Full version
+
+- Create React App ([migrate to CRA](https://docs.minimals.cc/migrate-to-cra/)).
+- Next.js
+- Vite.js
+
+## Starter version
+
+- To remove unnecessary components. This is a simplified version ([https://starter.minimals.cc/](https://starter.minimals.cc/))
+- Good to start a new project. You can copy components from the full version.
+- Make sure to install the dependencies exactly as compared to the full version.
+
+---
+
+**NOTE:**
+_When copying folders remember to also copy hidden files like .env. This is important because .env files often contain environment variables that are crucial for the application to run correctly._
