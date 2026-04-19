@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Menu } from 'lucide-react';
-import { useLocation } from 'react-router';
+import { useLocation } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Button } from '@/components/ui/button';
@@ -52,3 +52,4 @@ export function HeaderBrand() {
     </div>
   );
 }
+

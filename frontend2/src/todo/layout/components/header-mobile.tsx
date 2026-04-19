@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Menu, Sparkles } from 'lucide-react';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import {
@@ -86,3 +86,4 @@ export function HeaderMobile() {
     </header>
   );
 }
+

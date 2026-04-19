@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -63,7 +63,7 @@ const CardProject = ({
       </div>
       <div className="flex flex-col mb-3 lg:mb-6">
         <Link
-          to="#"
+          to="."
           className="text-lg font-media/brand text-mono hover:text-primary-active mb-px"
         >
           {name}
@@ -93,3 +93,5 @@ const CardProject = ({
 };
 
 export { CardProject, type IProjectProps };
+
+

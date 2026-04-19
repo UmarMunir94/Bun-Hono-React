@@ -14,7 +14,7 @@ import {
   Users,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -81,7 +81,7 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
             />
             <div className="flex flex-col">
               <Link
-                to="#"
+                to="."
                 className="text-sm text-mono hover:text-primary font-semibold"
               >
                 Sean
@@ -103,13 +103,13 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
 
         {/* Menu Items */}
         <DropdownMenuItem asChild>
-          <Link to="#" className="flex items-center gap-2">
+          <Link to="." className="flex items-center gap-2">
             <IdCard />
             Public Profile
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link to="#" className="flex items-center gap-2">
+          <Link to="." className="flex items-center gap-2">
             <UserCircle />
             My Profile
           </Link>
@@ -123,37 +123,37 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent className="w-48">
             <DropdownMenuItem asChild>
-              <Link to="#" className="flex items-center gap-2">
+              <Link to="." className="flex items-center gap-2">
                 <Coffee />
                 Get Started
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="#" className="flex items-center gap-2">
+              <Link to="." className="flex items-center gap-2">
                 <FileText />
                 My Profile
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="#" className="flex items-center gap-2">
+              <Link to="." className="flex items-center gap-2">
                 <CreditCard />
                 Billing
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="#" className="flex items-center gap-2">
+              <Link to="." className="flex items-center gap-2">
                 <Shield />
                 Security
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="#" className="flex items-center gap-2">
+              <Link to="." className="flex items-center gap-2">
                 <Users />
                 Members & Roles
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="#" className="flex items-center gap-2">
+              <Link to="." className="flex items-center gap-2">
                 <BetweenHorizontalStart />
                 Integrations
               </Link>
@@ -236,3 +236,5 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
     </DropdownMenu>
   );
 }
+
+

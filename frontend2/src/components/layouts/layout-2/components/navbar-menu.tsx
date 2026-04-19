@@ -1,5 +1,5 @@
 import { ChevronDown } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { MENU_HEADER } from '@/config/layout-2.config';
 import { MenuConfig } from '@/config/types';
 import { cn } from '@/lib/utils';
@@ -114,3 +114,4 @@ export function NavbarMenu() {
     </div>
   );
 }
+

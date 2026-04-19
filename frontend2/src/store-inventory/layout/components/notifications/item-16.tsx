@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import {
   Avatar,
@@ -23,14 +23,14 @@ export default function Item16() {
       <div className="flex flex-col gap-3 grow">
         <div className="flex flex-col gap-1">
           <div className="text-sm font-medium mb-px">
-            <Link to="#" className="hover:text-primary text-mono font-semibold">
+            <Link to="." className="hover:text-primary text-mono font-semibold">
               Ethan Parker
             </Link>
             <span className="text-secondary-foreground">
               {' '}
               created a new tasks to{' '}
             </span>
-            <Link to="#" className="hover:text-primary text-primary">
+            <Link to="." className="hover:text-primary text-primary">
               Site Sculpt
             </Link>
             <span className="text-secondary-foreground"> project</span>
@@ -84,3 +84,5 @@ export default function Item16() {
     </div>
   );
 }
+
+

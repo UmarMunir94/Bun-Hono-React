@@ -3,7 +3,7 @@ import { signUp } from '@/lib/auth-client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Check, Eye, EyeOff } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -64,8 +64,8 @@ export function SignUpPage() {
       // with additional metadata (firstName, lastName, etc.)
 
       // Optionally redirect to login page after a delay
-      setTimeout(() => {
-        navigate('/auth/signin');
+      setTimeout(async () => {
+        await navigate({ to: '/auth/signin' });
       }, 3000);
     } catch (err) {
       console.error('Registration error:', err);
@@ -239,7 +239,7 @@ export function SignUpPage() {
                 <FormLabel className="text-sm text-muted-foreground">
                   I agree to the and{' '}
                   <Link
-                    to="#"
+                    to="."
                     className="text-sm font-semibold text-foreground hover:text-primary"
                   >
                     Privacy Policy
@@ -274,3 +274,4 @@ export function SignUpPage() {
     </Form>
   );
 }
+

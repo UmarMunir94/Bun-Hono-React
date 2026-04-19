@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Toolbar, ToolbarActions, ToolbarHeading } from "@/components/layouts/layout-8/components/toolbar";
 import { SearchDialog } from "@/components/layouts/layout-1/shared/dialogs/search/search-dialog";
 import { ChatSheet } from "@/components/layouts/layout-1/shared/topbar/chat-sheet";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Download, MessageCircleMore, Search } from "lucide-react";
 
 export function Layout8Page() {  
@@ -39,7 +39,7 @@ export function Layout8Page() {
             asChild
             className="ms-2.5 hover:text-primary hover:[&_svg]:text-primary"
           >
-            <Link to={'#'}>
+            <Link to={'..'}>
               <Download />
               Export
             </Link>
@@ -52,3 +52,5 @@ export function Layout8Page() {
     </>
   );
 }
+
+

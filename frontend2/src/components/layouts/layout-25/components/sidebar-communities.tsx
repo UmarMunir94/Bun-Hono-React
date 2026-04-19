@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { toAbsoluteUrl } from "@/lib/helpers";
 import {
@@ -63,7 +63,7 @@ export function SidebarCommunities() {
 
             {communities.map((community, index) => (
               <AccordionMenuItem key={index} value={`community-${community.id}`} asChild>
-                <Link to="#">
+                <Link to=".">
                   <img
                     src={toAbsoluteUrl(`/media/brand-logos/${community.logo}`)}
                     className="w-4.5 h-4.5 shrink-0"
@@ -79,3 +79,5 @@ export function SidebarCommunities() {
       </AccordionMenu>
   );
 }
+
+

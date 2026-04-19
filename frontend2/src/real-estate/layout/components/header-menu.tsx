@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
@@ -69,3 +69,4 @@ export function HeaderMenu() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from '@tanstack/react-router';
 import { useBodyClass } from '@/hooks/use-body-class';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Footer } from './footer';
@@ -34,3 +34,4 @@ export function Main() {
     </div>
   );
 };
+

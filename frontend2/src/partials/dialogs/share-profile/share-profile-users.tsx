@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import {
   Select,
@@ -42,13 +42,13 @@ export function ShareProfileUsers() {
             />
             <div className="flex flex-col">
               <Link
-                to="#"
+                to="."
                 className="text-sm font-semibold text-mono hover:text-primary-active mb-px"
               >
                 {item.userName}
               </Link>
               <Link
-                to="#"
+                to="."
                 className="hover:text-primary-active text-sm font-medium text-secondary-foreground"
               >
                 {item.email}
@@ -71,3 +71,5 @@ export function ShareProfileUsers() {
     </div>
   );
 }
+
+

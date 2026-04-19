@@ -7,7 +7,7 @@ import {
   ToolbarPageTitle,
 } from '@/partials/common/toolbar';
 import { BaggageClaim } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/common/container';
 import { OrderSummaryContent } from '.';
@@ -28,7 +28,7 @@ export function OrderSummaryPage() {
           <ToolbarActions>
             <Button variant="outline">
               <BaggageClaim />
-              <Link to="#">View Cart</Link>
+              <Link to=".">View Cart</Link>
             </Button>
           </ToolbarActions>
         </Toolbar>
@@ -39,3 +39,5 @@ export function OrderSummaryPage() {
     </Fragment>
   );
 }
+
+

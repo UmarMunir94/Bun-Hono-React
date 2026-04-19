@@ -4,7 +4,7 @@ import { ActivitiesLogin } from '@/partials/activities/login';
 import { ActivitiesNewProduct } from '@/partials/activities/new-product';
 import { ActivitiesProductSpecific } from '@/partials/activities/product-specific';
 import { ActivitiesProductWebinar } from '@/partials/activities/product-webinar';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -62,3 +62,4 @@ const Activity = () => {
 };
 
 export { Activity };
+

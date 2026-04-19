@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardTournament } from '@/partials/cards';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
@@ -109,7 +109,7 @@ const Tournaments = () => {
       <CardHeader>
         <CardTitle>Floyd's Tournaments</CardTitle>
         <Button mode="link" underlined="dashed" asChild>
-          <Link to="#">View All</Link>
+          <Link to=".">View All</Link>
         </Button>
       </CardHeader>
       <CardContent className="p-5 lg:p-7.5 lg:pb-7">
@@ -127,3 +127,5 @@ const Tournaments = () => {
 };
 
 export { Tournaments, type ITournamentsItem, type ITournamentsItems };
+
+

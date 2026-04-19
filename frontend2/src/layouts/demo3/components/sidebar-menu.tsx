@@ -10,7 +10,7 @@ import {
   UserCircle,
   Users,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
@@ -116,3 +116,4 @@ export function SidebarMenu() {
     </TooltipProvider>
   );
 }
+

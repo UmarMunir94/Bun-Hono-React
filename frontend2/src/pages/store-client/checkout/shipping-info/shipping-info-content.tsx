@@ -1,5 +1,5 @@
 import { MoveLeft, MoveRight } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Info } from './components/info';
 import { Order } from './components/order';
@@ -34,3 +34,4 @@ export function ShippingInfoContent() {
     </div>
   );
 }
+

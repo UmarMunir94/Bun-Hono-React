@@ -2,7 +2,7 @@ import { AvatarGroup } from '@/partials/common/avatar-group';
 import { DropdownMenu1 } from '@/partials/dropdown-menu/dropdown-menu-1';
 import { DropdownMenu2 } from '@/partials/dropdown-menu/dropdown-menu-2';
 import { EllipsisVertical } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -134,7 +134,7 @@ const Projects = () => {
       <TableRow key={index}>
         <TableCell className="text-start py-2">
           <Link
-            to="#"
+            to="."
             className="text-sm font-medium text-mono hover:text-primary"
           >
             {item.name}
@@ -216,3 +216,5 @@ const Projects = () => {
 };
 
 export { Projects, type IProjectsItem, type IProjectsItems };
+
+

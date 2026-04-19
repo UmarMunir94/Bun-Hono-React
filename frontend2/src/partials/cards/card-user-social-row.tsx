@@ -1,6 +1,6 @@
 import { RiFacebookBoxLine, RiInstagramLine } from '@remixicon/react';
 import { Dribbble, EllipsisVertical, Mails, MapPin } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { AvatarSingle } from '../common/avatar-single';
@@ -26,7 +26,7 @@ const CardUserSocialRow = ({
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-1.5 mb-px">
               <Link
-                to="#"
+                to="."
                 className="hover:text-primary-active text-base leading-5 font-medium text-mono"
               >
                 {name}
@@ -49,7 +49,7 @@ const CardUserSocialRow = ({
             </div>
             <div className="flex flex-wrap items-center gap-1.5">
               <MapPin size={16} className="text-muted-foreground text-base" />
-              <Link to="#" className="text-sm text-secondary-foreground">
+              <Link to="." className="text-sm text-secondary-foreground">
                 {description}
               </Link>
             </div>
@@ -57,16 +57,16 @@ const CardUserSocialRow = ({
         </div>
         <div className="flex items-center flex-wrap gap-5 lg:gap-12">
           <div className="flex items-center gap-2.5">
-            <Link to="#">
+            <Link to=".">
               <RiFacebookBoxLine
                 size={20}
                 className="text-secondary-foreground text-lg"
               />
             </Link>
-            <Link to="#">
+            <Link to=".">
               <Dribbble size={20} className="text-secondary-foreground " />
             </Link>
-            <Link to="#">
+            <Link to=".">
               <RiInstagramLine
                 size={20}
                 className="text-secondary-foreground text-lg"
@@ -74,7 +74,7 @@ const CardUserSocialRow = ({
             </Link>
           </div>
           <Button variant="outline">
-            <Link to="#">
+            <Link to=".">
               <Mails size={16} />
             </Link>{' '}
             Message
@@ -89,3 +89,5 @@ const CardUserSocialRow = ({
 };
 
 export { CardUserSocialRow };
+
+

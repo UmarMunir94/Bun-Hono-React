@@ -6,7 +6,7 @@ import {
   Settings,
   SquareDashedBottomCode,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -216,7 +216,7 @@ export function CompanyRecordsActivity() {
                                 </Avatar>
 
                                 <Link
-                                  to="#"
+                                  to="."
                                   className="font-medium text-sm hover:text-primary"
                                 >
                                   {item.user}
@@ -280,7 +280,7 @@ export function CompanyRecordsActivity() {
                                   mode="link"
                                   underlined="dashed"
                                 >
-                                  <Link to="#">View</Link>
+                                  <Link to=".">View</Link>
                                 </Button>
                               </div>
                               <div className="flex flex-wrap gap-7.5">
@@ -358,7 +358,7 @@ export function CompanyRecordsActivity() {
                                   asChild
                                   className="text-xs text-orange-400 hover:text-primary-active mb-px"
                                 >
-                                  <Link to="#">
+                                  <Link to=".">
                                     Nature Photography Immersion
                                   </Link>
                                 </Button>
@@ -367,7 +367,7 @@ export function CompanyRecordsActivity() {
                                   asChild
                                   className="text-sm font-medium text-mono hover:text-primary leading-4"
                                 >
-                                  <Link to="#">
+                                  <Link to=".">
                                     Nature Photography Immersion
                                   </Link>
                                 </Button>
@@ -390,3 +390,5 @@ export function CompanyRecordsActivity() {
     </div>
   );
 }
+
+

@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from '@tanstack/react-router';
 import { DefaultLayout } from './layout';
 import { Page } from './pages/page';
 
@@ -12,3 +12,4 @@ export default function RealEstateModule() {
     </Routes>
   );
 }
+

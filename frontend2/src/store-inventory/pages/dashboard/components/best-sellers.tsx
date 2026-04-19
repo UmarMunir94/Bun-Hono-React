@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -46,7 +46,7 @@ export function BestSeller({}: BestSellerProps) {
       <CardHeader className="lg:px-7.5">
         <CardTitle>Best Sellers</CardTitle>
         <Button mode="link" underline="solid" asChild>
-          <Link to="#">See All</Link>
+          <Link to=".">See All</Link>
         </Button>
       </CardHeader>
       <CardContent className="flex flex-col gap-2 lg:gap-7.5 p-5 lg:p-7.5">
@@ -62,7 +62,7 @@ export function BestSeller({}: BestSellerProps) {
 
             <div className="flex flex-col gap-1.5 mb-1">
               <Link
-                to="#"
+                to="."
                 className="hover:text-primary text-sm font-medium text-mono leading-5.5"
               >
                 {item.title}
@@ -81,3 +81,5 @@ export function BestSeller({}: BestSellerProps) {
     </Card>
   );
 }
+
+

@@ -1,5 +1,5 @@
 import { ChevronRight } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card1, Card2 } from '../special-offers';
 
@@ -43,3 +43,4 @@ export function SpecialOffers() {
     </div>
   );
 }
+

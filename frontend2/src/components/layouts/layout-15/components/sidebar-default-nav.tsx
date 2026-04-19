@@ -20,7 +20,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { useLayout } from './layout-context';
 import { cn } from '@/lib/utils';
 import type { NavItem } from '@/config/layout-15.config';
@@ -260,3 +260,4 @@ export function SidebarDefaultNav() {
     </div>
   );
 };
+

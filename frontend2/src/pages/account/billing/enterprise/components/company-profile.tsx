@@ -1,5 +1,5 @@
 import { AvatarGroup, Avatars } from '@/partials/common/avatar-group';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -91,10 +91,10 @@ const CompanyProfile = () => {
               </div>
               <div className="flex items-center gap-2.5">
                 <Button variant="outline">
-                  <Link to="#">Cancel Plan</Link>
+                  <Link to=".">Cancel Plan</Link>
                 </Button>
                 <Button>
-                  <Link to="#">Upgrade Plan</Link>
+                  <Link to=".">Upgrade Plan</Link>
                 </Button>
               </div>
             </div>
@@ -131,3 +131,5 @@ const CompanyProfile = () => {
 };
 
 export { CompanyProfile, type ICompanyProfileItem, type ICompanyProfileItems };
+
+

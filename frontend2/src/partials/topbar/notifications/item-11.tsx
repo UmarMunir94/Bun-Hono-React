@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import {
   Avatar,
@@ -24,7 +24,7 @@ export default function Item11() {
       <div className="flex flex-col gap-3.5 grow">
         <div className="flex flex-col gap-1">
           <div className="text-sm font-medium mb-px">
-            <Link to="#" className="hover:text-primary text-mono font-semibold">
+            <Link to="." className="hover:text-primary text-mono font-semibold">
               Skylar Frost
             </Link>
             <span className="text-secondary-foreground">
@@ -49,7 +49,7 @@ export default function Item11() {
 
             <div className="flex flex-col gap-0.5">
               <Link
-                to="#"
+                to="."
                 className="hover:text-primary font-medium text-secondary-foreground text-xs"
               >
                 Landing-page.docx
@@ -100,7 +100,7 @@ export default function Item11() {
 
             <div className="flex flex-col gap-0.5">
               <Link
-                to="#"
+                to="."
                 className="hover:text-primary font-medium text-secondary-foreground text-xs"
               >
                 New-icon.svg
@@ -144,3 +144,5 @@ export default function Item11() {
     </div>
   );
 }
+
+

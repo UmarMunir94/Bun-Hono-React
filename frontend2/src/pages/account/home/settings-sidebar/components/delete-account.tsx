@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -17,7 +17,7 @@ const DeleteAccount = () => {
             data will be permanently removed. Thank you for being part of our
             community. Please check our{' '}
             <Button mode="link" asChild>
-              <Link to="#">Setup Guidelines</Link>
+              <Link to=".">Setup Guidelines</Link>
             </Button>{' '}
             if you still wish continue.
           </div>
@@ -28,10 +28,10 @@ const DeleteAccount = () => {
         </div>
         <div className="flex justify-end gap-2.5">
           <Button variant="outline">
-            <Link to="#">Deactivate Instead</Link>
+            <Link to=".">Deactivate Instead</Link>
           </Button>
           <Button variant="destructive">
-            <Link to="#">Delete Account</Link>
+            <Link to=".">Delete Account</Link>
           </Button>
         </div>
       </CardContent>
@@ -40,3 +40,5 @@ const DeleteAccount = () => {
 };
 
 export { DeleteAccount };
+
+

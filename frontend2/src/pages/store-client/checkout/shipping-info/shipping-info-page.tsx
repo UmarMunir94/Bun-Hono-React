@@ -7,7 +7,7 @@ import {
   ToolbarPageTitle,
 } from '@/partials/common/toolbar';
 import { MapPinned } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/common/container';
 import { ShippingInfoContent } from '.';
@@ -28,7 +28,7 @@ export function ShippingInfoPage() {
           <ToolbarActions>
             <Button variant="outline">
               <MapPinned />
-              <Link to="#">Add Address</Link>
+              <Link to=".">Add Address</Link>
             </Button>
           </ToolbarActions>
         </Toolbar>
@@ -39,3 +39,5 @@ export function ShippingInfoPage() {
     </Fragment>
   );
 }
+
+

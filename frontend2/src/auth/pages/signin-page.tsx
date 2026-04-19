@@ -4,7 +4,7 @@ import { signIn } from '@/lib/auth-client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Check, Eye, EyeOff } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearch } from '@tanstack/react-router';
 import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -22,7 +22,7 @@ import { getSigninSchema, SigninSchemaType } from '../forms/signin-schema';
 import { LoaderCircleIcon } from 'lucide-react';
 
 export function SignInPage() {
-  const [searchParams] = useSearchParams();
+  const search = useSearch({ from: '/branded-auth/auth/signin' });
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -32,9 +32,9 @@ export function SignInPage() {
 
   // Check for success message from password reset or error messages
   useEffect(() => {
-    const pwdReset = searchParams.get('pwd_reset');
-    const errorParam = searchParams.get('error');
-    const errorDescription = searchParams.get('error_description');
+    const pwdReset = search.pwd_reset;
+    const errorParam = search.error;
+    const errorDescription = search.error_description;
 
     if (pwdReset === 'success') {
       setSuccessMessage(
@@ -68,7 +68,7 @@ export function SignInPage() {
           break;
       }
     }
-  }, [searchParams]);
+  }, [search]);
 
   const form = useForm<SigninSchemaType>({
     resolver: zodResolver(getSigninSchema()),
@@ -98,11 +98,11 @@ export function SignInPage() {
         throw new Error(res.error.message);
       }
 
-      // Get the 'next' parameter from URL if it exists
-      const nextPath = searchParams.get('next') || '/';
+      // Get the 'next' parameter from search object
+      const nextPath = search.next || '/';
 
       // Use navigate for navigation
-      navigate(nextPath);
+      await navigate({ to: nextPath });
     } catch (err) {
       console.error('Unexpected sign-in error:', err);
       setError(
@@ -121,7 +121,7 @@ export function SignInPage() {
       setIsGoogleLoading(true);
       setError(null);
 
-      const nextPath = searchParams.get('next') ?? '/';
+      const nextPath = search.next ?? '/';
       // Must be an absolute URL — Better Auth resolves relative paths
       // against the backend baseURL, which would redirect to localhost:3000.
       const callbackURL = new URL(nextPath, window.location.origin).href;

@@ -1,5 +1,5 @@
 import { Clock9 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Card } from '@/components/ui/card';
 
@@ -21,13 +21,13 @@ const CardPost = ({ image, label, description, time }: IPostProps) => {
       ></div>
       <div className="card-border card-rounded-b grid gap-1.5 px-5 py-4">
         <Link
-          to="#"
+          to="."
           className="font-medium text-orange-400 text-sm hover:text-primary"
         >
           {label}
         </Link>
         <Link
-          to="#"
+          to="."
           className="font-medium text-mono text-lg leading-6 mb-1.5 hover:text-primary"
         >
           {description}
@@ -41,3 +41,5 @@ const CardPost = ({ image, label, description, time }: IPostProps) => {
 };
 
 export { CardPost, type IPostProps };
+
+

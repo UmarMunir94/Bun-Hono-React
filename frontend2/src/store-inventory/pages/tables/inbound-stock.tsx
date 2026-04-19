@@ -24,7 +24,7 @@ import {
   X,
 } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
@@ -948,7 +948,7 @@ const InboundStockTable = ({ mockData: propsMockData }: AllStockProps) => {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Link
-                      to="#"
+                      to="."
                       onClick={() => handleProductClick(info.row.original)}
                       className="text-sm font-medium text-foreground hover:text-primary leading-3.5 text-left"
                     >
@@ -961,7 +961,7 @@ const InboundStockTable = ({ mockData: propsMockData }: AllStockProps) => {
                 </Tooltip>
               ) : (
                 <Link
-                  to="#"
+                  to="."
                   onClick={() => handleProductClick(info.row.original)}
                   className="text-sm font-medium text-foreground hover:text-primary leading-3.5 text-left"
                 >
@@ -1488,3 +1488,5 @@ const InboundStockTable = ({ mockData: propsMockData }: AllStockProps) => {
 };
 
 export { InboundStockTable };
+
+

@@ -1,5 +1,5 @@
 import { CircleCheck } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import {
   Avatar,
   AvatarFallback,
@@ -23,14 +23,14 @@ export default function Item9() {
       <div className="flex flex-col gap-3.5">
         <div className="flex flex-col gap-1">
           <div className="text-sm font-medium mb-px">
-            <Link to="#" className="hover:text-primary text-mono font-semibold">
+            <Link to="." className="hover:text-primary text-mono font-semibold">
               Selene Silverleaf
             </Link>
             <span className="text-secondary-foreground">
               {' '}
               created a tasks in{' '}
             </span>
-            <Link to="#" className="hover:text-primary text-primary">
+            <Link to="." className="hover:text-primary text-primary">
               Design Project
             </Link>
           </div>
@@ -63,3 +63,5 @@ export default function Item9() {
     </div>
   );
 }
+
+

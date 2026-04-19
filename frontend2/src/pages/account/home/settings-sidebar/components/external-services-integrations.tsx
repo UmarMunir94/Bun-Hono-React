@@ -1,5 +1,5 @@
 import { Settings } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -74,13 +74,13 @@ const ExternalServicesIntegrations = () => {
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5">
               <Link
-                to="#"
+                to="."
                 className="text-sm font-medium text-mono hover:text-primary-active"
               >
                 {item.title}
               </Link>
               <Link
-                to="#"
+                to="."
                 className="text-sm text-secondary-foreground hover:text-primary-active"
               >
                 {item.email}
@@ -118,7 +118,7 @@ const ExternalServicesIntegrations = () => {
         </div>
         <div className="flex justify-end">
           <Button>
-            <Link to="#">Save Changes</Link>
+            <Link to=".">Save Changes</Link>
           </Button>
         </div>
       </CardContent>
@@ -131,3 +131,5 @@ export {
   type IExternalServicesIntegrationsItem,
   type IExternalServicesIntegrationsItems,
 };
+
+

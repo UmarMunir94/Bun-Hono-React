@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { addDays, format } from 'date-fns';
 import { CalendarDays, Download } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Skeleton } from "@/components/ui/skeleton"
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -62,3 +62,4 @@ export function Layout6Page() {
     </div>
   );
 }
+

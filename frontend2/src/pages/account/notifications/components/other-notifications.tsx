@@ -8,7 +8,7 @@ import {
   Tablet,
   Users,
 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -35,7 +35,7 @@ const OtherNotifications = () => {
       description: 'Alert for new and unpaid invoices.',
       actions: (
         <Button variant="outline">
-          <Link to="#">View Invoices</Link>
+          <Link to=".">View Invoices</Link>
         </Button>
       ),
     },
@@ -57,7 +57,7 @@ const OtherNotifications = () => {
       description: 'Reminder of scheduled meetings for the day.',
       actions: (
         <Button variant="outline">
-          <Link to="#">Show Meetings</Link>
+          <Link to=".">Show Meetings</Link>
         </Button>
       ),
     },
@@ -103,3 +103,5 @@ const OtherNotifications = () => {
 };
 
 export { OtherNotifications };
+
+

@@ -7,7 +7,7 @@ import {
   ShieldCheck,
   Users,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -96,3 +96,4 @@ const Options = () => {
 };
 
 export { Options, type IOptionsItem, type IOptionsItems };
+

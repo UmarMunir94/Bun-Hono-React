@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CardNFT2, CardNFT2Row } from '@/partials/cards';
 import { LayoutGrid, List, Search, Settings2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -398,3 +398,4 @@ export function NetworkNFTContent() {
     </div>
   );
 }
+

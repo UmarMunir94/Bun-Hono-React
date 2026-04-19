@@ -7,7 +7,7 @@ import {
   ToolbarHeading,
   ToolbarPageTitle,
 } from '@/partials/common/toolbar';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { useSettings } from '@/providers/settings-provider';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/common/container';
@@ -30,10 +30,10 @@ export function AccountMembersStarterPage() {
             </ToolbarHeading>
             <ToolbarActions>
               <Button variant="outline">
-                <Link to="#">Invite with Link</Link>
+                <Link to=".">Invite with Link</Link>
               </Button>
               <Button>
-                <Link to="#">Invite People</Link>
+                <Link to=".">Invite People</Link>
               </Button>
             </ToolbarActions>
           </Toolbar>
@@ -45,3 +45,5 @@ export function AccountMembersStarterPage() {
     </Fragment>
   );
 }
+
+

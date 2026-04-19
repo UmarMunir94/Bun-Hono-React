@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { CloudCog, FileInput, Settings, ThumbsDown } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,7 +32,7 @@ export function DropdownMenu2({ trigger }: { trigger: ReactNode }) {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link to="#">
+          <Link to=".">
             <ThumbsDown />
             <span>Report</span>
           </Link>
@@ -41,3 +41,5 @@ export function DropdownMenu2({ trigger }: { trigger: ReactNode }) {
     </DropdownMenu>
   );
 }
+
+

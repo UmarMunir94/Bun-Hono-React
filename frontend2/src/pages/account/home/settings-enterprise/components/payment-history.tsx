@@ -1,7 +1,7 @@
 import { DropdownMenu2 } from '@/partials/dropdown-menu/dropdown-menu-2';
 import { DropdownMenu5 } from '@/partials/dropdown-menu/dropdown-menu-5';
 import { EllipsisVertical } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -108,7 +108,7 @@ const PaymentHistory = () => {
       </CardContent>
       <CardFooter className="justify-center">
         <Button mode="link" underlined="dashed" asChild>
-          <Link to="#">View all Payments</Link>
+          <Link to=".">View all Payments</Link>
         </Button>
       </CardFooter>
     </Card>
@@ -116,3 +116,5 @@ const PaymentHistory = () => {
 };
 
 export { PaymentHistory, type IPaymentHistoryItem, type IPaymentHistoryItems };
+
+

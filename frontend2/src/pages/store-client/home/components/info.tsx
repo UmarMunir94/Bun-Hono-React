@@ -6,7 +6,7 @@ import {
   MessagesSquare,
   Truck,
 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Card, CardContent } from '@/components/ui/card';
 
 interface IInfoItem {
@@ -67,7 +67,7 @@ export function Info() {
 
         <div className="flex flex-col">
           <Link
-            to="#"
+            to="."
             className="hover:text-primary text-md font-medium text-mono"
           >
             {item.title}
@@ -88,3 +88,5 @@ export function Info() {
     </div>
   );
 }
+
+

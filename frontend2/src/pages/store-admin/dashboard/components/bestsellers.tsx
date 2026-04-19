@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -47,7 +47,7 @@ export function Bestsellers() {
       <div className="flex flex-col gap-3.5 mb-0.5">
         <div className="flex flex-col gap-3">
           <Link
-            to="#"
+            to="."
             className="text-sm font-medium text-mono hover:text-primary"
           >
             {item.name}
@@ -66,7 +66,7 @@ export function Bestsellers() {
       <CardHeader className="gap-2">
         <CardTitle>Bestsellers</CardTitle>
         <Button mode="link" asChild>
-          <Link to="#">See All</Link>
+          <Link to=".">See All</Link>
         </Button>
       </CardHeader>
 
@@ -80,3 +80,5 @@ export function Bestsellers() {
     </Card>
   );
 }
+
+

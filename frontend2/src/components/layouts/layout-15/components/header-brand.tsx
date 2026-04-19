@@ -5,7 +5,7 @@ import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { SidebarContent } from "./sidebar-content";
-import { useLocation } from "react-router";
+import { useLocation } from "@tanstack/react-router";
 
 export function HeaderBrand() {
   const { pathname } = useLocation();
@@ -42,4 +42,5 @@ export function HeaderBrand() {
     </div>
   );
 };
+
 

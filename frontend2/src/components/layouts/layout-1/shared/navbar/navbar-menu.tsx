@@ -1,5 +1,5 @@
 import { ChevronDown } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { MenuConfig } from '@/config/types';
 import { cn } from '@/lib/utils';
 import { useMenu } from '@/hooks/use-menu';
@@ -113,3 +113,4 @@ const NavbarMenu = ({ items }: { items: MenuConfig }) => {
 };
 
 export { NavbarMenu };
+

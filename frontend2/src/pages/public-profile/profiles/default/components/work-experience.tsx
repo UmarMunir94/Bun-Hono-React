@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -60,7 +60,7 @@ const WorkExperience = () => {
             <div className="flex flex-col gap-1">
               {item.title && (
                 <Link
-                  to="#"
+                  to="."
                   className="text-sm font-medium text-primary leading-none hover:text-primary-active"
                 >
                   {item.title}
@@ -105,3 +105,5 @@ const WorkExperience = () => {
 };
 
 export { WorkExperience, type IWorkExperienceItem, type IWorkExperienceItems };
+
+

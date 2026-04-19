@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { CardUserMini } from '@/partials/cards';
 import { Search, Settings2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -272,9 +272,11 @@ export function NetworkMiniCardsContent() {
       </div>
       <div className="flex grow justify-center pt-5 lg:pt-7.5">
         <Button mode="link" underlined="dashed" asChild>
-          <Link to="#">Show more Users</Link>
+          <Link to=".">Show more Users</Link>
         </Button>
       </div>
     </Fragment>
   );
 }
+
+

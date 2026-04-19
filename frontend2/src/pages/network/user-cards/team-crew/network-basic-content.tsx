@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CardConnection, CardConnectionRow } from '@/partials/cards';
 import { LayoutGrid, List, Search, Settings2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -397,3 +397,4 @@ export function NetworkUserCardsTeamCrewContent() {
     </div>
   );
 }
+

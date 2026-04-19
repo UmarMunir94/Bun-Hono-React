@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 
 export function Error404() {
@@ -36,3 +36,4 @@ export function Error404() {
     </>
   );
 }
+

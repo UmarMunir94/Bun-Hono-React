@@ -8,7 +8,7 @@ import {
   Users,
   type LucideIcon,
 } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -218,7 +218,7 @@ export function HeaderLogo() {
                   className={cn(staging === selectedStaging && 'bg-accent')}
                   onSelect={() => setSelectedStaging(staging)}
                 >
-                  <Link to="#">
+                  <Link to=".">
                     {staging.icon && <staging.icon />}
                     {staging.title}
                   </Link>
@@ -231,3 +231,5 @@ export function HeaderLogo() {
     </div>
   );
 }
+
+

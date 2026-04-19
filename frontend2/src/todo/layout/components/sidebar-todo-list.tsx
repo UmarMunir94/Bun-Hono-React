@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { Link, useNavigate, useLocation } from 'react-router';
+import { Link, useNavigate, useLocation } from '@tanstack/react-router';
 import {
   AccordionMenu,
   AccordionMenuIndicator,
@@ -110,3 +110,4 @@ export function SidebarTodoList({ isCollapsed }: SidebarTodoListProps) {
     </AccordionMenu>
   );
 }
+

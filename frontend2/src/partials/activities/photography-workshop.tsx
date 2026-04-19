@@ -1,5 +1,5 @@
 import { SquareDashedBottomCode } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -45,14 +45,14 @@ const ActivitiesPhotographyWorkshop = () => {
                   asChild
                   className="text-xs text-orange-400 leading-[14px] hover:text-primary-active mb-px"
                 >
-                  <Link to="#">Nature Photography Immersion</Link>
+                  <Link to=".">Nature Photography Immersion</Link>
                 </Button>
                 <Button
                   mode="link"
                   asChild
                   className="text-base font-medium hover:text-primary text-mono leading-4"
                 >
-                  <Link to="#">Nature Photography Immersion</Link>
+                  <Link to=".">Nature Photography Immersion</Link>
                 </Button>
                 <p className="text-xs text-foreground leading-[22px]">
                   Enhance your nature photography skills in a hands-on workshop
@@ -68,3 +68,5 @@ const ActivitiesPhotographyWorkshop = () => {
 };
 
 export { ActivitiesPhotographyWorkshop };
+
+

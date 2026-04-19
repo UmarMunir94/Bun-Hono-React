@@ -1,7 +1,7 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MailListHeader } from "./mail-list-header";
 import { MailListWrapper } from "./mail-list-wrapper";  
-import { Link } from "react-router";
+import { Link } from "@tanstack/react-router";
 
 export function MailListEmpty() {
 
@@ -37,7 +37,7 @@ export function MailListEmpty() {
             {/* Empty State Text */}
             <div className="text-center">
               <h2 className="text-xl font-bold text-foreground mb-1">It's empty here</h2>
-              <p className="text-muted-foreground text-2sm">Search for another email or <Link to="#" className="hover:text-primary text-muted-foreground underline">clear filters</Link></p>
+              <p className="text-muted-foreground text-2sm">Search for another email or <Link to="." className="hover:text-primary text-muted-foreground underline">clear filters</Link></p>
             </div> 
           </div>           
         </ScrollArea>
@@ -45,3 +45,4 @@ export function MailListEmpty() {
     </MailListWrapper>
   );
 }
+

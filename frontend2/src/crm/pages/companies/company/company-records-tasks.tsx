@@ -5,7 +5,7 @@ import {
   User,
   Users,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -130,7 +130,7 @@ export function CompanyRecordsTasks() {
                   className="mt-[1px] me-1"
                   defaultChecked={task.checked}
                 />
-                <Link to="#" className="font-medium hover:text-primary">
+                <Link to="." className="font-medium hover:text-primary">
                   {task.user || 'Team'}
                 </Link>
                 <span className="text-muted-foreground">{task.action}</span>
@@ -282,7 +282,7 @@ export function CompanyRecordsTasks() {
                   className="mt-[1px] me-1"
                   defaultChecked={task.checked}
                 />
-                <Link to="#" className="font-medium hover:text-primary">
+                <Link to="." className="font-medium hover:text-primary">
                   {task.user || ''}
                 </Link>
                 <span className="text-muted-foreground">{task.action}</span>
@@ -434,7 +434,7 @@ export function CompanyRecordsTasks() {
                   className="mt-[1px] me-1"
                   defaultChecked={task.checked}
                 />
-                <Link to="#" className="font-medium hover:text-primary">
+                <Link to="." className="font-medium hover:text-primary">
                   {task.user || 'Team'}
                 </Link>
                 <span className="text-muted-foreground">{task.action}</span>
@@ -532,3 +532,5 @@ export function CompanyRecordsTasks() {
     </div>
   );
 }
+
+

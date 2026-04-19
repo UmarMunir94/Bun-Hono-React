@@ -7,7 +7,7 @@ import {
   ToolbarHeading,
   ToolbarPageTitle,
 } from '@/partials/common/toolbar';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { useSettings } from '@/providers/settings-provider';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/common/container';
@@ -30,7 +30,7 @@ export function AccountTeamInfoPage() {
             </ToolbarHeading>
             <ToolbarActions>
               <Button variant="outline">
-                <Link to="#">Roles</Link>
+                <Link to=".">Roles</Link>
               </Button>
             </ToolbarActions>
           </Toolbar>
@@ -42,3 +42,5 @@ export function AccountTeamInfoPage() {
     </Fragment>
   );
 }
+
+

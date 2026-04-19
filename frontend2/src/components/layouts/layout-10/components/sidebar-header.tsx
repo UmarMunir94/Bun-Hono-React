@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { SearchDialog } from '@/components/layouts/layout-1/shared/dialogs/search/search-dialog';
 import { ChevronsUpDown, Plus, Search } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { MENU_ROOT } from '@/config/layout-10.config';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
@@ -89,3 +89,4 @@ export function SidebarHeader() {
     </div>
   );
 }
+

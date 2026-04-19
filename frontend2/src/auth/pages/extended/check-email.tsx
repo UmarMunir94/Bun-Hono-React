@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 
 const CheckEmail = () => {
@@ -54,3 +54,4 @@ const CheckEmail = () => {
 };
 
 export { CheckEmail };
+

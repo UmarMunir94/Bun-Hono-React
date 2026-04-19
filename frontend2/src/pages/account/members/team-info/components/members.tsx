@@ -16,7 +16,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { EllipsisVertical, Filter, Search, Settings2, X } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
@@ -779,7 +779,7 @@ const Members = () => {
             <div className="flex flex-col gap-0.5">
               <Link
                 className="leading-none font-medium text-sm text-mono hover:text-primary"
-                to="#"
+                to="."
               >
                 {row.original.member.name}
               </Link>
@@ -1012,3 +1012,5 @@ const Members = () => {
 };
 
 export { Members };
+
+

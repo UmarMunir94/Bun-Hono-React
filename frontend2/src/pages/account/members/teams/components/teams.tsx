@@ -15,7 +15,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { Search, Settings2, SquarePen, Trash2, X } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -625,7 +625,7 @@ const Teams = () => {
           <div className="flex flex-col gap-2">
             <Link
               className="leading-none font-medium text-sm text-mono hover:text-primary"
-              to="#"
+              to="."
             >
               {row.original.team.name}
             </Link>
@@ -824,3 +824,5 @@ const Teams = () => {
 };
 
 export { Teams };
+
+

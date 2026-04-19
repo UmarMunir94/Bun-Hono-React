@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import {
   Avatar,
@@ -45,7 +45,7 @@ export default function Item18() {
 
         <div className="px-2.5 pb-2">
           <Link
-            to="#"
+            to="."
             className="font-medium block text-secondary-foreground hover:text-primary text-xs leading-4 mb-0.5"
           >
             {item.title}
@@ -74,7 +74,7 @@ export default function Item18() {
       <div className="flex flex-col gap-2.5 grow">
         <div className="flex flex-col gap-1 mb-1">
           <div className="text-sm font-medium mb-px">
-            <Link to="#" className="hover:text-primary text-mono font-semibold">
+            <Link to="." className="hover:text-primary text-mono font-semibold">
               Jane Perez
             </Link>
             <span className="text-secondary-foreground">
@@ -82,7 +82,7 @@ export default function Item18() {
               added 2 new works to{' '}
             </span>
             <Link
-              to="#"
+              to="."
               className="hover:text-primary text-primary font-semibold"
             >
               Inspirations 2024
@@ -105,3 +105,5 @@ export default function Item18() {
     </div>
   );
 }
+
+

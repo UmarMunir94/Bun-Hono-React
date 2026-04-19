@@ -1,5 +1,5 @@
 import { Copy, Settings } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -81,7 +81,7 @@ const CardNFT2 = ({
         </div>
         <div className="flex items-center justify-center gap-1.5 mb-px -mt-7.5">
           <Link
-            to="#"
+            to="."
             className="hover:text-primary-active text-base leading-5 font-medium text-mono"
           >
             {name}
@@ -102,7 +102,7 @@ const CardNFT2 = ({
         </div>
         <div className="flex flex-wrap justify-center items-center gap-3.5 mb-7">
           <Link
-            to="#"
+            to="."
             className="text-xs text-secondary-foreground hover:text-primary-active"
           >
             {email}
@@ -128,3 +128,5 @@ const CardNFT2 = ({
 };
 
 export { CardNFT2, type INFT2Item, type INFT2Items, type INFT2Props };
+
+

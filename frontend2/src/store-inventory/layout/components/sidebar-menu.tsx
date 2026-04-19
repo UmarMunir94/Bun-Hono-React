@@ -3,7 +3,7 @@
 import { JSX, useCallback } from 'react';
 import { MENU_SIDEBAR } from '@/store-inventory/config/app.config';
 import { MenuConfig, MenuItem } from '@/store-inventory/config/types';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { cn } from '@/lib/utils';
 import {
   AccordionMenu,
@@ -242,3 +242,4 @@ export function SidebarMenu() {
     </ScrollArea>
   );
 }
+

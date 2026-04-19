@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { toAbsoluteUrl } from "@/lib/helpers";    
-import { Link } from "react-router";
+import { Link } from "@tanstack/react-router";
 
 const paymentMethods = [
   {

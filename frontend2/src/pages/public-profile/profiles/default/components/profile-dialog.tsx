@@ -1,6 +1,6 @@
 import { DropdownMenu9 } from '@/partials/dropdown-menu/dropdown-menu-9';
 import { EllipsisVertical, Luggage, Mail, Users, X } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -62,7 +62,7 @@ export function ProfileDialog({
                 <div className="flex items-center flex-col">
                   <div className="flex items-center gap-1.5 mb-2">
                     <Link
-                      to="#"
+                      to="."
                       className="text-lg leading-5 font-semibold text-foreground hover:text-primary"
                     >
                       Jenny Klabbe
@@ -163,3 +163,5 @@ export function ProfileDialog({
     </>
   );
 }
+
+

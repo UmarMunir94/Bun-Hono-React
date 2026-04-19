@@ -1,5 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { Routes, Route } from '@tanstack/react-router';
+import { Navigate } from '@tanstack/react-router';
 import { DefaultLayout } from './layout';
 import { CalendarPage } from './pages/page';
 
@@ -13,3 +13,4 @@ export default function CalendarModule() {
     </Routes>
   );
 }
+

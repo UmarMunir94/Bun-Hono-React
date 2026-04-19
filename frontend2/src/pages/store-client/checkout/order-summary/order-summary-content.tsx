@@ -1,5 +1,5 @@
 import { MoveRight } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card4 } from '../../components/common/card4';
 import { Order } from './components/order';
@@ -29,3 +29,4 @@ export function OrderSummaryContent() {
     </div>
   );
 }
+

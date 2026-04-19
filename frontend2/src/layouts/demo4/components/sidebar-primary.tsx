@@ -16,7 +16,7 @@ import {
   UserCircle,
   Users,
 } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { getHeight } from '@/lib/dom';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
@@ -215,3 +215,4 @@ export function SidebarPrimary() {
     </TooltipProvider>
   );
 }
+

@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton"
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Toolbar, ToolbarActions, ToolbarHeading } from "@/components/layouts/layout-10/components/toolbar";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -21,7 +21,7 @@ export function Layout10Page() {
         <ToolbarHeading />
         <ToolbarActions>
           <Button variant="outline" asChild>
-            <Link to={'#'}>
+            <Link to={'..'}>
               <Download />
               Export
             </Link>
@@ -63,3 +63,5 @@ export function Layout10Page() {
     </>
   );
 }
+
+

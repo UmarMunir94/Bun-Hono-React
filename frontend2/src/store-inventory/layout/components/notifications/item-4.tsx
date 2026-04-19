@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import {
   Avatar,
@@ -23,7 +23,7 @@ export default function Item4() {
       <div className="flex flex-col gap-3.5 grow">
         <div className="flex flex-col gap-1">
           <div className="text-sm font-medium mb-px">
-            <Link to="#" className="hover:text-primary text-mono font-semibold">
+            <Link to="." className="hover:text-primary text-mono font-semibold">
               Jane Perez
             </Link>
             <span className="text-secondary-foreground">
@@ -46,7 +46,7 @@ export default function Item4() {
             alt="image"
           />
           <Link
-            to="#"
+            to="."
             className="hover:text-primary font-medium text-secondary-foreground text-xs me-1"
           >
             Launch_nov24.pptx
@@ -59,3 +59,5 @@ export default function Item4() {
     </div>
   );
 }
+
+

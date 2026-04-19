@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "@tanstack/react-router";
 import { useMenu } from "@/hooks/use-menu";
 import { Menu, ChevronDown } from "lucide-react";
 import { MENU_HEADER } from "@/config/layout-34.config";

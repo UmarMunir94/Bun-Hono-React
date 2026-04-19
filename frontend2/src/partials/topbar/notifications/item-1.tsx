@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Image as ImageIcon } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import {
   Avatar,
   AvatarFallback,
@@ -46,11 +46,11 @@ export default function Item1({
       <div className="flex flex-col gap-3.5">
         <div className="flex flex-col gap-1">
           <div className="text-sm font-medium">
-            <Link to="#" className="hover:text-primary text-mono font-semibold">
+            <Link to="." className="hover:text-primary text-mono font-semibold">
               {userName}
             </Link>
             <span className="text-secondary-foreground"> {description} </span>
-            <Link to="#" className="hover:text-primary text-primary">
+            <Link to="." className="hover:text-primary text-primary">
               {link}
             </Link>
             <span className="text-secondary-foreground"> {label} </span>
@@ -65,7 +65,7 @@ export default function Item1({
 
         <Card className="shadow-none flex flex-col gap-2.5 p-3.5 rounded-lg bg-muted/70">
           <div className="text-sm font-semibold text-secondary-foreground mb-px">
-            <Link to="#" className="hover:text-primary text-mono font-semibold">
+            <Link to="." className="hover:text-primary text-mono font-semibold">
               @Cody{' '}
             </Link>
             <span className="text-secondary-foreground font-medium">
@@ -90,3 +90,5 @@ export default function Item1({
     </div>
   );
 }
+
+

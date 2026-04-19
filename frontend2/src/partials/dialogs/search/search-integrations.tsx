@@ -1,5 +1,5 @@
 import { AvatarGroup } from '@/partials/common/avatar-group';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import {
   AccordionMenu,
@@ -42,7 +42,7 @@ export function SearchIntegrations({
                   {/* Name and description */}
                   <div className="flex flex-col gap-0.5">
                     <Link
-                      to="#"
+                      to="."
                       className="text-sm font-semibold text-mono hover:text-primary-active"
                     >
                       {item.name}
@@ -72,3 +72,5 @@ export function SearchIntegrations({
     </AccordionMenu>
   );
 }
+
+

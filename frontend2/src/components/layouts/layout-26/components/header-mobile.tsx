@@ -6,7 +6,7 @@ import { SidebarSearch } from './sidebar-search';
 import { SidebarMenu } from './sidebar-menu';
 import { Aside } from './aside';
 import { AsideToolbar } from './aside-toolbar';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 
 export function HeaderMobile() {
@@ -99,3 +99,4 @@ export function HeaderMobile() {
     </header>
   );
 }
+

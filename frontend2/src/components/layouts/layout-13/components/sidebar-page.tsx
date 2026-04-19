@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import {
   AccordionMenu,
@@ -54,7 +54,7 @@ export function SidebarPage() {
 
             {pages.map((page, index) => (
               <AccordionMenuItem key={index} value={`page-${page.id}`} asChild>
-                <Link to="#">
+                <Link to=".">
                   <div className="flex items-center justify-center w-4">
                     <div className="size-1.5 rounded-full bg-green-500" />
                   </div>
@@ -68,3 +68,5 @@ export function SidebarPage() {
       </AccordionMenu>
   );
 }
+
+

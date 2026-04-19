@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CardWork, CardWorkRow } from '@/partials/cards';
 import { LayoutGrid, List } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Offer, OfferRow } from '../cards';
@@ -161,7 +161,7 @@ const Works = () => {
           </div>
           <div className="flex grow justify-center pt-5 lg:pt-7.5">
             <Button mode="link" underlined="dashed" asChild>
-              <Link to="#">Show more works</Link>
+              <Link to=".">Show more works</Link>
             </Button>
           </div>
         </div>
@@ -181,7 +181,7 @@ const Works = () => {
           </div>
           <div className="flex grow justify-center pt-5 lg:pt-7.5">
             <Button mode="link" underlined="dashed" asChild>
-              <Link to="#">Show more works</Link>
+              <Link to=".">Show more works</Link>
             </Button>
           </div>
         </div>
@@ -191,3 +191,5 @@ const Works = () => {
 };
 
 export { Works, type IWorksItem, type IWorksItems };
+
+

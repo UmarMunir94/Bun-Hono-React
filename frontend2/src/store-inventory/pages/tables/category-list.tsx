@@ -14,7 +14,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { Eye, Info, Search, SquarePen, Trash, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
@@ -568,7 +568,7 @@ export function CategoryListTable({
               </Card>
               <div className="flex flex-col gap-1">
                 <Link
-                  to="#"
+                  to="."
                   onClick={() => handleCategoryClick(info.row.original)}
                   className="text-sm font-medium tracking-[-1%] cursor-pointer hover:text-primary"
                 >
@@ -805,3 +805,5 @@ export function CategoryListTable({
     </>
   );
 }
+
+

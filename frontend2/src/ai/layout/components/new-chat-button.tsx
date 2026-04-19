@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { useNavigate } from "react-router";
+import { useNavigate } from "@tanstack/react-router";
 
 interface NewChatButtonProps {
   isCollapsed?: boolean;
@@ -47,3 +47,4 @@ export function NewChatButton({ isCollapsed = false }: NewChatButtonProps) {
 
   return buttonContent;
 }
+

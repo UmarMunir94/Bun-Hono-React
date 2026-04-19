@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SquarePlus } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -58,7 +58,7 @@ const InvitePeople = () => {
       </CardContent>
       <CardFooter className="justify-center">
         <Button>
-          <Link to="#">Invite People</Link>
+          <Link to=".">Invite People</Link>
         </Button>
       </CardFooter>
     </Card>
@@ -66,3 +66,5 @@ const InvitePeople = () => {
 };
 
 export { InvitePeople };
+
+

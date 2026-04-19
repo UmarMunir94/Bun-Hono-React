@@ -4,7 +4,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { cn } from "@/lib/utils";
 import { EllipsisVertical, Hexagon, Gem, Zap, Layers2, Check } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link } from "@tanstack/react-router";
 
 interface Team {
   icon: React.ElementType;
@@ -115,3 +115,4 @@ export function SidebarHeader() {
     </div>
   );
 }
+

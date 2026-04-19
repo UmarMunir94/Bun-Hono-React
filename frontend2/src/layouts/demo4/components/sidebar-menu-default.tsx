@@ -1,7 +1,7 @@
 'use client';
 
 import { JSX, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { MENU_SIDEBAR } from '@/config/menu.config';
 import { MenuConfig, MenuItem } from '@/config/types';
 import { cn } from '@/lib/utils';
@@ -225,3 +225,4 @@ export function SidebarMenuDefault() {
     </AccordionMenu>
   );
 }
+

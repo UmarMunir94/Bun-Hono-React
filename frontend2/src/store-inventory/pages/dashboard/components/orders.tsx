@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import {
   Area,
   AreaChart,
@@ -151,7 +151,7 @@ const Orders = ({ className }: IOrdersProps) => {
       <CardHeader>
         <CardTitle>Orders</CardTitle>
         <Button mode="link" underline="solid" asChild>
-          <Link to="#">See All</Link>
+          <Link to=".">See All</Link>
         </Button>
       </CardHeader>
       <CardContent className="flex flex-col justify-between gap-2 p-0 lg:pt-7.5 pt-5">
@@ -277,3 +277,5 @@ const Orders = ({ className }: IOrdersProps) => {
 };
 
 export { Orders, type IOrdersProps };
+
+

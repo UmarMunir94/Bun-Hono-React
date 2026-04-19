@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import {
   Avatar,
@@ -23,7 +23,7 @@ export default function Item17() {
       <div className="flex flex-col gap-2.5 grow">
         <div className="flex flex-col gap-1 mb-1">
           <div className="text-sm font-medium mb-px">
-            <Link to="#" className="hover:text-primary text-mono font-semibold">
+            <Link to="." className="hover:text-primary text-mono font-semibold">
               Natalie Wood
             </Link>
             <span className="text-secondary-foreground">
@@ -48,7 +48,7 @@ export default function Item17() {
           </div>
 
           <Link
-            to="#"
+            to="."
             className="hover:text-primary font-medium text-secondary-foreground text-xs me-1"
           >
             User-feedback.jira
@@ -70,3 +70,5 @@ export default function Item17() {
     </div>
   );
 }
+
+

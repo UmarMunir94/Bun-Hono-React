@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { Circle, CircleCheck, MapPin } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 // import type { OrderListData } from '../tables/order-list';
 import { Badge, BadgeDot } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -79,7 +79,7 @@ export function TrackShippingSheet({
                     Order ID
                   </span>
                   <Link
-                    to="#"
+                    to="."
                     className="font-medium text-foreground underline"
                   >
                     SO-AMS-4620
@@ -305,3 +305,5 @@ export function TrackShippingSheet({
     </Sheet>
   );
 }
+
+

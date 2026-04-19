@@ -1,5 +1,5 @@
 import { CloudDownload, Download } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -129,3 +129,4 @@ const Invoicing = () => {
 };
 
 export { Invoicing, type IInvoicingItem, type IInvoicingItems };
+

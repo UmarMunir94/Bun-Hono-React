@@ -1,5 +1,5 @@
 import { ShoppingCart, TrashIcon } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -79,7 +79,7 @@ export function StoreClientCartSheet({
 
                     <div className="flex flex-col justify-center gap-2.5 -mt-1">
                       <Link
-                        to="#"
+                        to="."
                         className="hover:text-primary text-sm font-medium text-mono leading-5.5"
                       >
                         {item.title}
@@ -155,5 +155,7 @@ export function StoreClientCartSheet({
     </Sheet>
   );
 }
+
+
 
 

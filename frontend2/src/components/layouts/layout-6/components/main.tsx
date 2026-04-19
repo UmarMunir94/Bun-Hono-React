@@ -3,7 +3,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { Footer } from './footer';
 import { Header } from './header';
 import { Sidebar } from './sidebar';
-import { Outlet } from 'react-router';
+import { Outlet } from '@tanstack/react-router';
 
 export function Main() {
   const isMobile = useIsMobile();
@@ -34,3 +34,4 @@ export function Main() {
     </div>
   );
 };
+

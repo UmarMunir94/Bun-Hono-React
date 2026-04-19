@@ -1,6 +1,6 @@
 import { AvatarInput } from '@/partials/common/avatar-input';
 import { Copy, SquarePen } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -75,7 +75,7 @@ const Account = ({ title }: IAccountProps) => {
               </TableCell>
               <TableCell className="text-foreground font-normal min-w-60">
                 <Link
-                  to="#"
+                  to="."
                   className="text-secondary-foreground hover:text-primary-active"
                 >
                   jasontt@studio.co
@@ -107,7 +107,7 @@ const Account = ({ title }: IAccountProps) => {
               <TableCell>
                 <div className="flex items-center gap-2.5">
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -117,7 +117,7 @@ const Account = ({ title }: IAccountProps) => {
                     />
                   </Link>
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -127,7 +127,7 @@ const Account = ({ title }: IAccountProps) => {
                     />
                   </Link>
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -158,7 +158,7 @@ const Account = ({ title }: IAccountProps) => {
               </TableCell>
               <TableCell className="text-center">
                 <Button mode="link" underlined="dashed" asChild>
-                  <Link to="#">Add</Link>
+                  <Link to=".">Add</Link>
                 </Button>
               </TableCell>
             </TableRow>
@@ -169,7 +169,7 @@ const Account = ({ title }: IAccountProps) => {
               <TableCell>
                 <div className="flex items-center gap-2.5">
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -179,7 +179,7 @@ const Account = ({ title }: IAccountProps) => {
                     />
                   </Link>
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -191,7 +191,7 @@ const Account = ({ title }: IAccountProps) => {
                     />
                   </Link>
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -206,7 +206,7 @@ const Account = ({ title }: IAccountProps) => {
                     />
                   </Link>
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -230,7 +230,7 @@ const Account = ({ title }: IAccountProps) => {
               <TableCell className="text-secondary-foreground text-sm font-normal">
                 <div className="flex items-center gap-1">
                   <Link
-                    to="#"
+                    to="."
                     className="text-foreground font-normal text-sm hover:text-primary-active"
                   >
                     https://studio.co/W3gvQOI35dt
@@ -242,7 +242,7 @@ const Account = ({ title }: IAccountProps) => {
               </TableCell>
               <TableCell className="text-center">
                 <Button mode="link" underlined="dashed" asChild>
-                  <Link to="#">Re-create</Link>
+                  <Link to=".">Re-create</Link>
                 </Button>
               </TableCell>
             </TableRow>
@@ -254,3 +254,5 @@ const Account = ({ title }: IAccountProps) => {
 };
 
 export { Account, type IAccountProps };
+
+

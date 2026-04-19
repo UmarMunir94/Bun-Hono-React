@@ -12,7 +12,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { Search, X } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -490,7 +490,7 @@ export function RecentOrders() {
         header: '',
         cell: () => (
           <Button mode="link" underlined="dashed">
-            <Link to="#">Details</Link>
+            <Link to=".">Details</Link>
           </Button>
         ),
         enableSorting: false,
@@ -572,3 +572,5 @@ export function RecentOrders() {
     </DataGrid>
   );
 }
+
+

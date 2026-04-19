@@ -6,7 +6,7 @@ import {
   ToolbarHeading,
   ToolbarPageTitle,
 } from '@/partials/common/toolbar';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/common/container';
 import { DashboardContent } from '.';
@@ -24,10 +24,10 @@ export function DashboardPage() {
           </ToolbarHeading>
           <ToolbarActions>
             <Button variant="outline">
-              <Link to="#">Reports</Link>
+              <Link to=".">Reports</Link>
             </Button>
             <Button>
-              <Link to="#">New Product</Link>
+              <Link to=".">New Product</Link>
             </Button>
           </ToolbarActions>
         </Toolbar>
@@ -38,3 +38,5 @@ export function DashboardPage() {
     </Fragment>
   );
 }
+
+

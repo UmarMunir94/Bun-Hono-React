@@ -1,7 +1,7 @@
 import { ReactNode, useId } from 'react';
 import { HexagonBadge } from '@/partials/common/hexagon-badge';
 import { Mail } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -63,7 +63,7 @@ const AdvancedSettingsNotifications = () => {
           />
           <div className="flex flex-col">
             <Link
-              to="#"
+              to="."
               className="text-sm font-medium text-mono hover:text-primary-active mb-px"
             >
               {item.title}
@@ -167,3 +167,5 @@ export {
   type IAdvancedSettingsNotificationsItem,
   type IAdvancedSettingsNotificationsItems,
 };
+
+

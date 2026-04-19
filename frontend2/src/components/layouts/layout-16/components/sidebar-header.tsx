@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Check, ChevronsUpDown, Gem, Hexagon, Layers2, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -91,3 +91,4 @@ export function SidebarHeader() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import {
   Avatar,
   AvatarFallback,
@@ -23,7 +23,7 @@ export default function Item13() {
       <div className="flex flex-col gap-3.5 grow">
         <div className="flex flex-col gap-1">
           <div className="text-sm font-medium mb-px">
-            <Link to="#" className="hover:text-primary text-mono font-semibold">
+            <Link to="." className="hover:text-primary text-mono font-semibold">
               Samuel Lee
             </Link>
             <span className="text-secondary-foreground">
@@ -31,7 +31,7 @@ export default function Item13() {
               requested to add user to{' '}
             </span>
             <Link
-              to="#"
+              to="."
               className="hover:text-primary text-primary font-semibold"
             >
               TechSynergy
@@ -48,13 +48,13 @@ export default function Item13() {
         <Card className="shadow-none flex items-center flex-row justify-between gap-1.5 px-2.5 py-2 rounded-lg bg-muted/70">
           <div className="flex flex-col">
             <Link
-              to="#"
+              to="."
               className="hover:text-primary font-medium text-mono text-xs"
             >
               Ronald Richards
             </Link>
             <Link
-              to="#"
+              to="."
               className="hover:text-primary text-muted-foreground font-medium text-xs"
             >
               ronald.richards@gmail.com
@@ -62,7 +62,7 @@ export default function Item13() {
           </div>
 
           <Link
-            to="#"
+            to="."
             className="hover:text-primary text-secondary-foreground font-medium text-xs"
           >
             Go to profile
@@ -81,3 +81,5 @@ export default function Item13() {
     </div>
   );
 }
+
+

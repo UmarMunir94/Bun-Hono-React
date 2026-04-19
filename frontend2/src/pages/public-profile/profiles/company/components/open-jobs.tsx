@@ -1,5 +1,5 @@
 import { ChartLine, LucideIcon, Milk, Rocket, Zap } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -55,7 +55,7 @@ const OpenJobs = () => {
           />
         </div>
         <div className="flex flex-col">
-          <Link to="#" className="text-sm font-semibold leading-none link mb-1">
+          <Link to="." className="text-sm font-semibold leading-none link mb-1">
             {item.link}
           </Link>
           <span className="text-sm font-medium text-mono">{item.desc}</span>
@@ -89,3 +89,5 @@ const OpenJobs = () => {
 };
 
 export { OpenJobs, type IOpenJobsItem, type IOpenJobsItems };
+
+

@@ -1,6 +1,6 @@
 import { AvatarGroup } from '@/partials/common/avatar-group';
 import { MapPin, Users } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -61,7 +61,7 @@ const TeamMeeting = () => {
       </CardContent>
       <CardFooter className="justify-center">
         <Button mode="link" underlined="dashed" asChild>
-          <Link to="#">Join Meeting</Link>
+          <Link to=".">Join Meeting</Link>
         </Button>
       </CardFooter>
     </Card>
@@ -69,3 +69,5 @@ const TeamMeeting = () => {
 };
 
 export { TeamMeeting };
+
+

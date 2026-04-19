@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 
 const items = [
@@ -48,3 +48,4 @@ export function SidebarMenuSecondary() {
     </div>
   );
 }
+

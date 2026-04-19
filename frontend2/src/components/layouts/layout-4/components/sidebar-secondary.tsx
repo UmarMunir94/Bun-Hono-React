@@ -1,6 +1,6 @@
 import { SidebarMenuDefault } from '../../layout-5/components/sidebar-menu-default';
 import { SidebarMenuDashboard } from './sidebar-menu-dashboard';
-import { useLocation } from 'react-router';
+import { useLocation } from '@tanstack/react-router';
 
 export function SidebarSecondary() {
   const { pathname } = useLocation();
@@ -11,3 +11,4 @@ export function SidebarSecondary() {
     </div>
   );
 }
+

@@ -1,5 +1,5 @@
 import { EllipsisVertical, Heart, Mails } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -26,7 +26,7 @@ const CardWorkRow = ({
           />
           <div className="grid grid-col gap-1">
             <Link
-              to="#"
+              to="."
               className="text-lg font-semibold text-mono hover:text-primary-active mb-px"
             >
               {title}
@@ -44,7 +44,7 @@ const CardWorkRow = ({
               alt="image"
             />
             <Link
-              to="#"
+              to="."
               className="text-sm font-medium text-secondary-foreground hover:text-primary-active mb-px"
             >
               {authorName}
@@ -82,3 +82,5 @@ const CardWorkRow = ({
 };
 
 export { CardWorkRow };
+
+

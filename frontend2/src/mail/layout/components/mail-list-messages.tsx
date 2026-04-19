@@ -4,7 +4,7 @@ import { MailListHeader } from "./mail-list-header";
 import { MailListWrapper } from "./mail-list-wrapper";
 import { useState } from "react";
 import { toAbsoluteUrl } from "@/lib/helpers";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Badge, BadgeDot } from "@/components/ui/badge";
 import { Star, AlertCircle, Archive, Trash2 } from "lucide-react";
 import { toast } from "sonner";

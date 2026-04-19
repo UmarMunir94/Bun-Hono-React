@@ -9,7 +9,7 @@ import {
   Share2,
   ThumbsDown,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,7 +33,7 @@ export function DropdownMenu1({ trigger }: { trigger: ReactNode }) {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link to="#">
+          <Link to=".">
             <Share2 />
             <span>Share</span>
           </Link>
@@ -65,7 +65,7 @@ export function DropdownMenu1({ trigger }: { trigger: ReactNode }) {
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuItem asChild>
-          <Link to="#">
+          <Link to=".">
             <ThumbsDown />
             <span>Report</span>
           </Link>
@@ -81,3 +81,5 @@ export function DropdownMenu1({ trigger }: { trigger: ReactNode }) {
     </DropdownMenu>
   );
 }
+
+

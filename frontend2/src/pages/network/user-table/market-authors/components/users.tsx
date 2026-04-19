@@ -26,7 +26,7 @@ import {
   Settings2,
   X,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
@@ -658,7 +658,7 @@ const Users = () => {
             />
             <div className="flex flex-col">
               <Link
-                to="#"
+                to="."
                 className="text-sm font-medium text-mono hover:text-primary-active mb-px"
               >
                 {row.original.user.userName}
@@ -758,13 +758,13 @@ const Users = () => {
         ),
         cell: () => (
           <div className="flex items-center gap-2.5">
-            <Link to="#">
+            <Link to=".">
               <Facebook size={16} className="text-muted-foreground text-lg" />
             </Link>
-            <Link to="#">
+            <Link to=".">
               <Dribbble size={16} className="text-muted-foreground text-lg" />
             </Link>
-            <Link to="#">
+            <Link to=".">
               <Music2 size={16} className="text-muted-foreground text-lg" />
             </Link>
           </div>
@@ -924,3 +924,5 @@ const Users = () => {
 };
 
 export { Users };
+
+

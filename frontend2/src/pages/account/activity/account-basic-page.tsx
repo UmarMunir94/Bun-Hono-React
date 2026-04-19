@@ -6,7 +6,7 @@ import {
   ToolbarHeading,
   ToolbarPageTitle,
 } from '@/partials/common/toolbar';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { useSettings } from '@/providers/settings-provider';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/common/container';
@@ -29,7 +29,7 @@ export function AccountActivityPage() {
             </ToolbarHeading>
             <ToolbarActions>
               <Button variant="outline" asChild>
-                <Link to="#">Privacy Settings</Link>
+                <Link to=".">Privacy Settings</Link>
               </Button>
             </ToolbarActions>
           </Toolbar>
@@ -41,3 +41,5 @@ export function AccountActivityPage() {
     </>
   );
 }
+
+

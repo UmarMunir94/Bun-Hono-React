@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Link } from "react-router";
+import { Link } from "@tanstack/react-router";
 import { toAbsoluteUrl } from '@/lib/helpers';
 import {
   Settings,
@@ -230,3 +230,4 @@ export function AsideToolbar() {
     </div>
   );
 }
+

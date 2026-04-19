@@ -2,7 +2,7 @@ import { PanelLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLayout } from './context';
 import { toAbsoluteUrl } from '@/lib/helpers';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 
 export function SidebarHeader() {
   const { sidebarToggle } = useLayout();
@@ -31,3 +31,4 @@ export function SidebarHeader() {
     </div>
   );
 }
+

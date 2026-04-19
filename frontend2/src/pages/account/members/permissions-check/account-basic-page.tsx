@@ -7,7 +7,7 @@ import {
   ToolbarHeading,
   ToolbarPageTitle,
 } from '@/partials/common/toolbar';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { useSettings } from '@/providers/settings-provider';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/common/container';
@@ -30,7 +30,7 @@ export function AccountPermissionsCheckPage() {
             </ToolbarHeading>
             <ToolbarActions>
               <Button variant="outline">
-                <Link to="#">View Roles</Link>
+                <Link to=".">View Roles</Link>
               </Button>
             </ToolbarActions>
           </Toolbar>
@@ -42,3 +42,5 @@ export function AccountPermissionsCheckPage() {
     </Fragment>
   );
 }
+
+

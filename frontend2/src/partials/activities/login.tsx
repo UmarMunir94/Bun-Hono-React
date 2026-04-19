@@ -1,5 +1,5 @@
 import { LogIn } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { TimelineItem } from './timeline-item';
 
@@ -10,7 +10,7 @@ const ActivitiesLogin = () => {
         <div className="text-sm text-foreground">
           Jenny's last login to the{' '}
           <Button mode="link" asChild>
-            <Link to="#">Customer Portal</Link>
+            <Link to=".">Customer Portal</Link>
           </Button>
         </div>
         <span className="text-xs text-secondary-foreground">
@@ -22,3 +22,5 @@ const ActivitiesLogin = () => {
 };
 
 export { ActivitiesLogin };
+
+

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { Menu, PanelRight } from 'lucide-react';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { useLayout } from './context';
@@ -94,3 +94,4 @@ export function HeaderLogo() {
     </div>
   );
 }
+

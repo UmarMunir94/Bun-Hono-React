@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { cn } from '@/lib/utils';
 import {
   Tooltip,
@@ -198,3 +198,4 @@ export function SidebarContent() {
 		</>
   );
 }
+

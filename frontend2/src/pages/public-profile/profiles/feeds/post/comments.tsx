@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Image as ImageIcon } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Input, InputWrapper } from '@/components/ui/input';
@@ -25,7 +25,7 @@ const Comments = ({ items }: ICommentsProps) => {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-1.5">
               <Link
-                to="#"
+                to="."
                 className="text-base font-medium text-mono hover:text-primary-active"
               >
                 {item.author}
@@ -35,7 +35,7 @@ const Comments = ({ items }: ICommentsProps) => {
               </span>
             </div>
             <Button mode="link" underlined="dashed" asChild>
-              <Link to="#">Reply</Link>
+              <Link to=".">Reply</Link>
             </Button>
           </div>
           <p className="text-sm text-foreground heading-5.5">{item.text}</p>
@@ -73,3 +73,5 @@ const Comments = ({ items }: ICommentsProps) => {
 };
 
 export { Comments, type ICommentsProps };
+
+

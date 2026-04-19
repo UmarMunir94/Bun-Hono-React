@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { LucideIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Container } from '@/components/common/container';
 
@@ -84,3 +84,4 @@ export function UserHero({ image, name, info }: UserHeroProps) {
     </div>
   );
 }
+

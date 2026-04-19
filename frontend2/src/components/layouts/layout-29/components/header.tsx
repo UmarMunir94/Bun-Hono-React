@@ -11,7 +11,7 @@ import { Menu } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { SidebarContent } from './sidebar-content';
 import { toAbsoluteUrl } from '@/lib/helpers';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation } from '@tanstack/react-router';
 import { ToolbarActions } from './toolbar';
 import { Navbar } from './navbar';
 
@@ -69,3 +69,4 @@ export function Header() {
     </header>
   );
 }
+

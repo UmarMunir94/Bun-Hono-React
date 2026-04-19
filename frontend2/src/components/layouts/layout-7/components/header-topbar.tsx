@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { ArrowUp, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { UserDropdownMenu } from '../../layout-1/shared/topbar/user-dropdown-menu';
@@ -18,7 +18,7 @@ const HeaderTopbar = () => {
         </div>
 
         <Button size="sm" asChild>
-          <Link to="#">
+          <Link to=".">
             Upgrade
             <ArrowUp />
           </Link>
@@ -52,3 +52,5 @@ const HeaderTopbar = () => {
 };
 
 export { HeaderTopbar };
+
+

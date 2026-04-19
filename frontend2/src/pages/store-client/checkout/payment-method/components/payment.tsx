@@ -4,7 +4,7 @@ import { Fragment, ReactElement, useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RiCheckboxCircleFill } from '@remixicon/react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
@@ -85,7 +85,7 @@ export function Payment() {
       subTitle: 'Emma van den Berg',
       description: (
         <Link
-          to="#"
+          to="."
           className="hover:text-primary text-sm font-medium text-secondary-foreground"
         >
           emma@reui.io
@@ -100,7 +100,7 @@ export function Payment() {
       subTitle: 'Bob van den Berg',
       description: (
         <Link
-          to="#"
+          to="."
           className="hover:text-primary text-sm font-medium text-secondary-foreground"
         >
           bob@reui.io
@@ -407,3 +407,5 @@ export function Payment() {
     </Fragment>
   );
 }
+
+

@@ -1,5 +1,5 @@
 import { Users } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { TimelineItem } from './timeline-item';
 
@@ -10,11 +10,11 @@ const ActivitiesNewProduct = () => {
         <div className="text-sm text-foreground">
           Jenny sent an{' '}
           <Button mode="link" asChild>
-            <Link to="#">inquiry</Link>
+            <Link to=".">inquiry</Link>
           </Button>{' '}
           about a{' '}
           <Button mode="link" asChild>
-            <Link to="#">new product</Link>
+            <Link to=".">new product</Link>
           </Button>{' '}
           .
         </div>
@@ -27,3 +27,5 @@ const ActivitiesNewProduct = () => {
 };
 
 export { ActivitiesNewProduct };
+
+

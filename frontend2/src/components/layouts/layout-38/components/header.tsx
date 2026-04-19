@@ -10,7 +10,7 @@ import { Menu } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { SidebarContent } from './sidebar-content';
 import { toAbsoluteUrl } from '@/lib/helpers';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation } from '@tanstack/react-router';
 import { SidebarFooter } from './sidebar-footer';
 
 export function Header() {
@@ -65,3 +65,4 @@ export function Header() {
     </header>
   );
 }
+

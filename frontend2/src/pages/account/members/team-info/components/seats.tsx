@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -22,13 +22,13 @@ const Seats = () => {
         </p>
         <div>
           <Button mode="link" underlined="dashed" asChild>
-            <Link to="#">Learn more</Link>
+            <Link to=".">Learn more</Link>
           </Button>
         </div>
       </CardContent>
       <CardFooter className="justify-center">
         <Button variant="outline">
-          <Link to="#">Add Seats</Link>
+          <Link to=".">Add Seats</Link>
         </Button>
       </CardFooter>
     </Card>
@@ -36,3 +36,5 @@ const Seats = () => {
 };
 
 export { Seats };
+
+

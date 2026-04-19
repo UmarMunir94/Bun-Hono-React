@@ -1,5 +1,5 @@
 import { Settings } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -55,13 +55,13 @@ const Integrations = () => {
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5">
               <Link
-                to="#"
+                to="."
                 className="text-sm font-semibold text-mono hover:text-primary-active"
               >
                 {item.title}
               </Link>
               <Link
-                to="#"
+                to="."
                 className="text-sm font-medium text-secondary-foreground hover:text-primary-active"
               >
                 {item.email}
@@ -103,3 +103,5 @@ const Integrations = () => {
 };
 
 export { Integrations, type IIntegrationsItem, type IIntegrationsItems };
+
+

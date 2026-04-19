@@ -1,5 +1,5 @@
 import { Trash2 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -66,13 +66,13 @@ const AuthSocialSignIn = () => {
           />
           <div className="flex flex-col gap-0.5">
             <Link
-              to="#"
+              to="."
               className="text-sm font-medium text-mono hover:text-primary-active"
             >
               {item.title}
             </Link>
             <Link
-              to="#"
+              to="."
               className="text-sm text-secondary-foreground hover:text-primary-active"
             >
               {item.email}
@@ -161,3 +161,5 @@ export {
   type IAuthSocialSignInBlock,
   type IAuthSocialSignInBlocks,
 };
+
+

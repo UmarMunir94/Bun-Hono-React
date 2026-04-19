@@ -2,7 +2,7 @@ import { StoreClientTopbar } from '@/components/layouts/layout-1/shared/topbar/t
 import { SearchDialog } from '@/components/layouts/layout-1/shared/dialogs/search/search-dialog';
 import { NotificationsSheet } from '@/components/layouts/layout-1/shared/topbar/notifications-sheet';
 import { Download, MessageSquareDot, Search } from 'lucide-react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation } from '@tanstack/react-router';
 import { useBodyClass } from '@/hooks/use-body-class';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Button } from '@/components/ui/button';
@@ -91,3 +91,4 @@ export function Main() {
     </div>
   );
 }
+

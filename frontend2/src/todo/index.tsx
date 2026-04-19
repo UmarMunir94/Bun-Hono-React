@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from '@tanstack/react-router';
 import { DefaultLayout } from './layout';
 import { AllTasksPage } from './pages/all-tasks/page';
 import { TodayPage } from './pages/today/page';
@@ -20,3 +20,4 @@ export default function TodoModule() {
     </Routes>
   );
 }
+

@@ -1,5 +1,5 @@
 import { ErrorLayout } from '@/layouts/error/layout';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from '@tanstack/react-router';
 import { Error404 } from './error-404';
 import { Error500 } from './error-500';
 
@@ -15,3 +15,4 @@ export function ErrorRouting() {
     </Routes>
   );
 }
+

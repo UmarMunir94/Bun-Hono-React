@@ -16,7 +16,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { EllipsisVertical, Filter, Search, Settings2, X } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
@@ -688,13 +688,13 @@ const StoreClients = () => {
             <div className="flex flex-col">
               <Link
                 className="font-medium text-sm text-mono hover:text-primary-active mb-px"
-                to="#"
+                to="."
               >
                 {row.original.user.name}
               </Link>
               <Link
                 className="text-sm text-secondary-foreground font-normal hover:text-primary-active"
-                to="#"
+                to="."
               >
                 {row.original.user.email}
               </Link>
@@ -993,3 +993,5 @@ const StoreClients = () => {
 };
 
 export { StoreClients };
+
+

@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -29,7 +29,7 @@ const Highlights = () => {
       label: 'CEO:',
       info: (
         <Button mode="link" asChild>
-          <Link to="#">Luis von Ahn</Link>
+          <Link to=".">Luis von Ahn</Link>
         </Button>
       ),
     },
@@ -72,3 +72,5 @@ const Highlights = () => {
 };
 
 export { Highlights, type IHighlightsItem, type IHighlightsItems };
+
+

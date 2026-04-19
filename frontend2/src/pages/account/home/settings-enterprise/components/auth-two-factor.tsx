@@ -6,7 +6,7 @@ import {
   MessageSquareText,
   ShieldCheck,
 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
@@ -51,7 +51,7 @@ const AuthTwoFactor = () => {
           />
           <div className="flex flex-col">
             <Link
-              to="#"
+              to="."
               className="text-sm font-medium text-mono hover:text-primary-active mb-px"
             >
               {item.title}
@@ -90,3 +90,5 @@ const AuthTwoFactor = () => {
 };
 
 export { AuthTwoFactor, type IAuthTwoFactorItem, type IAuthTwoFactorItems };
+
+

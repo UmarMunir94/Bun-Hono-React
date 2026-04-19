@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { AvatarGroup } from '@/partials/common/avatar-group';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -42,7 +42,7 @@ const EntryCallout = ({ className }: IEntryCalloutProps) => {
               Connect Today & Join <br />
               the{' '}
               <Button mode="link" asChild className="text-xl font-semibold">
-                <Link to="#">KeenThemes Network</Link>
+                <Link to=".">KeenThemes Network</Link>
               </Button>
             </h2>
             <p className="text-sm font-normal text-secondary-foreground leading-5.5">
@@ -54,7 +54,7 @@ const EntryCallout = ({ className }: IEntryCalloutProps) => {
         </CardContent>
         <CardFooter className="justify-center">
           <Button mode="link" underlined="dashed" asChild>
-            <Link to="#">Get Started</Link>
+            <Link to=".">Get Started</Link>
           </Button>
         </CardFooter>
       </Card>
@@ -63,3 +63,5 @@ const EntryCallout = ({ className }: IEntryCalloutProps) => {
 };
 
 export { EntryCallout, type IEntryCalloutProps };
+
+

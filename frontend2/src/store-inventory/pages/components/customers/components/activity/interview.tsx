@@ -1,7 +1,7 @@
 'use client';
 
 import { LogIn } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { TimelineItem } from './timeline-item';
 
@@ -12,7 +12,7 @@ const ActivitiesInterview = () => {
         <div className="text-sm text-foreground font-normal">
           I had the privilege of interviewing an industry expert for an{' '}
           <Button mode="link" asChild>
-            <Link to="#">
+            <Link to=".">
               upcoming blog post
             </Link>
           </Button>
@@ -26,3 +26,5 @@ const ActivitiesInterview = () => {
 };
 
 export { ActivitiesInterview };
+
+

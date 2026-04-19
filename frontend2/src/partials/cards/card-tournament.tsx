@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -51,7 +51,7 @@ const CardTournament = ({
           />
           <div className="grid grid-cols-1 gap-0.5">
             <Link
-              to="#"
+              to="."
               className="text-mono hover:text-primary-active text-base font-medium mb-px"
             >
               {title}
@@ -88,3 +88,5 @@ const CardTournament = ({
 };
 
 export { CardTournament, type ITournamentProps };
+
+

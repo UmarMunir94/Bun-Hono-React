@@ -1,5 +1,5 @@
 import { LoaderPinwheel, User } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 
 export function ShareProfileSettings() {
@@ -13,7 +13,7 @@ export function ShareProfileSettings() {
 
           <div className="flex flex-center text-secondary-foreground font-medium text-xs">
             Anyone at
-            <Link to="#" className="text-xs font-medium link mx-1">
+            <Link to="." className="text-xs font-medium link mx-1">
               KeenThemes
             </Link>
             can view
@@ -21,7 +21,7 @@ export function ShareProfileSettings() {
         </div>
 
         <Button mode="link" underlined="dashed">
-          <Link to="#">Change Access</Link>
+          <Link to=".">Change Access</Link>
         </Button>
       </div>
 
@@ -35,7 +35,7 @@ export function ShareProfileSettings() {
         </div>
 
         <Button mode="link" underlined="dashed">
-          <Link to="#">Set Password</Link>
+          <Link to=".">Set Password</Link>
         </Button>
       </div>
 
@@ -45,3 +45,5 @@ export function ShareProfileSettings() {
     </div>
   );
 }
+
+

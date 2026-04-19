@@ -1,7 +1,7 @@
 'use client';
 
 import { Calendar, ChevronDown } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -61,3 +61,4 @@ export function ToolbarMenu() {
     </DropdownMenu>
   );
 }
+

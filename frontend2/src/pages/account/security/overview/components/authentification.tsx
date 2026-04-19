@@ -1,5 +1,5 @@
 import { SquarePen } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -36,7 +36,7 @@ const Authentification = () => {
               </TableCell>
               <TableCell className="text-end">
                 <Button mode="link" underlined="dashed" asChild>
-                  <Link to="#">Setup</Link>
+                  <Link to=".">Setup</Link>
                 </Button>
               </TableCell>
             </TableRow>
@@ -45,7 +45,7 @@ const Authentification = () => {
               <TableCell>
                 <div className="flex items-center gap-2.5">
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -55,7 +55,7 @@ const Authentification = () => {
                     />
                   </Link>
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -65,7 +65,7 @@ const Authentification = () => {
                     />
                   </Link>
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -95,3 +95,5 @@ const Authentification = () => {
 };
 
 export { Authentification };
+
+

@@ -22,7 +22,7 @@ import {
   Settings2,
   X,
 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
@@ -1044,7 +1044,7 @@ const CurrentSessions = () => {
             </div>
             <Link
               className="leading-none font-semibold text-mono hover:text-primary"
-              to="#"
+              to="."
             >
               {row.original.user.name}
             </Link>
@@ -1315,3 +1315,5 @@ const CurrentSessions = () => {
 };
 
 export { CurrentSessions };
+
+

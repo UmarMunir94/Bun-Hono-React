@@ -1,5 +1,5 @@
 import { Fragment, ReactNode } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { MENU_SIDEBAR_MAIN } from '@/config/layout-13.config';
 import { useMenu } from '@/hooks/use-menu';
 import { MenuItem } from '@/config/types';
@@ -105,3 +105,4 @@ export {
   ToolbarPageTitle,
   ToolbarDescription
 };
+

@@ -7,7 +7,7 @@ import {
   Timer,
   Users,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import {
   Avatar,
   AvatarFallback,
@@ -33,7 +33,7 @@ export default function Item7() {
       <div className="flex flex-col gap-3.5 grow">
         <div className="flex flex-col gap-1">
           <div className="text-sm font-medium mb-px">
-            <Link to="#" className="hover:text-primary text-mono font-semibold">
+            <Link to="." className="hover:text-primary text-mono font-semibold">
               Nova Hawthorne
             </Link>
             <span className="text-secondary-foreground">
@@ -103,7 +103,7 @@ export default function Item7() {
                 <div className="font-medium text-muted-foreground text-xs">
                   Online
                   <Link
-                    to="#"
+                    to="."
                     className="hover:text-primary text-primary font-medium"
                   >
                     Zoom Meeting
@@ -139,3 +139,5 @@ export default function Item7() {
     </div>
   );
 }
+
+

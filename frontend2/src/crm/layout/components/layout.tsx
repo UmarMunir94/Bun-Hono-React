@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router';
+import { Outlet } from '@tanstack/react-router';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Header } from './header';
@@ -31,3 +31,4 @@ export function Layout() {
     </div>
   );
 }
+

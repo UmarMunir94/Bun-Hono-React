@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "@tanstack/react-router";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { BookOpen, House, Layers, PanelLeft, SquareArrowOutUpRight } from "lucide-react";
@@ -76,3 +76,4 @@ export function SidebarMenu() {
     </nav>
   );
 }
+

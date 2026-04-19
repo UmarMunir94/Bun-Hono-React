@@ -1,5 +1,5 @@
 import { EllipsisVertical } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -133,3 +133,4 @@ export {
   type ICampaignItems,
   type ICampaignProps,
 };
+

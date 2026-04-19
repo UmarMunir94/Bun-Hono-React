@@ -7,7 +7,7 @@ import {
   ToolbarPageTitle,
 } from '@/partials/common/toolbar';
 import { Captions } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/common/container';
 import { OrderPlacedContent } from '.';
@@ -43,3 +43,4 @@ export function OrderPlacedPage() {
     </Fragment>
   );
 }
+

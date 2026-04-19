@@ -1,5 +1,5 @@
 import { CardPost } from '@/partials/cards';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
@@ -81,3 +81,4 @@ const Posts = () => {
 };
 
 export { Posts, type IPostsItem, type IPostsItems };
+

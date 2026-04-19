@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -108,7 +108,7 @@ const Import = () => {
       </CardContent>
       <CardFooter className="justify-center py-3.5">
         <Button>
-          <Link to="#">Import Member</Link>
+          <Link to=".">Import Member</Link>
         </Button>
       </CardFooter>
     </Card>
@@ -116,3 +116,5 @@ const Import = () => {
 };
 
 export { Import, type IImportItem, type IImportItems };
+
+

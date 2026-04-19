@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { useLayout } from './context';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
@@ -41,3 +41,4 @@ export function SidebarHeader() {
     </div>
   );
 }
+

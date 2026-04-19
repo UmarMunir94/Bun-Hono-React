@@ -1,6 +1,6 @@
 import { DropdownMenu2 } from '@/partials/dropdown-menu/dropdown-menu-2';
 import { Download, EllipsisVertical } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -119,7 +119,7 @@ const BillingInvoicing = () => {
       </CardContent>
       <CardFooter className="justify-center">
         <Button mode="link" underlined="dashed" asChild>
-          <Link to="#">View all Payments</Link>
+          <Link to=".">View all Payments</Link>
         </Button>
       </CardFooter>
     </Card>
@@ -131,3 +131,5 @@ export {
   type IBillingInvoicingItem,
   type IBillingInvoicingItems,
 };
+
+

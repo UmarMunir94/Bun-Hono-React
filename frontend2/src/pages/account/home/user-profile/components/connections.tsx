@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { DropdownMenu4 } from '@/partials/dropdown-menu/dropdown-menu-4';
 import { DropdownMenu5 } from '@/partials/dropdown-menu/dropdown-menu-5';
 import { Check, EllipsisVertical, Plus } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -179,3 +179,4 @@ export {
   type IConnectionsItems,
   type IConnectionsProps,
 };
+

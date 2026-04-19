@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardNowPlaying } from '@/partials/cards';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
@@ -204,7 +204,7 @@ const NowPlaying = () => {
       <CardHeader>
         <CardTitle>Now Playing</CardTitle>
         <Button mode="link" underlined="dashed" asChild>
-          <Link to="#">View All</Link>
+          <Link to=".">View All</Link>
         </Button>
       </CardHeader>
       <CardContent className="p-5 lg:p-7.5 lg:pb-7">
@@ -222,3 +222,5 @@ const NowPlaying = () => {
 };
 
 export { NowPlaying, type INowPlayingItem, type INowPlayingItems };
+
+

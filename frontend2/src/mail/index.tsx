@@ -1,5 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { Routes, Route } from '@tanstack/react-router';
+import { Navigate } from '@tanstack/react-router';
 import { DefaultLayout } from './layout';
 import { InboxPage } from './pages/inbox/page';
 import { SentPage } from './pages/sent/page';
@@ -17,3 +17,4 @@ export default function MailModule() {
     </Routes>
   );
 }
+

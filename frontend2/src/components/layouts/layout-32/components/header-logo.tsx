@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { HeaderSearch } from './header-search';
 import { useLayout } from './context';
@@ -119,3 +119,4 @@ export function HeaderLogo() {
     </div>
   );
 }
+

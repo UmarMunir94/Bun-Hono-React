@@ -13,7 +13,7 @@ import {
   Star,
   Users,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
@@ -292,3 +292,4 @@ const Teams = () => {
 };
 
 export { Teams, type ITeamsItem, type ITeamsItems };
+

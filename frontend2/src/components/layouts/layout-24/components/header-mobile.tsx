@@ -1,5 +1,5 @@
 import { toAbsoluteUrl } from '@/lib/helpers';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetBody } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Menu, VectorSquare } from 'lucide-react';
@@ -62,3 +62,4 @@ export function HeaderMobile() {
     </header>
   );
 }
+

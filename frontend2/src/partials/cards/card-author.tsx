@@ -1,5 +1,5 @@
 import { BadgeCheck } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -51,7 +51,7 @@ const CardAuthor = ({
         ></div>
         <div className="card-border card-rounded-b px-3.5 pt-5 pb-2.5">
           <Link
-            to="#"
+            to="."
             className="font-medium block text-mono hover:text-primary text-base leading-4 mb-2"
           >
             {work.title}
@@ -88,7 +88,7 @@ const CardAuthor = ({
               <div className="flex flex-col justify-end gap-0.5">
                 <div className="flex items-center gap-1.5">
                   <Link
-                    to="#"
+                    to="."
                     className="hover:text-primary-active text-base leading-5 font-medium text-mono"
                   >
                     {name}
@@ -136,3 +136,5 @@ const CardAuthor = ({
 };
 
 export { CardAuthor, type IAvatar, type IWork, type IAuthorProps };
+
+

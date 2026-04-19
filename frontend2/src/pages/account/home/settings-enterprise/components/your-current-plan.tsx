@@ -1,6 +1,6 @@
 import { DropdownMenu3 } from '@/partials/dropdown-menu/dropdown-menu-3';
 import { EllipsisVertical } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -82,7 +82,7 @@ const YourCurrentPlan = () => {
             ></div>
             <div className="flex flex-col gap-2 p-5 pt-4">
               <Link
-                to="#"
+                to="."
                 className="text-base text-mono font-medium hover:text-primary"
               >
                 Premium Plan
@@ -106,7 +106,7 @@ const YourCurrentPlan = () => {
       </CardContent>
       <CardFooter className="justify-center">
         <Button mode="link" underlined="dashed" asChild>
-          <Link to="#">Go to Billing</Link>
+          <Link to=".">Go to Billing</Link>
         </Button>
       </CardFooter>
     </Card>
@@ -118,3 +118,5 @@ export {
   type IYourCurrentPlanItem,
   type IYourCurrentPlanItems,
 };
+
+

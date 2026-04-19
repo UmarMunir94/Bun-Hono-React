@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '@tanstack/react-router';
 import { Disc2, Menu, MessagesSquare, Plus, Zap } from 'lucide-react';
 import { useLayout } from './context';
 import {

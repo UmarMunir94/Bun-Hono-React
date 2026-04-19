@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { CircleX } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Badge, BadgeButton } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -126,7 +126,7 @@ export function ProductFormSheet({
 
             <div className="flex items-center gap-2.5 text-xs text-gray-800 font-medium">
               Read about
-              <Link to="#" className="text-primary">
+              <Link to="." className="text-primary">
                 How to Create Product
               </Link>
               <Button variant="outline" className="text-dark" onClick={() => onOpenChange(false)}>
@@ -273,3 +273,5 @@ export function ProductFormSheet({
     </Sheet>
   );
 }
+
+

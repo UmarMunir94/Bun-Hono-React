@@ -10,7 +10,7 @@ import { useLayout } from "./context";
 import { useChats } from "./chats-context";
 import { cn } from "@/lib/utils";
 
-import { useSearchParams } from "react-router";
+import { useSearchParams } from "@tanstack/react-router";
 
 export function SidebarContent() {
   const { isSidebarOpen } = useLayout();
@@ -72,3 +72,4 @@ export function SidebarContent() {
     </ScrollArea>
   );
 }
+

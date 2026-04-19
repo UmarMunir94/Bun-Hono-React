@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Menu } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -60,3 +60,4 @@ export function Header() {
     </header>
   );
 }
+

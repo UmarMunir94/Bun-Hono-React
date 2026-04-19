@@ -3,7 +3,7 @@
 import React, { useId, useState } from 'react';
 import { format } from 'date-fns';
 import { CalendarIcon, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { BadgeDot } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -176,7 +176,7 @@ export function CreateShippingLabelSheet({
 
                               <div className="flex flex-col justify-center gap-1.5 -mt-1">
                                 <Link
-                                  to="#"
+                                  to="."
                                   className="hover:text-primary text-sm font-medium text-dark leading-5.5"
                                 >
                                   {item.title}
@@ -540,7 +540,7 @@ export function CreateShippingLabelSheet({
                   <div className="text-xs font-medium text-secondary-foreground">
                     Send
                     <Link
-                      to="#"
+                      to="."
                       className="hover:text-primary text-xs font-medium text-primary mx-1"
                     >
                       Shipping Info
@@ -557,7 +557,7 @@ export function CreateShippingLabelSheet({
           <div className="text-xs font-medium text-secondary-foreground">
             Read Shipping
             <Link
-              to="#"
+              to="."
               className="hover:text-primary text-xs font-medium text-primary ms-1"
             >
               Terms & Conditions
@@ -572,3 +572,5 @@ export function CreateShippingLabelSheet({
     </Sheet>
   );
 }
+
+

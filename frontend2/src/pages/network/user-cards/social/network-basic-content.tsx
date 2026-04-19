@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CardUserSocial, CardUserSocialRow } from '@/partials/cards';
 import { LayoutGrid, List, Search, Settings2 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -229,7 +229,7 @@ export function NetworkSocialContent() {
           </div>
           <div className="flex justify-center">
             <Button mode="link" underlined="dashed" asChild>
-              <Link to="#">Show more Users</Link>
+              <Link to=".">Show more Users</Link>
             </Button>
           </div>
         </div>
@@ -242,7 +242,7 @@ export function NetworkSocialContent() {
           </div>
           <div className="flex grow justify-center pt-5 lg:pt-7.5">
             <Button mode="link" underlined="dashed" asChild>
-              <Link to="#">Show more Users</Link>
+              <Link to=".">Show more Users</Link>
             </Button>
           </div>
         </div>
@@ -250,3 +250,5 @@ export function NetworkSocialContent() {
     </div>
   );
 }
+
+

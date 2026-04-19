@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { getInitials, toAbsoluteUrl } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -70,7 +70,7 @@ export function NotesFavorite({ className }: NotesCardProps) {
                     </AvatarFallback>
                   </Avatar>
                   <Link
-                    to="#"
+                    to="."
                     className="font-normal text-xs hover:text-primary"
                   >
                     {note.org}
@@ -93,7 +93,7 @@ export function NotesFavorite({ className }: NotesCardProps) {
                     />
                     <AvatarFallback>{getInitials(note.author)}</AvatarFallback>
                   </Avatar>
-                  <Link to="#" className="text-mono text-xs hover:text-primary">
+                  <Link to="." className="text-mono text-xs hover:text-primary">
                     {note.author}
                   </Link>
                 </div>
@@ -106,3 +106,5 @@ export function NotesFavorite({ className }: NotesCardProps) {
     </div>
   );
 }
+
+

@@ -25,7 +25,7 @@ import {
   X,
 } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
 import { Badge, BadgeProps } from '@/components/ui/badge';
@@ -927,7 +927,7 @@ export function OutboundStockTable({
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Link
-                      to="#"
+                      to="."
                       onClick={() => handleProductClick(info.row.original)}
                       className="text-sm font-medium text-foreground hover:text-primary leading-3.5 text-left"
                     >
@@ -943,7 +943,7 @@ export function OutboundStockTable({
                 </Tooltip>
               ) : (
                 <Link
-                  to="#"
+                  to="."
                   onClick={() => handleProductClick(info.row.original)}
                   className="text-sm font-medium text-foreground hover:text-primary leading-3.5 text-left"
                 >
@@ -1483,3 +1483,5 @@ export function OutboundStockTable({
     </TooltipProvider>
   );
 }
+
+

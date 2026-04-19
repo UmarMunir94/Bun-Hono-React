@@ -5,7 +5,7 @@ import {
   RiYoutubeLine,
 } from '@remixicon/react';
 import { Dribbble, LucideIcon } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface INetworkItem {
@@ -27,7 +27,7 @@ const Network = () => {
       <div key={index} className="flex items-center gap-2.5">
         <item.logo className="text-lg text-muted-foreground" size={18} />
         <Link
-          to="#"
+          to="."
           className="text-sm leading-none text-mono hover:text-primary-active"
         >
           {item.info}
@@ -53,3 +53,5 @@ const Network = () => {
 };
 
 export { Network, type INetworkItem, type INetworkItems };
+
+

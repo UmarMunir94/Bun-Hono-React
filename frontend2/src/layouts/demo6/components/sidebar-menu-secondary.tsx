@@ -13,7 +13,7 @@ import {
   Users,
   type LucideIcon,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { cn } from '@/lib/utils';
 import {
   AccordionMenu,
@@ -155,3 +155,4 @@ export function SidebarMenuSecondary() {
     </>
   );
 }
+

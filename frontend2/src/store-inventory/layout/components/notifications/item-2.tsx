@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import {
   Avatar,
   AvatarFallback,
@@ -22,14 +22,14 @@ export default function Item2() {
       <div className="flex flex-col gap-3.5">
         <div className="flex flex-col gap-1">
           <div className="text-sm font-medium mb-px">
-            <Link to="#" className="hover:text-primary text-mono font-semibold">
+            <Link to="." className="hover:text-primary text-mono font-semibold">
               Leslie Alexander
             </Link>
             <span className="text-secondary-foreground">
               {' '}
               added new tags to{' '}
             </span>
-            <Link to="#" className="hover:text-primary text-primary">
+            <Link to="." className="hover:text-primary text-primary">
               Web Redesign 2024
             </Link>
           </div>
@@ -56,3 +56,5 @@ export default function Item2() {
     </div>
   );
 }
+
+

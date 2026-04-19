@@ -13,7 +13,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { EllipsisVertical, Info, SquareMinus, SquarePlus, Trash } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
@@ -817,7 +817,7 @@ export function OrderListTable({ mockData: propsMockData, displayProducts = fals
           <DataGridColumnHeader title="OrderId" column={column} />
         ),
         cell: (info) => (
-          <Link to="#" className="text-2sm text-primary font-normal" onClick={() => setOrderDetailsSheetOpen(true)}>
+          <Link to="." className="text-2sm text-primary font-normal" onClick={() => setOrderDetailsSheetOpen(true)}>
             {info.row.original.order}
           </Link>
         ),
@@ -1350,4 +1350,6 @@ function OrderItemsSubTable({}: OrderItemsSubTableProps) {
     </div>
   );
 }
+
+
 

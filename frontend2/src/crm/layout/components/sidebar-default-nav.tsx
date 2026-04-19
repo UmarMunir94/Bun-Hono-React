@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import type { NavItem } from '@/crm/config/types';
 import { Ellipsis, Pin, PinOff, Plus, StickyNote } from 'lucide-react';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation } from '@tanstack/react-router';
 import { cn } from '@/lib/utils';
 import {
   AccordionMenu,
@@ -307,3 +307,4 @@ export function SidebarDefaultNav() {
     </div>
   );
 }
+

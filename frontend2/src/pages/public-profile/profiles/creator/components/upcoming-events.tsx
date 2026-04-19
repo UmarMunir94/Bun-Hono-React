@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -67,13 +67,13 @@ const UpcomingEvents = () => {
           </div>
           <div className="flex flex-col gap-2">
             <Link
-              to="#"
+              to="."
               className="text-sm font-medium text-orange-400 leading-[14px] hover:text-primary-active mb-px"
             >
               {item.label}
             </Link>
             <Link
-              to="#"
+              to="."
               className="text-base font-medium hover:text-primary text-mono leading-4"
             >
               {item.title}
@@ -108,3 +108,5 @@ const UpcomingEvents = () => {
 };
 
 export { UpcomingEvents, type IUpcomingEventsItem, type IUpcomingEventsItems };
+
+

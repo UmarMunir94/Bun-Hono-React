@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -91,10 +91,12 @@ export function AppsDropdownMenu({ trigger }: { trigger: ReactNode }) {
         </div>
         <div className="grid p-5 border-t border-t-border">
           <Button asChild variant="outline" size="sm">
-            <Link to="#">Go to Apps</Link>
+            <Link to=".">Go to Apps</Link>
           </Button>
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
+
+

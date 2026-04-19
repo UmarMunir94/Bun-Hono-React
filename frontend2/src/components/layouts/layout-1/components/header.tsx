@@ -7,8 +7,8 @@ import {
   Search,
   SquareChevronRight,
 } from 'lucide-react';
-import { useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
+import { useLocation } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -182,3 +182,4 @@ export function Header() {
     </header>
   );
 }
+

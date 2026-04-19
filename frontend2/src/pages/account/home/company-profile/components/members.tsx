@@ -1,7 +1,7 @@
 import { DropdownMenu3 } from '@/partials/dropdown-menu/dropdown-menu-3';
 import { DropdownMenu4 } from '@/partials/dropdown-menu/dropdown-menu-4';
 import { EllipsisVertical } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -93,7 +93,7 @@ const Members = ({ url }: IMembersProps) => {
             />
             <div className="flex flex-col">
               <Link
-                to="#"
+                to="."
                 className="text-sm font-semibold text-mono hover:text-primary-active mb-px"
               >
                 {table.name}
@@ -191,3 +191,5 @@ const Members = ({ url }: IMembersProps) => {
 };
 
 export { Members, type IMembersItem, type IMembersItems, type IMembersProps };
+
+

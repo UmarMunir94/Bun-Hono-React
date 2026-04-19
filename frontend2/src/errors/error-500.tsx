@@ -1,5 +1,5 @@
 import { Fragment } from 'react/jsx-runtime';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -45,3 +45,4 @@ export function Error500() {
     </Fragment>
   );
 }
+

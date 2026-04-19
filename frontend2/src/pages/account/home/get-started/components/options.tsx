@@ -1,6 +1,6 @@
 import { DropdownMenu3 } from '@/partials/dropdown-menu/dropdown-menu-3';
 import { EllipsisVertical, LucideIcon } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
@@ -60,3 +60,4 @@ const Options = ({ items, dropdown }: IOptionsProps) => {
 };
 
 export { Options, type IOptionsItem, type IOptionsItems, type IOptionsProps };
+

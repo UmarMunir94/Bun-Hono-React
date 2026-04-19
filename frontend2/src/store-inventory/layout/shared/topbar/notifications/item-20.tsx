@@ -1,5 +1,5 @@
 import { CircleCheck } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import {
   Avatar,
   AvatarFallback,
@@ -23,7 +23,7 @@ export default function Item20() {
       <div className="flex flex-col gap-2.5 grow">
         <div className="flex flex-col gap-1 mb-1">
           <div className="text-sm font-medium mb-px">
-            <Link to="#" className="hover:text-primary text-mono font-semibold">
+            <Link to="." className="hover:text-primary text-mono font-semibold">
               Gabriel Bennett
             </Link>
             <span className="text-secondary-foreground">
@@ -50,3 +50,5 @@ export default function Item20() {
     </div>
   );
 }
+
+

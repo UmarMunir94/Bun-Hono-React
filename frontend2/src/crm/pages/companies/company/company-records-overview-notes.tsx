@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ChevronRight, GalleryVerticalEnd, Plus } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -63,12 +63,12 @@ export function CompanyRecordsOverviewNotes() {
                   />
                 </Avatar>
                 <Link
-                  to="#"
+                  to="."
                   className="font-medium text-foreground hover:text-primary w-[100px] shrink-0"
                 >
                   Cody Fisher
                 </Link>
-                <Link to="#" className="font-medium hover:text-primary">
+                <Link to="." className="font-medium hover:text-primary">
                   Untitled note
                 </Link>
                 <span className="text-muted-foreground">
@@ -83,12 +83,12 @@ export function CompanyRecordsOverviewNotes() {
                   <AvatarFallback>JS</AvatarFallback>
                 </Avatar>
                 <Link
-                  to="#"
+                  to="."
                   className="font-medium text-foreground hover:text-primary w-[100px] shrink-0"
                 >
                   John Smith
                 </Link>
-                <Link to="#" className="font-medium hover:text-primary">
+                <Link to="." className="font-medium hover:text-primary">
                   Project Update
                 </Link>
                 <span className="text-muted-foreground">
@@ -106,12 +106,12 @@ export function CompanyRecordsOverviewNotes() {
                   />
                 </Avatar>
                 <Link
-                  to="#"
+                  to="."
                   className="font-medium text-foreground hover:text-primary w-[100px] shrink-0"
                 >
                   Sarah Wilson
                 </Link>
-                <Link to="#" className="font-medium hover:text-primary">
+                <Link to="." className="font-medium hover:text-primary">
                   Team Meeting
                 </Link>
                 <span className="text-muted-foreground">
@@ -124,7 +124,7 @@ export function CompanyRecordsOverviewNotes() {
             </ul>
             <div className="flex justify-start">
               <Button mode="link" underline="solid" asChild>
-                <Link to="#">View all</Link>
+                <Link to=".">View all</Link>
               </Button>
             </div>
           </CardContent>
@@ -133,3 +133,5 @@ export function CompanyRecordsOverviewNotes() {
     </Collapsible>
   );
 }
+
+

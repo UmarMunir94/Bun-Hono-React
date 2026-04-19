@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { MENU_SIDEBAR } from '@/store-inventory/config/app.config';
 import { MenuItem } from '@/store-inventory/config/types';
 import { ChevronRight } from 'lucide-react';
-import { useLocation } from 'react-router';
+import { useLocation } from '@tanstack/react-router';
 import { cn } from '@/lib/utils';
 import { useMenu } from '@/hooks/use-menu';
 
@@ -41,3 +41,4 @@ export function Breadcrumb() {
     </div>
   );
 }
+

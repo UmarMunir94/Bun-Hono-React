@@ -9,7 +9,7 @@ import {
   Share2,
   ThumbsDown,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,13 +27,13 @@ export function DropdownMenu1({ trigger }: { trigger: ReactNode }) {
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
       <DropdownMenuContent className="w-[175px]" side="bottom" align="end">
         <DropdownMenuItem asChild>
-          <Link to="#">
+          <Link to=".">
             <CloudCog />
             <span>Activity</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link to="#">
+          <Link to=".">
             <Share2 />
             <span>Share</span>
           </Link>
@@ -45,19 +45,19 @@ export function DropdownMenu1({ trigger }: { trigger: ReactNode }) {
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent className="w-[150px]">
             <DropdownMenuItem asChild>
-              <Link to="#">
+              <Link to=".">
                 <Mail />
                 <span>Email</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="#">
+              <Link to=".">
                 <MessageSquare />
                 <span>SMS</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="#">
+              <Link to=".">
                 <Send />
                 <span>Push</span>
               </Link>
@@ -65,14 +65,14 @@ export function DropdownMenu1({ trigger }: { trigger: ReactNode }) {
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuItem asChild>
-          <Link to="#">
+          <Link to=".">
             <ThumbsDown />
             <span>Report</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link to="#">
+          <Link to=".">
             <Settings />
             <span>Settings</span>
           </Link>
@@ -81,3 +81,5 @@ export function DropdownMenu1({ trigger }: { trigger: ReactNode }) {
     </DropdownMenu>
   );
 }
+
+

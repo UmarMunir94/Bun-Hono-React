@@ -4,7 +4,7 @@ import { addDays, format } from 'date-fns';
 import { CalendarDays, Download } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
 import { Helmet } from 'react-helmet-async';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation } from '@tanstack/react-router';
 import { MENU_SIDEBAR } from '@/config/menu.config';
 import { useBodyClass } from '@/hooks/use-body-class';
 import { useMenu } from '@/hooks/use-menu';
@@ -120,3 +120,4 @@ const Demo10Layout = () => {
 };
 
 export { Demo10Layout };
+

@@ -5,7 +5,7 @@ import { RiCheckboxCircleFill } from '@remixicon/react';
 import { format } from 'date-fns';
 import { CalendarIcon, GalleryVerticalEnd, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { cn } from '@/lib/utils';
@@ -887,3 +887,4 @@ export function NewCompanySheet({
     </Sheet>
   );
 }
+

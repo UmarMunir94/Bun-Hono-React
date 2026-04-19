@@ -1,7 +1,7 @@
 import { DropdownMenu3 } from '@/partials/dropdown-menu/dropdown-menu-3';
 import { DropdownMenu5 } from '@/partials/dropdown-menu/dropdown-menu-5';
 import { EllipsisVertical } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -73,7 +73,7 @@ const Deals = () => {
       <TableRow key={index}>
         <TableCell className="text-start py-2">
           <Link
-            to="#"
+            to="."
             className="text-sm font-medium text-mono hover:text-primary"
           >
             {item.name}
@@ -151,3 +151,5 @@ const Deals = () => {
 };
 
 export { Deals, type IDealsItem, type IDealsItems };
+
+

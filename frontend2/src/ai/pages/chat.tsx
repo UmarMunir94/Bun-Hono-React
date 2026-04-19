@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router";
+import { useSearch } from "@tanstack/react-router";
 import { Toolbar, ToolbarHeading, ToolbarActions } from "@/ai/layout/components/toolbar";
 import { ShareDialog } from "@/ai/layout/components/share-dialog";
 import { ChatMessages } from "@/ai/components/chat-messages";
@@ -10,8 +10,8 @@ import { getMessagesForChat, createInitialMessages } from "@/ai/mock/messages";
 import { Message } from "@/ai/types";
 
 export function AIChatPage() {
-  const [searchParams] = useSearchParams();
-  const chatId = searchParams.get("chatId");
+  const search = useSearch({ strict: false });
+  const chatId = (search as any).chatId;
   const [selectedModelId, setSelectedModelId] = useState<string>("expert");
   const [messages, setMessages] = useState<Message[]>([]);
 
@@ -98,3 +98,4 @@ export function AIChatPage() {
     </div>
   );
 }
+

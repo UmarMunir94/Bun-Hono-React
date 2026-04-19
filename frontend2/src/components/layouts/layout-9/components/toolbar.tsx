@@ -1,5 +1,5 @@
 import { Fragment, ReactNode } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { MENU_MEGA } from '@/config/layout-9.config';
 import { MenuItem } from '@/config/types';
 import { cn } from '@/lib/utils';
@@ -84,3 +84,4 @@ function ToolbarHeading({ title = '' }: ToolbarHeadingProps) {
 }
 
 export { Toolbar, ToolbarActions, ToolbarBreadcrumbs, ToolbarHeading };
+

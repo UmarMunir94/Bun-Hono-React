@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CardProjectExtended, CardProjectExtendedRow } from '@/partials/cards';
 import { LayoutGrid, List } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
@@ -323,7 +323,7 @@ const Projects = () => {
           </div>
           <div className="flex grow justify-center pt-5 lg:pt-7.5">
             <Button mode="link" underlined="dashed" asChild>
-              <Link to="#">Show more projects</Link>
+              <Link to=".">Show more projects</Link>
             </Button>
           </div>
         </div>
@@ -337,7 +337,7 @@ const Projects = () => {
           </div>
           <div className="flex grow justify-center pt-5 lg:pt-7.5">
             <Button mode="link" underlined="dashed" asChild>
-              <Link to="#">Show more projects</Link>
+              <Link to=".">Show more projects</Link>
             </Button>
           </div>
         </div>
@@ -347,3 +347,5 @@ const Projects = () => {
 };
 
 export { Projects, type IProjectsItem, type IProjectsItems };
+
+

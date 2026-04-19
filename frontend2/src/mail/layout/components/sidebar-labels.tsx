@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import {
   AccordionMenu,
   AccordionMenuGroup,
@@ -111,7 +111,7 @@ export function SidebarLabels() {
             })}
             {customLabels.map((child, index) => (
               <AccordionMenuItem key={`custom-${index}`} value={'#'}>
-                <Link to={'#'} className="">
+                <Link to={'..'} className="">
                   {child.icon && <child.icon />}
                   <span className="in-data-[sidebar-collapsed=true]:hidden">{child.labelTitle}</span>
                 </Link>          
@@ -123,3 +123,5 @@ export function SidebarLabels() {
     </AccordionMenu>
   );
 }
+
+

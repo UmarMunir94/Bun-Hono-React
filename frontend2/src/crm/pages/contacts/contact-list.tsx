@@ -12,7 +12,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { Briefcase, Building, Search, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -139,42 +139,42 @@ const ContactList = ({ filter = 'all' }: ContactListProps) => {
       cell: ({ row }) => (
         <div className="flex flex-wrap gap-2">
           {row.original.socialLinks?.linkedin && (
-            <Link to="#" className="text-primary hover:underline">
+            <Link to="." className="text-primary hover:underline">
               LinkedIn
             </Link>
           )}
           {row.original.socialLinks?.twitter && (
-            <Link to="#" className="text-primary hover:underline">
+            <Link to="." className="text-primary hover:underline">
               Twitter
             </Link>
           )}
           {row.original.socialLinks?.github && (
-            <Link to="#" className="text-primary hover:underline">
+            <Link to="." className="text-primary hover:underline">
               GitHub
             </Link>
           )}
           {row.original.socialLinks?.instagram && (
-            <Link to="#" className="text-primary hover:underline">
+            <Link to="." className="text-primary hover:underline">
               Instagram
             </Link>
           )}
           {row.original.socialLinks?.facebook && (
-            <Link to="#" className="text-primary hover:underline">
+            <Link to="." className="text-primary hover:underline">
               Facebook
             </Link>
           )}
           {row.original.socialLinks?.youtube && (
-            <Link to="#" className="text-primary hover:underline">
+            <Link to="." className="text-primary hover:underline">
               YouTube
             </Link>
           )}
           {row.original.socialLinks?.medium && (
-            <Link to="#" className="text-primary hover:underline">
+            <Link to="." className="text-primary hover:underline">
               Medium
             </Link>
           )}
           {row.original.socialLinks?.stackoverflow && (
-            <Link to="#" className="text-primary hover:underline">
+            <Link to="." className="text-primary hover:underline">
               StackOverflow
             </Link>
           )}
@@ -511,3 +511,5 @@ const ContactList = ({ filter = 'all' }: ContactListProps) => {
 };
 
 export default ContactList;
+
+

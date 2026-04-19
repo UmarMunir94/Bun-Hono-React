@@ -1,5 +1,5 @@
 import { Fragment, ReactElement } from 'react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -43,7 +43,7 @@ export function Payment() {
       subTitle: 'Emma van den Berg',
       description: (
         <Link
-          to="#"
+          to="."
           className="hover:text-primary text-sm font-medium text-secondary-foreground"
         >
           emma@reui.io
@@ -56,7 +56,7 @@ export function Payment() {
       subTitle: 'Bob van den Berg',
       description: (
         <Link
-          to="#"
+          to="."
           className="hover:text-primary text-sm font-medium text-secondary-foreground"
         >
           bob@reui.io
@@ -95,11 +95,11 @@ export function Payment() {
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-5">
             <Button mode="link" underlined="dashed">
-              <Link to="#">Edit</Link>
+              <Link to=".">Edit</Link>
             </Button>
 
             <Button mode="link" underlined="dashed">
-              <Link to="#">Remove</Link>
+              <Link to=".">Remove</Link>
             </Button>
           </div>
 
@@ -119,3 +119,5 @@ export function Payment() {
     </Fragment>
   );
 }
+
+

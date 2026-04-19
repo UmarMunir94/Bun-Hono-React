@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { UserIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "react-router"; 
+import { Link } from "@tanstack/react-router"; 
 import { toAbsoluteUrl } from "@/lib/helpers";
 
 export function Upload() {

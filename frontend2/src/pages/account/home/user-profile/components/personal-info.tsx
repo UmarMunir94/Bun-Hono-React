@@ -1,6 +1,6 @@
 import { AvatarInput } from '@/partials/common/avatar-input';
 import { SquarePen } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -89,7 +89,7 @@ const PersonalInfo = () => {
               </TableCell>
               <TableCell className="py-3 text-center">
                 <Button mode="link" underlined="dashed" asChild>
-                  <Link to="#">Add</Link>
+                  <Link to=".">Add</Link>
                 </Button>
               </TableCell>
             </TableRow>
@@ -101,3 +101,5 @@ const PersonalInfo = () => {
 };
 
 export { PersonalInfo };
+
+

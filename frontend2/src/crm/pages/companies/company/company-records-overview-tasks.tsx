@@ -7,7 +7,7 @@ import {
   User,
   Users,
 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -65,7 +65,7 @@ export function CompanyRecordsOverviewTasks() {
             <ul className="flex flex-col gap-2.5">
               <li className="flex items-center gap-1 text-sm">
                 <Checkbox size="sm" className="mt-[1px] me-1" />
-                <Link to="#" className="font-medium hover:text-primary">
+                <Link to="." className="font-medium hover:text-primary">
                   @Keenthemes
                 </Link>
                 <span className="text-muted-foreground">completed a task</span>
@@ -112,7 +112,7 @@ export function CompanyRecordsOverviewTasks() {
               </li>
               <li className="flex items-center gap-1 text-sm">
                 <Checkbox size="sm" className="mt-[1px] me-1" defaultChecked />
-                <Link to="#" className="font-medium hover:text-primary">
+                <Link to="." className="font-medium hover:text-primary">
                   @Tbg
                 </Link>
                 <span className="text-muted-foreground">added new task</span>
@@ -132,3 +132,5 @@ export function CompanyRecordsOverviewTasks() {
     </Collapsible>
   );
 }
+
+

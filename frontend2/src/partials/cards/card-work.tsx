@@ -1,5 +1,5 @@
 import { Heart, Mails } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Card } from '@/components/ui/card';
 
@@ -66,3 +66,4 @@ const CardWork = ({
 };
 
 export { CardWork, type IWorkProps };
+

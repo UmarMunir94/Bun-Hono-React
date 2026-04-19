@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Card } from '@/components/ui/card';
 
@@ -18,7 +18,7 @@ const CardLocation = ({ image, title, description }: ILocationProps) => {
       />
       <div className="card-border card-rounded-b px-3.5 h-full pt-3 pb-3.5">
         <Link
-          to="#"
+          to="."
           className="font-medium block text-mono hover:text-primary text-base mb-2"
         >
           {title}
@@ -30,3 +30,5 @@ const CardLocation = ({ image, title, description }: ILocationProps) => {
 };
 
 export { CardLocation, type ILocationProps };
+
+

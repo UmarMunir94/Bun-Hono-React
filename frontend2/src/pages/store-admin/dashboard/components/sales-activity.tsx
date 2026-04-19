@@ -6,7 +6,7 @@ import {
   PackageCheck,
   Truck,
 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -80,7 +80,7 @@ export function SalesActivity() {
       <CardHeader className="px- bg-accent/50">
         <CardTitle>Sales Activity</CardTitle>
         <Button mode="link" asChild>
-          <Link to="#">See All</Link>
+          <Link to=".">See All</Link>
         </Button>
       </CardHeader>
 
@@ -92,3 +92,5 @@ export function SalesActivity() {
     </Card>
   );
 }
+
+

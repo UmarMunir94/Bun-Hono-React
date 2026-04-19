@@ -28,7 +28,7 @@ import {
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
 import { Card, CardContent,CardHeader,CardTitle } from '@/components/ui/card';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 
 interface FileUploadItem extends FileWithPreview {
   progress: number;
@@ -415,3 +415,4 @@ export function CompanyDocuments({
     </Card>
   );
 }
+

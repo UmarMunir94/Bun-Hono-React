@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Coffee, MessageSquareCode, NotebookText, Pin, Plus } from 'lucide-react';
 
@@ -42,3 +42,4 @@ function Toolbar() {
 export {
   Toolbar
 };
+

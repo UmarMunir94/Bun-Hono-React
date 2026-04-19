@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { HexagonBadge } from '@/partials/common/hexagon-badge';
 import { Copy, User } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -78,7 +78,7 @@ const ExternalServicesManageApi = ({
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center flex-wrap gap-2.5">
                   <Link
-                    to="#"
+                    to="."
                     className="text-base font-medium text-mono hover:text-primary-active"
                   >
                     User Access
@@ -115,3 +115,5 @@ const ExternalServicesManageApi = ({
 };
 
 export { ExternalServicesManageApi, type IExternalServicesManageApiProps };
+
+

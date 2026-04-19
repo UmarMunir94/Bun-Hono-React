@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useTheme } from 'next-themes';
 import { Avatar, AvatarFallback, AvatarImage, } from '@/components/ui/avatar';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { cn } from '@/lib/utils';
 
 type Account = {
@@ -130,12 +130,13 @@ export function UserPanel() {
 				<DropdownMenuSeparator />
 				
 				<div className="px-2 py-1 text-xs text-muted-foreground flex items-center justify-center gap-1.5">
-					<Link className="cursor-pointer hover:text-primary" to="#">Privacy</Link>
+					<Link className="cursor-pointer hover:text-primary" to=".">Privacy</Link>
 					<span className="rounded-full size-0.5 bg-muted-foreground/60"></span>
-					<Link className="cursor-pointer hover:text-primary" to="#">Terms</Link>
+					<Link className="cursor-pointer hover:text-primary" to=".">Terms</Link>
 				</div>                
 			</DropdownMenuContent>
 		</DropdownMenu>
   );
 }
   
+

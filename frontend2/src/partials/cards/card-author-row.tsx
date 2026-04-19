@@ -1,5 +1,5 @@
 import { BadgeCheck, MapPin } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -19,7 +19,7 @@ const CardAuthorRow = ({ avatar, name, location, works }: IAuthorProps) => {
         ></div>
         <div className="flex flex-col">
           <Link
-            to="#"
+            to="."
             className="font-medium block text-mono hover:text-primary text-base leading-4 mb-2"
           >
             {work.title}
@@ -48,7 +48,7 @@ const CardAuthorRow = ({ avatar, name, location, works }: IAuthorProps) => {
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center gap-1.5">
               <Link
-                to="#"
+                to="."
                 className="hover:text-primary-active text-base leading-5 font-medium text-mono"
               >
                 {name}
@@ -88,7 +88,7 @@ const CardAuthorRow = ({ avatar, name, location, works }: IAuthorProps) => {
             </ScrollArea>
           </Card>
           <Button mode="link" underlined="dashed">
-            <Link to="#">View Profile</Link>
+            <Link to=".">View Profile</Link>
           </Button>
           <Button variant="outline">
             <BadgeCheck size={16} /> Work with me
@@ -100,3 +100,5 @@ const CardAuthorRow = ({ avatar, name, location, works }: IAuthorProps) => {
 };
 
 export { CardAuthorRow };
+
+

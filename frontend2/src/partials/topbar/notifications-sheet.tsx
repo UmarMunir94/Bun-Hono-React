@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Calendar, Settings, Settings2, Shield, Users } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -285,3 +285,4 @@ export function NotificationsSheet({ trigger }: { trigger: ReactNode }) {
     </Sheet>
   );
 }
+

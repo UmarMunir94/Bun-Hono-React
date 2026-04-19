@@ -1,5 +1,5 @@
 import { SquarePen, SquarePlus, Trash2 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -49,7 +49,7 @@ const PaymentMethods = () => {
           />
           <div className="flex flex-col">
             <Link
-              to="#"
+              to="."
               className="text-sm font-medium text-mono hover:text-primary-active mb-px"
             >
               {item.title}
@@ -99,3 +99,5 @@ const PaymentMethods = () => {
 };
 
 export { PaymentMethods, type IPaymentMethodsItem, type IPaymentMethodsItems };
+
+

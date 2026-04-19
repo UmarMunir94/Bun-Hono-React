@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { GripVertical, Minus, Plus, Trash2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -225,7 +225,7 @@ export function ManageVariantsSheet({
 
             <div className="flex items-center gap-2.5 text-xs text-secondary-foreground font-medium">
               Read about
-              <Link to="#" className="text-primary">
+              <Link to="." className="text-primary">
                 How to Manage Variants
               </Link>
               <Button variant="outline">Cancel</Button>
@@ -405,3 +405,5 @@ export function ManageVariantsSheet({
     </Sheet>
   );
 }
+
+

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CardCampaign, CardCampaignRow } from '@/partials/cards';
 import { LayoutGrid, List, SquarePlus } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
@@ -299,3 +299,4 @@ export function CampaignsContent({ mode }: ICampaignsContentProps) {
     </div>
   );
 }
+

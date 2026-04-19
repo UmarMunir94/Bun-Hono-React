@@ -1,6 +1,6 @@
 'use client';
 
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation } from '@tanstack/react-router';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export const StockNavbar = () => {
@@ -38,3 +38,4 @@ export const StockNavbar = () => {
     </div>
   );
 };
+

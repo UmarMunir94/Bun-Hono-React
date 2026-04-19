@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -81,11 +81,11 @@ export function Info() {
         <div className="flex justify-between items-center min-h-8.5">
           <div className="flex items-center gap-5">
             <Button mode="link" underlined="dashed">
-              <Link to="#">Edit</Link>
+              <Link to=".">Edit</Link>
             </Button>
 
             <Button mode="link" underlined="dashed">
-              <Link to="#">Remove</Link>
+              <Link to=".">Remove</Link>
             </Button>
           </div>
 
@@ -107,3 +107,5 @@ export function Info() {
     </Fragment>
   );
 }
+
+

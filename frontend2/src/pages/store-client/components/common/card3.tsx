@@ -1,5 +1,5 @@
 import { ShoppingCart, Star } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -49,7 +49,7 @@ export function Card3({
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2.5 -mt-1">
               <Link
-                to="#"
+                to="."
                 className="hover:text-primary text-sm font-medium text-mono leading-5.5"
                 onClick={() => showProductDetailsSheet('productid')}
               >
@@ -118,3 +118,5 @@ export function Card3({
     </Card>
   );
 }
+
+

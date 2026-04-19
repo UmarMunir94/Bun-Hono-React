@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from '@tanstack/react-router';
 import { Sidebar } from './sidebar';
 import { Header } from './header';
 import { useLayout } from './context';
@@ -26,3 +26,4 @@ export function Wrapper() {
     </div>
   );
 }
+

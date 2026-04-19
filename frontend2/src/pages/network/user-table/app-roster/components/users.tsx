@@ -16,7 +16,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { EllipsisVertical, Filter, Search, Settings2, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
@@ -591,7 +591,7 @@ const Users = () => {
               alt={`${row.original.user.userName}`}
             />
             <Link
-              to="#"
+              to="."
               className="text-sm font-medium text-mono hover:text-primary-active"
             >
               {row.original.user.userName}
@@ -895,3 +895,5 @@ const Users = () => {
 };
 
 export { Users };
+
+

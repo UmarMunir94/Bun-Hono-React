@@ -13,7 +13,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { Filter, Search, Settings2, X } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -638,13 +638,13 @@ const Users = () => {
             <div className="flex flex-col">
               <Link
                 className="font-medium text-mono hover:text-primary-active mb-px"
-                to="#"
+                to="."
               >
                 {row.original.user.name}
               </Link>
               <Link
                 className="text-sm text-secondary-foreground hover:text-primary-active"
-                to="#"
+                to="."
               >
                 {row.original.user.email}
               </Link>
@@ -931,3 +931,5 @@ const Users = () => {
 };
 
 export { Users };
+
+

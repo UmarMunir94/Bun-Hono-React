@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { MENU_HEADER } from "@/config/layout-32.config";
-import { Link } from "react-router";
-import { useLocation } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
+import { useLocation } from "@tanstack/react-router";
 import { useMenu } from "@/hooks/use-menu";
 import { useLayout } from "./context";
 import { Separator } from "@/components/ui/separator";
@@ -59,3 +59,4 @@ export function HeaderToolbar() {
     </div>
   );
 }
+

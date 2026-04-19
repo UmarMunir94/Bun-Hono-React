@@ -4,7 +4,7 @@ import { ChatSheet } from '@/partials/topbar/chat-sheet';
 import { NotificationsSheet } from '@/partials/topbar/notifications-sheet';
 import { UserDropdownMenu } from '@/partials/topbar/user-dropdown-menu';
 import { ChevronDown, MessageCircleMore, MessageSquareDot } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -79,3 +79,4 @@ export function HeaderTopbar() {
     </div>
   );
 }
+

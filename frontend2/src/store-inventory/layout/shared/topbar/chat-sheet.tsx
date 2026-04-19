@@ -8,7 +8,7 @@ import {
   Upload,
   Users,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
 import {
@@ -121,7 +121,7 @@ export function ChatSheet({ trigger }: { trigger: ReactNode }) {
                 </div>
                 <div>
                   <Link
-                    to="#"
+                    to="."
                     className="text-sm font-semibold text-mono hover:text-blue-600"
                   >
                     HR Team
@@ -156,7 +156,7 @@ export function ChatSheet({ trigger }: { trigger: ReactNode }) {
                     align="end"
                   >
                     <DropdownMenuItem asChild>
-                      <Link to="#">
+                      <Link to=".">
                         <Users /> Invite Users
                       </Link>
                     </DropdownMenuItem>
@@ -168,18 +168,18 @@ export function ChatSheet({ trigger }: { trigger: ReactNode }) {
                       <DropdownMenuPortal>
                         <DropdownMenuSubContent className="w-44">
                           <DropdownMenuItem asChild>
-                            <Link to="#">
+                            <Link to=".">
                               <Shield />
                               Find Members
                             </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem asChild>
-                            <Link to="#">
+                            <Link to=".">
                               <Calendar /> Meetings
                             </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem asChild>
-                            <Link to="#">
+                            <Link to=".">
                               <Shield /> Group Settings
                             </Link>
                           </DropdownMenuItem>
@@ -187,7 +187,7 @@ export function ChatSheet({ trigger }: { trigger: ReactNode }) {
                       </DropdownMenuPortal>
                     </DropdownMenuSub>
                     <DropdownMenuItem asChild>
-                      <Link to="#">
+                      <Link to=".">
                         <Shield /> Group Settings
                       </Link>
                     </DropdownMenuItem>
@@ -271,7 +271,7 @@ export function ChatSheet({ trigger }: { trigger: ReactNode }) {
               <div className="flex flex-col">
                 <div className="inline-flex gap-0.5 text-sm">
                   <Link
-                    to="#"
+                    to="."
                     className="font-semibold text-mono hover:text-primary"
                   >
                     Jane Perez
@@ -321,3 +321,5 @@ export function ChatSheet({ trigger }: { trigger: ReactNode }) {
     </Sheet>
   );
 }
+
+

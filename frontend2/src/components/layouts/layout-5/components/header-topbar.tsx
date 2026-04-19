@@ -6,7 +6,7 @@ import {
   Search,
   Users,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { ChatSheet } from '../../layout-1/shared/topbar/chat-sheet';
@@ -20,7 +20,7 @@ export function HeaderTopbar() {
   return (
     <div className="flex items-center gap-2 lg:gap-3.5">
       <Button variant="outline" asChild>
-        <Link to="#">
+        <Link to=".">
           <Users />
           Add <span className="hidden md:inline">Teammate</span>
         </Link>
@@ -89,3 +89,5 @@ export function HeaderTopbar() {
     </div>
   );
 }
+
+

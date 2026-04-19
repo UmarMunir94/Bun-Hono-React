@@ -7,7 +7,7 @@ import {
   ToolbarHeading,
   ToolbarPageTitle,
 } from '@/partials/common/toolbar';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { useSettings } from '@/providers/settings-provider';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/common/container';
@@ -30,10 +30,10 @@ export function AccountSettingsSidebarPage() {
             </ToolbarHeading>
             <ToolbarActions>
               <Button variant="outline">
-                <Link to="#">Public Profile</Link>
+                <Link to=".">Public Profile</Link>
               </Button>
               <Button>
-                <Link to="#">Get Started</Link>
+                <Link to=".">Get Started</Link>
               </Button>
             </ToolbarActions>
           </Toolbar>
@@ -45,3 +45,5 @@ export function AccountSettingsSidebarPage() {
     </Fragment>
   );
 }
+
+

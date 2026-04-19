@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Card } from '@/components/ui/card';
 import { AvatarSingle } from '../common/avatar-single';
 import { IAvatar } from './card-author';
@@ -26,7 +26,7 @@ const CardUserMini = ({ avatar, verify, name, email }: IUserMiniProps) => {
       </div>
       <div className="flex items-center justify-center gap-1.5 mb-2">
         <Link
-          to="#"
+          to="."
           className="hover:text-primary-active text-base leading-5 font-medium text-mono"
         >
           {name}
@@ -48,7 +48,7 @@ const CardUserMini = ({ avatar, verify, name, email }: IUserMiniProps) => {
         )}
       </div>
       <Link
-        to="#"
+        to="."
         className="text-secondary-foreground text-sm hover:text-primary-active"
       >
         {email}
@@ -58,3 +58,5 @@ const CardUserMini = ({ avatar, verify, name, email }: IUserMiniProps) => {
 };
 
 export { CardUserMini, type IUserMiniProps };
+
+

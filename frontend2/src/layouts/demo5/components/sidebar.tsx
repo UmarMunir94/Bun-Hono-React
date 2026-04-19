@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '@tanstack/react-router';
 import { SidebarMenuDashboard } from './sidebar-menu-dashboard';
 import { SidebarMenuDefault } from './sidebar-menu-default';
 
@@ -11,3 +11,4 @@ export function Sidebar() {
     </div>
   );
 }
+

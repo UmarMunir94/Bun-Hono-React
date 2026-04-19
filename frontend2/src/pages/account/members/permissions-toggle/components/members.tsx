@@ -13,7 +13,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { EllipsisVertical, Search, Settings2, X } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
@@ -538,7 +538,7 @@ const Members = ({ title }: IMembersProps) => {
             <div className="flex flex-col gap-0.5">
               <Link
                 className="leading-none font-medium text-sm text-mono hover:text-primary"
-                to="#"
+                to="."
               >
                 {info.row.original.member.name}
               </Link>
@@ -730,3 +730,5 @@ const Members = ({ title }: IMembersProps) => {
 };
 
 export { Members, MembersData, type IMembersData };
+
+

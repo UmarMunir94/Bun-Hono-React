@@ -1,12 +1,10 @@
 import { ThemeProvider } from 'next-themes';
 import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter } from 'react-router-dom';
-import { LoadingBarContainer } from 'react-top-loading-bar';
 import { Toaster } from '@/components/ui/sonner';
-import { AppRoutingSetup } from '@/routing/app-routing-setup';
+import { RouterProvider } from '@tanstack/react-router';
+import { router } from '@/routing/router';
+import { queryClient } from '@/lib/query-client';
 import { ProvidersWrapper } from './providers/providers-wrapper';
-
-const { BASE_URL } = import.meta.env;
 
 export function App() {
   return (
@@ -19,14 +17,10 @@ export function App() {
       enableColorScheme
     >
       <HelmetProvider>
-        <LoadingBarContainer>
-          <BrowserRouter basename={BASE_URL}>
-            <Toaster />
-            <ProvidersWrapper>
-              <AppRoutingSetup />
-            </ProvidersWrapper>
-          </BrowserRouter>
-        </LoadingBarContainer>
+        <Toaster />
+        <ProvidersWrapper>
+          <RouterProvider router={router} context={{ queryClient }} />
+        </ProvidersWrapper>
       </HelmetProvider>
     </ThemeProvider>
   );

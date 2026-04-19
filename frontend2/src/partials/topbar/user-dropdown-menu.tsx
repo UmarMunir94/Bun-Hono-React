@@ -18,7 +18,7 @@ import {
   Users,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { useLanguage } from '@/providers/i18n-provider';
 import { Badge } from '@/components/ui/badge';
@@ -281,3 +281,4 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
     </DropdownMenu>
   );
 }
+

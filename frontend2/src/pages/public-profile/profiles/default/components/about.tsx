@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 
@@ -20,7 +20,7 @@ const About = () => {
     {
       status: 'Email:',
       info: (
-        <Link to="#" className="text-foreground hover:text-primary-active">
+        <Link to="." className="text-foreground hover:text-primary-active">
           jenny@ktstudio.com
         </Link>
       ),
@@ -57,3 +57,5 @@ const About = () => {
 };
 
 export { About, type IAboutTable, type IAboutTables };
+
+

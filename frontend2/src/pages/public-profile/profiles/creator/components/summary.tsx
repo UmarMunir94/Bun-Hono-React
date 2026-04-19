@@ -11,7 +11,7 @@ import {
   Mail,
   Volleyball,
 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface ISummaryItem {
@@ -40,7 +40,7 @@ const Summary = ({ title }: ISummaryProps) => {
       <div key={index} className="flex items-center gap-2.5">
         <item.icon className="text-base text-muted-foreground" size={16} />
         <Link
-          to="#"
+          to="."
           className="text-sm leading-none text-mono hover:text-primary-active"
         >
           {item.info}
@@ -70,3 +70,5 @@ const Summary = ({ title }: ISummaryProps) => {
 };
 
 export { Summary, type ISummaryItem, type ISummaryItems, type ISummaryProps };
+
+

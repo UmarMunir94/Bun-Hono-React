@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from '@tanstack/react-router';
 import { Coffee, MessageSquareCode, PanelRightOpen, Pin, Search } from 'lucide-react';
 import { Input, InputWrapper } from "@/components/ui/input";
 import { Button } from '@/components/ui/button';

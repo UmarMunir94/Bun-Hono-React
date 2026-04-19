@@ -11,7 +11,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { Settings2 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -258,7 +258,7 @@ const ApiIntegrations = () => {
             <div className="flex items-center text-foreground font-normal">
               {info.row.original.apiKey}
               <Link
-                to="#"
+                to="."
                 className="btn btn-sm btn-icon btn-clear text-muted-foreground hover:text-primary-active"
               >
                 <span className="text-xs">Copy</span>
@@ -372,3 +372,5 @@ const ApiIntegrations = () => {
 };
 
 export { ApiIntegrations, type IData };
+
+

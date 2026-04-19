@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -60,10 +60,10 @@ const Plan = () => {
             </div>
             <div className="flex gap-2.5">
               <Button variant="outline">
-                <Link to="#">Cancel Plan</Link>
+                <Link to=".">Cancel Plan</Link>
               </Button>
               <Button>
-                <Link to="#">Upgrade Plan</Link>
+                <Link to=".">Upgrade Plan</Link>
               </Button>
             </div>
           </div>
@@ -85,3 +85,5 @@ const Plan = () => {
 };
 
 export { Plan, type IPlanItem, type IPlanItems };
+
+

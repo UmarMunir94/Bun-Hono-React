@@ -1,5 +1,5 @@
 import { SquareSigma } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Card } from '@/components/ui/card';
 
@@ -23,7 +23,7 @@ const CardNFT = ({ image, id, title, info, date }: INFTProps) => {
       <div className="card-border card-rounded-b px-3.5 pt-5 pb-3.5">
         <div className="pb-6">
           <Link
-            to="#"
+            to="."
             className="block font-medium text-mono hover:text-primary text-base leading-4 mb-2"
           >
             {title}
@@ -61,3 +61,5 @@ const CardNFT = ({ image, id, title, info, date }: INFTProps) => {
 };
 
 export { CardNFT, type INFTProps };
+
+

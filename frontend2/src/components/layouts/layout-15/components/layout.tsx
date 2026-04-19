@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { Header } from './header';
 import { Sidebar } from './sidebar';
 import { useLayout } from './layout-context';
-import { Outlet } from 'react-router';
+import { Outlet } from '@tanstack/react-router';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 export function Layout() {
@@ -31,3 +31,4 @@ export function Layout() {
 		</div>
 	);
 }
+

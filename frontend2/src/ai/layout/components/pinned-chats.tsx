@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 import { SectionHeader } from "./section-header";
-import { useNavigate } from "react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { useChats } from "./chats-context";
 
 interface PinnedChatsProps {
@@ -61,3 +61,4 @@ export function PinnedChats({ selectedChat, onChatSelect }: PinnedChatsProps) {
     </div>
   );
 }
+

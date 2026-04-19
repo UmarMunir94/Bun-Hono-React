@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetBody } from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Sidebar } from './sidebar';
 
@@ -55,3 +55,4 @@ export function HeaderMobile() {
     </header>
   );
 }
+

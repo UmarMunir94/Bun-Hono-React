@@ -1,5 +1,5 @@
 import { Copy, Settings } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { AvatarSingle } from '../common/avatar-single';
@@ -36,7 +36,7 @@ const CardNFT2Row = ({ avatar, name, email, info, statistics }: INFT2Props) => {
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-1.5 mb-px">
               <Link
-                to="#"
+                to="."
                 className="hover:text-primary-active text-base leading-5 font-medium text-mono"
               >
                 {name}
@@ -57,7 +57,7 @@ const CardNFT2Row = ({ avatar, name, email, info, statistics }: INFT2Props) => {
             </div>
             <div className="flex flex-wrap items-center gap-3.5">
               <Link
-                to="#"
+                to="."
                 className="text-sm text-secondary-foreground hover:text-primary-active"
               >
                 {email}
@@ -89,3 +89,5 @@ const CardNFT2Row = ({ avatar, name, email, info, statistics }: INFT2Props) => {
 };
 
 export { CardNFT2Row };
+
+

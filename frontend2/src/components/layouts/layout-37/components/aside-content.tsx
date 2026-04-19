@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Link } from "react-router";
+import { Link } from "@tanstack/react-router";
 import {
   UserCircle,
   BarChart3,
@@ -72,3 +72,4 @@ export function AsideContent() {
     </div>
   );
 }
+

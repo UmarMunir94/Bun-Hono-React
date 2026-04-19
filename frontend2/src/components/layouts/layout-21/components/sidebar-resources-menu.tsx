@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { MENU_SIDEBAR_RESOURCES } from "@/config/layout-21.config";
 import {
   AccordionMenu,
@@ -58,3 +58,4 @@ export function SidebarResourcesMenu() {
     </AccordionMenu>
   );
 }
+

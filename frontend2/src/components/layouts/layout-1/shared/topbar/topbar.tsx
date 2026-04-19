@@ -1,5 +1,5 @@
 import { Heart, Search, ShoppingCart, UserCircle } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -86,3 +86,4 @@ export function StoreClientTopbar() {
     </>
   );
 }
+

@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -62,7 +62,7 @@ export function Card4({ limit }: ICard4Props) {
 
           <div className="flex flex-col gap-1">
             <Link
-              to="#"
+              to="."
               className="hover:text-primary text-sm font-medium text-mono leading-5.5"
             >
               {item.title}
@@ -112,3 +112,5 @@ export function Card4({ limit }: ICard4Props) {
     </Fragment>
   );
 }
+
+

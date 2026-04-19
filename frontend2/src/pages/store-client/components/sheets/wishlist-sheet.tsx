@@ -1,5 +1,5 @@
 import { ShoppingCart, Star, TrashIcon } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -77,7 +77,7 @@ export function StoreClientWishlistSheet({
                   <div className="flex flex-col gap-2 w-full">
                     <div className="flex items-center flex-wrap justify-between gap-2.5 -mt-1">
                       <Link
-                        to="#"
+                        to="."
                         className="hover:text-primary-active text-sm font-medium text-dark leading-5.5"
                       >
                         {item.title}
@@ -150,3 +150,5 @@ export function StoreClientWishlistSheet({
     </Sheet>
   );
 }
+
+

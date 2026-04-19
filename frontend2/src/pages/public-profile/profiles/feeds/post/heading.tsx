@@ -1,6 +1,6 @@
 import { DropdownMenu5 } from '@/partials/dropdown-menu/dropdown-menu-5';
 import { EllipsisVertical, LucideIcon } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -32,7 +32,7 @@ const Heading = ({ author, avatar, date }: IHeadingProps) => {
         </Avatar>
         <div className="flex flex-col">
           <Link
-            to="#"
+            to="."
             className="text-base font-medium text-mono hover:text-primary-active mb-1"
           >
             {author}
@@ -52,3 +52,5 @@ const Heading = ({ author, avatar, date }: IHeadingProps) => {
 };
 
 export { Heading, type IHeadingProps };
+
+

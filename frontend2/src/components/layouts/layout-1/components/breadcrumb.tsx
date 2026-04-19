@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { ChevronRight } from 'lucide-react';
-import { useLocation } from 'react-router';
+import { useLocation } from '@tanstack/react-router';
 import { MENU_SIDEBAR } from '@/config/layout-1.config';
 import { MenuItem } from '@/config/types';
 import { cn } from '@/lib/utils';
@@ -41,3 +41,4 @@ export function Breadcrumb() {
     </div>
   );
 }
+

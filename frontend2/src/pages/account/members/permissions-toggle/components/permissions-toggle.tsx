@@ -12,7 +12,7 @@ import {
   Store,
   Users,
 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -133,7 +133,7 @@ const PermissionsToggle = () => {
         <CardTitle>
           Role Permissions for{' '}
           <Button mode="link" asChild>
-            <Link to="#">Project Manager</Link>
+            <Link to=".">Project Manager</Link>
           </Button>
         </CardTitle>
       </CardHeader>
@@ -144,7 +144,7 @@ const PermissionsToggle = () => {
       </CardContent>
       <CardFooter className="justify-center py-3.5">
         <Button variant="outline">
-          <Link to="#">New Permission</Link>
+          <Link to=".">New Permission</Link>
         </Button>
       </CardFooter>
     </Card>
@@ -156,3 +156,5 @@ export {
   type IPermissionsToggleItem,
   type IPermissionsToggleItems,
 };
+
+

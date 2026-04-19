@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { BadgeDot } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -55,7 +55,7 @@ const Inventory = ({}: InventoryProps) => {
           </span>
           <Separator className="bg-gray-300 h-3" orientation="vertical" />
           <Link
-            to="#"
+            to="."
             className="hover:text-primary hover:underline hover:underline-offset-2"
           >
             Order
@@ -70,7 +70,7 @@ const Inventory = ({}: InventoryProps) => {
       <CardHeader className="lg:px-7.5">
         <CardTitle>Inventory</CardTitle>
         <Button mode="link" underline="solid" asChild>
-          <Link to="#">See All</Link>
+          <Link to=".">See All</Link>
         </Button>
       </CardHeader>
       <CardContent className="flex flex-col justify-between gap-2 p-5 lg:p-7.5">
@@ -99,7 +99,7 @@ const Inventory = ({}: InventoryProps) => {
               Low stock
             </span>
             <Button mode="link" underline="solid" asChild>
-              <Link to="#">See All</Link>
+              <Link to=".">See All</Link>
             </Button>
           </div>
         </div>
@@ -120,3 +120,5 @@ export {
   type InventoryItems,
   type InventoryProps,
 };
+
+

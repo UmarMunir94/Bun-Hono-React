@@ -1,5 +1,5 @@
 
-import { Outlet } from 'react-router-dom';
+import { Outlet } from '@tanstack/react-router';
 import { useBodyClass } from '@/hooks/use-body-class';
 import { Footer } from './footer';
 import { Header } from './header';
@@ -24,3 +24,4 @@ export function Main() {
     </div>
   );
 };
+

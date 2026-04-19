@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Copy, KeyRound } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -23,7 +23,7 @@ const ApiCredentials = () => {
         <div className="text-sm text-foreground leading-5.5 pb-5">
           The granted credentials serve a twofold function, enabling{' '}
           <Button mode="link" asChild>
-            <Link to="#">API authentication</Link>
+            <Link to=".">API authentication</Link>
           </Button>{' '}
           and governing JavaScript customization
         </div>
@@ -55,3 +55,5 @@ const ApiCredentials = () => {
 };
 
 export { ApiCredentials };
+
+

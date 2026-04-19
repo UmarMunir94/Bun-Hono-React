@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Collaborate } from '../blogger';
 import { IStatisticsItems, Statistics, Summary } from '../creator';
@@ -29,7 +29,7 @@ export function ProfileFeedsContent() {
           <Post4 />
           <div className="flex justify-center">
             <Button mode="link" underlined="dashed" asChild>
-              <Link to="#">Show more posts</Link>
+              <Link to=".">Show more posts</Link>
             </Button>
           </div>
         </div>
@@ -37,3 +37,5 @@ export function ProfileFeedsContent() {
     </div>
   );
 }
+
+

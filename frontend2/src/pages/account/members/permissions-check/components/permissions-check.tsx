@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -118,13 +118,13 @@ const PermissionsCheck = () => {
       <CardHeader className="gap-2">
         <CardTitle>
           <Button mode="link" asChild className="text-xl">
-            <Link to="#">Project Manager</Link>
+            <Link to=".">Project Manager</Link>
           </Button>{' '}
           Role Permissions
         </CardTitle>
         <div className="flex gap-5">
           <Button variant="outline">
-            <Link to="#">New Permission</Link>
+            <Link to=".">New Permission</Link>
           </Button>
         </div>
       </CardHeader>
@@ -158,10 +158,10 @@ const PermissionsCheck = () => {
       </CardContent>
       <CardFooter className="justify-end py-7.5 gap-2.5">
         <Button variant="outline">
-          <Link to="#">Restore Defaults</Link>
+          <Link to=".">Restore Defaults</Link>
         </Button>
         <Button>
-          <Link to="#">Save Changes</Link>
+          <Link to=".">Save Changes</Link>
         </Button>
       </CardFooter>
     </Card>
@@ -173,3 +173,5 @@ export {
   type IPermissionsCheckItem,
   type IPermissionsCheckItems,
 };
+
+

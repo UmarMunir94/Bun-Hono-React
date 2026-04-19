@@ -14,7 +14,7 @@ import { SidebarSecondary } from './sidebar-secondary';
 import { HeaderTitle } from './header-title';
 import { SidebarPrimary } from './sidebar-primary';
 import { toAbsoluteUrl } from '@/lib/helpers';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 
 export function Header() {
   const { isMobile } = useLayout();
@@ -65,3 +65,4 @@ export function Header() {
     </header>
   );
 }
+

@@ -1,5 +1,5 @@
 import { Calendar, Users } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -159,7 +159,7 @@ export function CompanyRecordsTeam() {
                         <AvatarFallback>{member.initial?.[0]}</AvatarFallback>
                       </Avatar>
                       <Link
-                        to="#"
+                        to="."
                         className="font-medium text-sm hover:text-primary"
                       >
                         {member.name ? member.name : member.email}
@@ -235,3 +235,5 @@ export function CompanyRecordsTeam() {
     </div>
   );
 }
+
+

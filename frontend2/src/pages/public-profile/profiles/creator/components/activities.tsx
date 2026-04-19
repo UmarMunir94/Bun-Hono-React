@@ -5,7 +5,7 @@ import { ActivitiesInterview } from '@/partials/activities/interview';
 import { ActivitiesFollowersMilestone } from '@/partials/activities/milestone';
 import { ActivitiesNewArticle } from '@/partials/activities/new-article';
 import { ActivitiesUpcomingContent } from '@/partials/activities/upcoming-content';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -76,3 +76,4 @@ const Activities = () => {
 };
 
 export { Activities };
+

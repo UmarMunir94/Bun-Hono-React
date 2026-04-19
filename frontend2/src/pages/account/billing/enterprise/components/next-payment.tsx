@@ -1,6 +1,6 @@
 import { HexagonBadge } from '@/partials/common/hexagon-badge';
 import { CalendarDays, Check } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -22,7 +22,7 @@ const NextPayment = () => {
               />
               <div className="flex flex-col">
                 <Link
-                  to="#"
+                  to="."
                   className="text-sm font-medium hover:text-primary text-mono"
                 >
                   on 17 Aug, 2024
@@ -49,3 +49,5 @@ const NextPayment = () => {
 };
 
 export { NextPayment };
+
+

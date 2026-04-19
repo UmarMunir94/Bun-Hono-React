@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from '@tanstack/react-router';
 import { DefaultLayout } from './layout';
 import { AIChatPage } from './pages/chat';
 import { AIStartPage } from './pages/start';
@@ -14,3 +14,4 @@ export default function AIModule() {
     </Routes>
   );
 }
+

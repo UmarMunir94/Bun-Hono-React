@@ -22,7 +22,7 @@ const toolbarItems = [
   { icon: PenTool, label: 'Draw', path: '#' },
   { icon: TypeOutline, label: 'Text Tool', path: '#' },
 ];
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 
 export function SidebarPanel() {
   return (
@@ -51,3 +51,4 @@ export function SidebarPanel() {
     </div>
   );
 }
+

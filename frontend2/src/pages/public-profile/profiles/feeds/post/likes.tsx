@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { CircleCheck, PersonStanding } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { CardFooter } from '@/components/ui/card';
@@ -66,7 +66,7 @@ const Likes = () => {
           />
           <div className="flex flex-col">
             <Link
-              to="#"
+              to="."
               className="text-base font-medium text-mono hover:text-primary-active mb-px"
             >
               {item.name}
@@ -103,7 +103,7 @@ const Likes = () => {
       </div>
       <CardFooter className="justify-center">
         <Button mode="link" underlined="dashed" asChild>
-          <Link to="#">Show more Likes</Link>
+          <Link to=".">Show more Likes</Link>
         </Button>
       </CardFooter>
     </Fragment>
@@ -111,3 +111,5 @@ const Likes = () => {
 };
 
 export { Likes, type ILikesItem, type ILikesItems };
+
+

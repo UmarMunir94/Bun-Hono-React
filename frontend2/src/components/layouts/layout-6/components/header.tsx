@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Menu } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Button } from '@/components/ui/button';
@@ -68,3 +68,4 @@ const Header = () => {
 };
 
 export { Header };
+

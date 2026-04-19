@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 
 export function SidebarHeader() {
@@ -19,3 +19,4 @@ export function SidebarHeader() {
     </div>
   );
 }
+

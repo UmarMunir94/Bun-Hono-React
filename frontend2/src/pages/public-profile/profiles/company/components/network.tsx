@@ -1,6 +1,6 @@
 import { RemixiconComponentType } from '@remixicon/react';
 import { LucideIcon } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface INetworkItem {
@@ -22,7 +22,7 @@ const Network = ({ data, className, title }: INetworkProps) => {
         <span>
           <item.icon className="text-lg text-muted-foreground" size={18} />
         </span>
-        <Link to="#" className="text-mono hover:text-primary-active text-sm">
+        <Link to="." className="text-mono hover:text-primary-active text-sm">
           {item.link}
         </Link>
       </div>
@@ -46,3 +46,5 @@ const Network = ({ data, className, title }: INetworkProps) => {
 };
 
 export { Network, type INetworkItem, type INetworkItems, type INetworkProps };
+
+

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { HexagonBadge } from '@/partials/common/hexagon-badge';
 import { LogOut, LucideIcon, ShieldCheck } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
@@ -28,7 +28,7 @@ const QuickSettings = () => {
       description: 'Instantly sign out all users from all devices.',
       actions: (
         <Button variant="outline">
-          <Link to="#">Logout everyone</Link>
+          <Link to=".">Logout everyone</Link>
         </Button>
       ),
     },
@@ -71,3 +71,5 @@ const QuickSettings = () => {
 };
 
 export { QuickSettings, type IQuickSettingsItem, type IQuickSettingsItems };
+
+

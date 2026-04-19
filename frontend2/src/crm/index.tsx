@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from '@tanstack/react-router';
 import { DefaultLayout } from './layout';
 import { CompanyPage } from './pages/companies/company/page';
 import { CompaniesListPage } from './pages/companies/page';
@@ -26,3 +26,4 @@ export default function CrmModule() {
     </Routes>
   );
 }
+

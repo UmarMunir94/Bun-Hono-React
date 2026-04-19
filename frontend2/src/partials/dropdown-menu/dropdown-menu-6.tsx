@@ -8,7 +8,7 @@ import {
   Send,
   Trash2,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,7 +25,7 @@ export function DropdownMenu6({ trigger }: { trigger: ReactNode }) {
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
       <DropdownMenuContent className="w-[150px]" side="bottom" align="end">
         <DropdownMenuItem asChild>
-          <Link to="#">
+          <Link to=".">
             <FileText />
             <span>View</span>
           </Link>
@@ -57,13 +57,13 @@ export function DropdownMenu6({ trigger }: { trigger: ReactNode }) {
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuItem asChild>
-          <Link to="#">
+          <Link to=".">
             <Pencil />
             <span>Edit</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link to="#">
+          <Link to=".">
             <Trash2 />
             <span>Delete</span>
           </Link>
@@ -72,3 +72,5 @@ export function DropdownMenu6({ trigger }: { trigger: ReactNode }) {
     </DropdownMenu>
   );
 }
+
+

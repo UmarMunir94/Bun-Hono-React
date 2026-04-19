@@ -22,7 +22,7 @@ import {
   Trash,
   X,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
@@ -911,7 +911,7 @@ const StockPlannerTable = ({ mockData: propsMockData }: StockPlannerProps) => {
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Link
-                        to="#"
+                        to="."
                         onClick={() => handleProductClick()}
                         className="text-sm font-medium text-foreground hover:text-primary leading-3.5 text-left"
                       >
@@ -927,7 +927,7 @@ const StockPlannerTable = ({ mockData: propsMockData }: StockPlannerProps) => {
                   </Tooltip>
                 ) : (
                   <Link
-                    to="#"
+                    to="."
                     onClick={() => handleProductClick()}
                     className="text-sm font-medium text-foreground hover:text-primary leading-3.5 text-left"
                   >
@@ -1511,3 +1511,5 @@ const StockPlannerTable = ({ mockData: propsMockData }: StockPlannerProps) => {
 };
 
 export { StockPlannerTable };
+
+

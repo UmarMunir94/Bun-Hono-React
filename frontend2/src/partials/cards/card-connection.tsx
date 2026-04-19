@@ -1,5 +1,5 @@
 import { BadgeCheck, CircleCheck, Mail, Users } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { AvatarGroup } from '../common/avatar-group';
@@ -75,7 +75,7 @@ const CardConnection = ({
         </div>
         <div className="flex items-center justify-center gap-1.5 mb-2.5">
           <Link
-            to="#"
+            to="."
             className="hover:text-primary-active text-base leading-5 font-medium text-mono"
           >
             {name}
@@ -102,7 +102,7 @@ const CardConnection = ({
           <div className="flex items-center text-sm">
             <Mail size={16} className="me-1 text-muted-foreground" />
             <Link
-              to="#"
+              to="."
               className="text-secondary-foreground hover:text-primary-active"
             >
               {email}
@@ -124,14 +124,14 @@ const CardConnection = ({
       <CardFooter className="justify-center">
         {connected ? (
           <Button variant="outline">
-            <Link to="#">
+            <Link to=".">
               <CircleCheck size={16} />
             </Link>{' '}
             Connected
           </Button>
         ) : (
           <Button variant="primary">
-            <Link to="#">
+            <Link to=".">
               <Users size={16} />
             </Link>{' '}
             Connect
@@ -148,3 +148,5 @@ export {
   type IConnectionItems,
   type IConnectionProps,
 };
+
+

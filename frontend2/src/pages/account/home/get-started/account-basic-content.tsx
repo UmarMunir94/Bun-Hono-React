@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   Users,
 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { IOptionsItems, Options } from './components';
 
@@ -97,3 +97,4 @@ export function AccountGetStartedContent() {
     </Fragment>
   );
 }
+

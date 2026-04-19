@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -29,7 +29,7 @@ const DisableDefaultBrand = () => {
           </p>
           <div>
             <Button mode="link" underlined="dashed">
-              <Link to="#">View Plans</Link>
+              <Link to=".">View Plans</Link>
             </Button>
           </div>
         </div>
@@ -45,3 +45,5 @@ const DisableDefaultBrand = () => {
 };
 
 export { DisableDefaultBrand };
+
+

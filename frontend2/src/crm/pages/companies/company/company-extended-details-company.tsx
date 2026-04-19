@@ -34,7 +34,7 @@ import {
   UserPlus,
   Users,
 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -417,3 +417,4 @@ export function CompanyExtendedDetailsCompany() {
     </div>
   );
 }
+

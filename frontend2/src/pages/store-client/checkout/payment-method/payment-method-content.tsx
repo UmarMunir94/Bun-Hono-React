@@ -1,5 +1,5 @@
 import { MoveLeft, SquareMousePointer } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Order } from '../shipping-info/components/order';
 import { Payment } from './components/payment';
@@ -32,3 +32,4 @@ export function PaymentMethodContent() {
     </div>
   );
 }
+

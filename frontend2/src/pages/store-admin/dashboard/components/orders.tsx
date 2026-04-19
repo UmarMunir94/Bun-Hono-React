@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ApexOptions } from 'apexcharts';
 import ApexCharts from 'react-apexcharts';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -244,7 +244,7 @@ export function Orders() {
         <CardTitle>Orders</CardTitle>
 
         <Button mode="link" asChild>
-          <Link to="#">See All</Link>
+          <Link to=".">See All</Link>
         </Button>
       </CardHeader>
 
@@ -294,3 +294,5 @@ export function Orders() {
     </Card>
   );
 }
+
+

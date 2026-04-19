@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from '@tanstack/react-router';
 import { Sidebar } from './sidebar';
 import { useLayout } from './context';
 import { HeaderMobile } from './header-mobile';
@@ -32,3 +32,4 @@ export function Wrapper() {
     </>
   );
 }
+

@@ -12,7 +12,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { Download, EllipsisVertical, Info, Trash } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
@@ -374,7 +374,7 @@ export function DetailsInvoiceTable({ mockData: propsMockData, displayProducts =
           <DataGridColumnHeader title="InvoiceID" column={column} />
         ),
         cell: (info) => (
-          <Link to="#" className="text-2sm text-primary font-normal" onClick={() => setOrderDetailsSheetOpen(true)}>
+          <Link to="." className="text-2sm text-primary font-normal" onClick={() => setOrderDetailsSheetOpen(true)}>
             {info.row.original.invoice}
           </Link>
         ),
@@ -578,4 +578,6 @@ export function DetailsInvoiceTable({ mockData: propsMockData, displayProducts =
 function handleView(): void {
   throw new Error('Function not implemented.');
 }
+
+
 

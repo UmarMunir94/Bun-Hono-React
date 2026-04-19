@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { MENU_HEADER } from "@/config/layout-22.config";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -39,3 +39,4 @@ export function SidebarMenu() {
     </ScrollArea>
   );
 }
+

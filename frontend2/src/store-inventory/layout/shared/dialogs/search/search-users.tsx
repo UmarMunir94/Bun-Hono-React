@@ -1,5 +1,5 @@
 import { EllipsisVertical } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import {
   AccordionMenu,
@@ -39,7 +39,7 @@ export function SearchUsers({
                   />
                   <div className="flex flex-col">
                     <Link
-                      to="#"
+                      to="."
                       className="text-sm font-semibold text-mono hover:text-primary-active mb-px"
                     >
                       {item.name}
@@ -81,3 +81,5 @@ export function SearchUsers({
     </AccordionMenu>
   );
 }
+
+

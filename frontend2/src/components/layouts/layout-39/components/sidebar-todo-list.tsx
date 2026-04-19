@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import type { LucideIcon } from 'lucide-react';
 import { CalendarCheck, ListTodo, Clock3, Flag, CheckCircle2 } from 'lucide-react';
 import {
@@ -86,7 +86,7 @@ export function SidebarTodoList({ isCollapsed }: SidebarTodoListProps) {
                 )}
                 onClick={() => setActiveItem(todoList.id)}
               >
-                <Link to="#">
+                <Link to=".">
                   <todoList.icon
                     className={cn(
                       "size-4 transition-transform duration-200 hover:scale-110 hover:text-primary",
@@ -137,7 +137,7 @@ export function SidebarTodoList({ isCollapsed }: SidebarTodoListProps) {
               onClick={() => setActiveItem(todoList.id)}
             >
               <Link
-                to="#"
+                to="."
                 onClick={() => setActiveItem(todoList.id)}
                 className={cn(
                   "group flex w-full items-center gap-2",
@@ -164,3 +164,5 @@ export function SidebarTodoList({ isCollapsed }: SidebarTodoListProps) {
     </AccordionMenu>
   );
 }
+
+

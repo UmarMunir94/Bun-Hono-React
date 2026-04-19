@@ -1,5 +1,5 @@
 import { Copy, SquarePen } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -32,7 +32,7 @@ const BasicSettings = ({ title }: IBasicSettingsProps) => {
               </TableCell>
               <TableCell className="py-2 min-w-60">
                 <Link
-                  to="#"
+                  to="."
                   className="text-foreground font-normal text-sm hover:text-primary-active"
                 >
                   jasontt@studio.co
@@ -66,7 +66,7 @@ const BasicSettings = ({ title }: IBasicSettingsProps) => {
               </TableCell>
               <TableCell className="py-3 text-end">
                 <Button mode="link" size="sm" underlined="dashed" asChild>
-                  <Link to="#">Setup</Link>
+                  <Link to=".">Setup</Link>
                 </Button>
               </TableCell>
             </TableRow>
@@ -77,7 +77,7 @@ const BasicSettings = ({ title }: IBasicSettingsProps) => {
               <TableCell className="py-0.5">
                 <div className="flex items-center gap-2.5">
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -87,7 +87,7 @@ const BasicSettings = ({ title }: IBasicSettingsProps) => {
                     />
                   </Link>
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -97,7 +97,7 @@ const BasicSettings = ({ title }: IBasicSettingsProps) => {
                     />
                   </Link>
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -128,7 +128,7 @@ const BasicSettings = ({ title }: IBasicSettingsProps) => {
               </TableCell>
               <TableCell className="py-3 text-end">
                 <Button mode="link" size="sm" underlined="dashed" asChild>
-                  <Link to="#">Setup</Link>
+                  <Link to=".">Setup</Link>
                 </Button>
               </TableCell>
             </TableRow>
@@ -139,7 +139,7 @@ const BasicSettings = ({ title }: IBasicSettingsProps) => {
               <TableCell className="py-0.5">
                 <div className="flex items-center gap-2.5">
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -149,7 +149,7 @@ const BasicSettings = ({ title }: IBasicSettingsProps) => {
                     />
                   </Link>
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -161,7 +161,7 @@ const BasicSettings = ({ title }: IBasicSettingsProps) => {
                     />
                   </Link>
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -176,7 +176,7 @@ const BasicSettings = ({ title }: IBasicSettingsProps) => {
                     />
                   </Link>
                   <Link
-                    to="#"
+                    to="."
                     className="flex items-center justify-center size-8 bg-background rounded-full border border-input"
                   >
                     <img
@@ -200,7 +200,7 @@ const BasicSettings = ({ title }: IBasicSettingsProps) => {
               <TableCell className="py-3 text-secondary-foreground text-sm font-normal">
                 <div className="flex items-center gap-0.5">
                   <Link
-                    to="#"
+                    to="."
                     className="text-foreground text-sm hover:text-primary-active"
                   >
                     https://studio.co/W3gvQOI35dt
@@ -212,7 +212,7 @@ const BasicSettings = ({ title }: IBasicSettingsProps) => {
               </TableCell>
               <TableCell className="py-3 text-end">
                 <Button mode="link" underlined="dashed" asChild>
-                  <Link to="#">Re-create</Link>
+                  <Link to=".">Re-create</Link>
                 </Button>
               </TableCell>
             </TableRow>
@@ -224,3 +224,5 @@ const BasicSettings = ({ title }: IBasicSettingsProps) => {
 };
 
 export { BasicSettings, type IBasicSettingsProps };
+
+

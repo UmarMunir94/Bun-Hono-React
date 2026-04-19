@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Bell } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -29,13 +29,13 @@ const DoNotDistrub = ({ title, icon, text }: IDoNotDistrubProps) => {
         </p>
         <div>
           <Button mode="link" underlined="dashed">
-            <Link to="#">Learn more</Link>
+            <Link to=".">Learn more</Link>
           </Button>
         </div>
       </CardContent>
       <CardFooter className="justify-center">
         <Button variant="outline">
-          <Link to="#" className="flex items-center gap-1.5">
+          <Link to="." className="flex items-center gap-1.5">
             <div>{icon || <Bell size={16} />}</div>
             {text || 'Pause Notifications'}
           </Link>
@@ -46,3 +46,5 @@ const DoNotDistrub = ({ title, icon, text }: IDoNotDistrubProps) => {
 };
 
 export { DoNotDistrub, type IDoNotDistrubProps };
+
+

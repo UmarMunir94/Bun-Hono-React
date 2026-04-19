@@ -7,7 +7,7 @@ import {
   ToolbarHeading,
   ToolbarPageTitle,
 } from '@/partials/common/toolbar';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { useSettings } from '@/providers/settings-provider';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/common/container';
@@ -30,10 +30,10 @@ export function AccountTeamMembersPage() {
             </ToolbarHeading>
             <ToolbarActions>
               <Button variant="outline">
-                <Link to="#">Import Members</Link>
+                <Link to=".">Import Members</Link>
               </Button>
               <Button>
-                <Link to="#">Add Member</Link>
+                <Link to=".">Add Member</Link>
               </Button>
             </ToolbarActions>
           </Toolbar>
@@ -45,3 +45,5 @@ export function AccountTeamMembersPage() {
     </Fragment>
   );
 }
+
+

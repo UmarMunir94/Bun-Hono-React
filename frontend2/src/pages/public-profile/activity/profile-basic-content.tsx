@@ -11,7 +11,7 @@ import { ActivitiesProductWebinar } from '@/partials/activities/product-webinar'
 import { ActivitiesProjectStatus } from '@/partials/activities/project-status';
 import { ActivitiesUpcomingContent } from '@/partials/activities/upcoming-content';
 import { ActivitiesVirtualTeam } from '@/partials/activities/virtual-team';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -94,7 +94,7 @@ export function ProfileActivityContent() {
           </CardContent>
           <CardFooter className="justify-center">
             <Button mode="link" underlined="dashed" asChild>
-              <Link to="#">All-time Activity</Link>
+              <Link to=".">All-time Activity</Link>
             </Button>
           </CardFooter>
         </Card>
@@ -116,3 +116,5 @@ export function ProfileActivityContent() {
     </div>
   );
 }
+
+

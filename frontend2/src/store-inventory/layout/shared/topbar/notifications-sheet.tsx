@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Calendar, Settings, Settings2, Shield, Users } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -77,7 +77,7 @@ export function NotificationsSheet({ trigger }: { trigger: ReactNode }) {
                       align="end"
                     >
                       <DropdownMenuItem asChild>
-                        <Link to="#">
+                        <Link to=".">
                           <Users /> Invite Users
                         </Link>
                       </DropdownMenuItem>
@@ -89,18 +89,18 @@ export function NotificationsSheet({ trigger }: { trigger: ReactNode }) {
                         <DropdownMenuPortal>
                           <DropdownMenuSubContent className="w-44">
                             <DropdownMenuItem asChild>
-                              <Link to="#">
+                              <Link to=".">
                                 <Shield />
                                 Find Members
                               </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem asChild>
-                              <Link to="#">
+                              <Link to=".">
                                 <Calendar /> Meetings
                               </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem asChild>
-                              <Link to="#">
+                              <Link to=".">
                                 <Shield /> Group Settings
                               </Link>
                             </DropdownMenuItem>
@@ -108,7 +108,7 @@ export function NotificationsSheet({ trigger }: { trigger: ReactNode }) {
                         </DropdownMenuPortal>
                       </DropdownMenuSub>
                       <DropdownMenuItem asChild>
-                        <Link to="#">
+                        <Link to=".">
                           <Shield /> Group Settings
                         </Link>
                       </DropdownMenuItem>
@@ -283,3 +283,5 @@ export function NotificationsSheet({ trigger }: { trigger: ReactNode }) {
     </Sheet>
   );
 }
+
+

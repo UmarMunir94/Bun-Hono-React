@@ -4,7 +4,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { toAbsoluteUrl } from "@/lib/helpers";
-import { Link } from "react-router";
+import { Link } from "@tanstack/react-router";
 import { Rating } from "@/components/ui/rating";
 import { Separator } from "@/components/ui/separator";
 
@@ -115,7 +115,7 @@ export function CardDate() {
                             <Tooltip>
                               <TooltipTrigger asChild>
                                 <Link
-                                  to="#"
+                                  to="."
                                   className="text-sm font-medium text-foreground hover:text-primary leading-3.5 text-left"
                                 >
                                   {order.product}
@@ -127,7 +127,7 @@ export function CardDate() {
                             </Tooltip>
                           ) : (
                             <Link
-                              to="#"
+                              to="."
                               className="text-sm font-medium text-foreground hover:text-primary leading-3.5 text-left"
                             >
                               {order.product}
@@ -161,3 +161,4 @@ export function CardDate() {
     </div>  
   );
 }
+

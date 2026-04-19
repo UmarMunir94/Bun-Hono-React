@@ -1,6 +1,6 @@
 import React from 'react';
 import { LucideIcon } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Card } from '@/components/ui/card';
 
 interface IOptionsSubItem {
@@ -64,3 +64,4 @@ const Options = ({ items }: IOptionsProps) => {
 };
 
 export { Options, type IOptionsItem, type IOptionsItems, type IOptionsProps };
+

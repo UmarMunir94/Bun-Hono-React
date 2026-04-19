@@ -1,5 +1,5 @@
 import { useId, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -35,7 +35,7 @@ export function ReportUserDialog({
 
         <div className="flex items-center justify-center gap-1">
           <Link
-            to="#"
+            to="."
             className="hover:text-primary-active text-sm leading-5 font-semibold text-mono"
           >
             Jenny Klabber
@@ -154,3 +154,5 @@ export function ReportUserDialog({
     </Dialog>
   );
 }
+
+

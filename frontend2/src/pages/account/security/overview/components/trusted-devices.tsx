@@ -1,6 +1,6 @@
 import { DropdownMenu2 } from '@/partials/dropdown-menu/dropdown-menu-2';
 import { EllipsisVertical, LogOut } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -108,7 +108,7 @@ const TrustedDevices = () => {
       </CardContent>
       <CardFooter className="justify-center">
         <Button mode="link" underlined="dashed" asChild>
-          <Link to="#">Manage Trusted Devices</Link>
+          <Link to=".">Manage Trusted Devices</Link>
         </Button>
       </CardFooter>
     </Card>
@@ -116,3 +116,5 @@ const TrustedDevices = () => {
 };
 
 export { TrustedDevices, type ITrustedDevicesItem, type ITrustedDevicesItems };
+
+

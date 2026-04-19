@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { SquarePen, TrendingUp } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge, BadgeDot } from '@/components/ui/badge';
@@ -582,7 +582,7 @@ export function ProductDetailsAnalyticsSheet({
                     <div className="flex items-center gap-4">
                       <Rating rating={4} size="sm" />
                       <Link
-                        to="#"
+                        to="."
                         className="hover:text-primary text-xs font-medium text-primary"
                       >
                         834 reviews
@@ -604,3 +604,5 @@ export function ProductDetailsAnalyticsSheet({
     </Sheet>
   );
 }
+
+

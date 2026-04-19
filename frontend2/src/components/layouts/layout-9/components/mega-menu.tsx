@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { MENU_MEGA } from '@/config/layout-9.config';
 import { cn } from '@/lib/utils';
 import { useMenu } from '@/hooks/use-menu';
@@ -123,3 +123,4 @@ export function MegaMenu() {
     </NavigationMenu>
   );
 }
+

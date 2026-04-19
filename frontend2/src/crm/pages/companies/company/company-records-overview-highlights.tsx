@@ -18,7 +18,7 @@ import {
   Phone,
   UserPlus,
 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -96,7 +96,7 @@ export function CompanyRecordsOverviewHighlights() {
             <div className="flex items-center gap-1.5">
               <Handshake className="size-3.5 text-muted-foreground shrink-0" />
               <Link
-                to="#"
+                to="."
                 className="font-medium text-foreground hover:text-primary"
               >
                 Mike Johnson
@@ -160,3 +160,5 @@ export function CompanyRecordsOverviewHighlights() {
     </div>
   );
 }
+
+

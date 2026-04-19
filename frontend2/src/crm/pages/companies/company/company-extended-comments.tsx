@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { mockContacts } from '@/crm/mock/contacts';
 import { format } from 'date-fns';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -115,7 +115,7 @@ export function CompanyExtendedComments() {
               <div className="flex justify-between items-start">
                 <div>
                   <Link
-                    to="#"
+                    to="."
                     className="font-medium text-foreground text-sm hover:text-primary"
                   >
                     {comment.author}
@@ -172,7 +172,7 @@ export function CompanyExtendedComments() {
                       </Avatar>
                       <div className="flex-1 space-y-1">
                         <Link
-                          to="#"
+                          to="."
                           className="text-sm text-foreground font-medium hover:text-primary"
                         >
                           {reply.author}
@@ -215,3 +215,5 @@ export function CompanyExtendedComments() {
     </div>
   );
 }
+
+

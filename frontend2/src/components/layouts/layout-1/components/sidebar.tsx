@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '@tanstack/react-router';
 import { cn } from '@/lib/utils';
 import { useLayout } from './context';
 import { SidebarHeader } from './sidebar-header';
@@ -25,3 +25,4 @@ export function Sidebar() {
     </div>
   );
 }
+

@@ -23,7 +23,7 @@ import {
   Settings2,
   X,
 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
@@ -656,7 +656,7 @@ const Visitors = () => {
             </div>
             <Link
               className="text-sm font-medium text-mono hover:text-primary-active"
-              to="#"
+              to="."
             >
               {row.original.user.name}
             </Link>
@@ -938,3 +938,5 @@ const Visitors = () => {
 };
 
 export { Visitors };
+
+

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Check, Eye, EyeOff } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearch } from '@tanstack/react-router';
 import { authClient } from '@/lib/auth-client';
 import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -22,7 +22,7 @@ import {
 
 export function ChangePasswordPage() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const search = useSearch({ strict: false });
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -30,7 +30,7 @@ export function ChangePasswordPage() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // Better Auth passes the token as a query param named `token`
-  const token = searchParams.get('token') ?? '';
+  const token = (search as any).token ?? '';
 
   useEffect(() => {
     if (!token) {
@@ -67,8 +67,11 @@ export function ChangePasswordPage() {
       setSuccessMessage('Password changed successfully!');
       form.reset();
 
-      setTimeout(() => {
-        navigate('/auth/signin?pwd_reset=success');
+      setTimeout(async () => {
+        await navigate({
+          to: '/auth/signin',
+          search: { pwd_reset: 'success' },
+        });
       }, 2000);
     } catch (err) {
       console.error('Password reset error:', err);
@@ -235,3 +238,4 @@ export function ChangePasswordPage() {
     </div>
   );
 }
+

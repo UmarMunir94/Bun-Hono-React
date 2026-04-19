@@ -1,7 +1,7 @@
 import { DropdownMenu4 } from '@/partials/dropdown-menu/dropdown-menu-4';
 import { DropdownMenu7 } from '@/partials/dropdown-menu/dropdown-menu-7';
 import { EllipsisVertical } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -109,3 +109,4 @@ export {
   type IRecentUploadsItems,
   type IRecentUploadsProps,
 };
+

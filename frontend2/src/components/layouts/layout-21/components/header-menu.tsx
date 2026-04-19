@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '@tanstack/react-router';
 import { Menu } from 'lucide-react';
 import { useLayout } from './context';
 import {
@@ -49,3 +49,4 @@ export function HeaderMenu() {
     </div>
   );
 }
+

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "@tanstack/react-router";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetBody } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { PanelRightOpen } from "lucide-react";
@@ -36,3 +36,4 @@ export function SidebarSecondaryMobile() {
     </Sheet>
   );
 }
+

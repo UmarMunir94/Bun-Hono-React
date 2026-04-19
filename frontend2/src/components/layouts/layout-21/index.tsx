@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '@tanstack/react-router';
 import { MENU_SIDEBAR_MAIN } from '@/config/layout-21.config';
 import { useMenu } from '@/hooks/use-menu';
 import { Wrapper } from './components/wrapper';
@@ -32,3 +32,4 @@ export function Layout21() {
     </>
   );
 }
+

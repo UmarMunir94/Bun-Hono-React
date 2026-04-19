@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Badge, BadgeDot } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -67,7 +67,7 @@ export function Inventory() {
       <CardHeader>
         <CardTitle>Inventory</CardTitle>
         <Button mode="link" asChild>
-          <Link to="#">See All</Link>
+          <Link to=".">See All</Link>
         </Button>
       </CardHeader>
 
@@ -104,7 +104,7 @@ export function Inventory() {
           <div className="flex items-center justify-between">
             <span className="text-sm text-mono font-medium">Low stock</span>
             <Button mode="link" asChild>
-              <Link to="#">See All</Link>
+              <Link to=".">See All</Link>
             </Button>
           </div>
 
@@ -116,3 +116,5 @@ export function Inventory() {
     </Card>
   );
 }
+
+

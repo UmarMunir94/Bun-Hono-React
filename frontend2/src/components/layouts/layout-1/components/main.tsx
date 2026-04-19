@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from '@tanstack/react-router';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useLayout } from './context';
 import { Footer } from './footer';
@@ -59,3 +59,4 @@ export function Main() {
     </>
   );
 }
+

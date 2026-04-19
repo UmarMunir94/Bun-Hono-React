@@ -1,5 +1,5 @@
 import { CircleCheck, LucideIcon, Users } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -53,7 +53,7 @@ const CardTeam = ({
           </div>
           <div className="grid place-items-center">
             <Link
-              to="#"
+              to="."
               className="text-base font-medium text-mono hover:text-primary-active mb-px"
             >
               {title}
@@ -98,14 +98,14 @@ const CardTeam = ({
       <CardFooter className="justify-center">
         {connected ? (
           <Button variant="outline">
-            <Link to="#">
+            <Link to=".">
               <CircleCheck size={16} />
             </Link>{' '}
             Joined
           </Button>
         ) : (
           <Button variant="primary">
-            <Link to="#">
+            <Link to=".">
               <Users size={16} />
             </Link>{' '}
             Join
@@ -117,3 +117,5 @@ const CardTeam = ({
 };
 
 export { CardTeam, type ITeamProps };
+
+

@@ -1,5 +1,5 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 
 export function HeaderTitle() {    
   return (
@@ -27,3 +27,4 @@ export function HeaderTitle() {
     </div>
   );
 }
+

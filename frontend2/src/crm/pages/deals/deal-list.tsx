@@ -7,7 +7,7 @@ import {
   Tag,
   TrendingUp,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -213,3 +213,4 @@ export function DealList({ filter }: DealListProps) {
     </div>
   );
 }
+

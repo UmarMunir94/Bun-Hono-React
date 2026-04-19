@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -35,3 +35,4 @@ const OpenToWork = ({ className, title }: IOpenToWorkProps) => {
 };
 
 export { OpenToWork, type IOpenToWorkProps };
+

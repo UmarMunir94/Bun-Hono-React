@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton"
 import { Toolbar, ToolbarActions, ToolbarHeading } from "@/components/layouts/layout-7/components/toolbar";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { CalendarDays, Download } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
@@ -22,7 +22,7 @@ export function Layout7Page() {
 
         <ToolbarActions>
           <Button variant="outline" asChild>
-            <Link to={'#'}>
+            <Link to={'..'}>
               <Download />
               Export
             </Link>
@@ -65,3 +65,5 @@ export function Layout7Page() {
     </>
   );
 }
+
+

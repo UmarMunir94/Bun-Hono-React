@@ -1,6 +1,6 @@
 import { Fragment, ReactNode } from 'react';
 import { ChevronRight } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { MENU_SIDEBAR } from '@/config/layout-3.config';
 import { MenuItem } from '@/config/types';
 import { cn } from '@/lib/utils';
@@ -87,3 +87,4 @@ const ToolbarHeading = ({ title = '' }: ToolbarHeadingProps) => {
 };
 
 export { Toolbar, ToolbarActions, ToolbarBreadcrumbs, ToolbarHeading };
+

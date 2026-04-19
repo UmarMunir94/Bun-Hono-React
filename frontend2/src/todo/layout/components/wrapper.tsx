@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from '@tanstack/react-router';
 import { HeaderMobile } from './header-mobile';
 import { useLayout } from './context';
 import { Sidebar } from './sidebar';
@@ -39,3 +39,4 @@ export function Wrapper() {
     </>
   );
 }
+

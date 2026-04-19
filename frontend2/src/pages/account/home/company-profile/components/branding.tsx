@@ -1,6 +1,6 @@
 import { useId, useState } from 'react';
 import { Image as ImageIcon, SquareMousePointer } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -162,3 +162,4 @@ const Branding = () => {
 };
 
 export { Branding };
+

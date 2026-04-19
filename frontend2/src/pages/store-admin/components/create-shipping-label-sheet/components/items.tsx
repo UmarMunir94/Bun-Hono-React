@@ -1,6 +1,6 @@
 import React from 'react';
 import { Label } from '@radix-ui/react-label';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Badge, BadgeDot } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -44,7 +44,7 @@ export const Items = () => {
 
                 <div className="flex flex-col gap-1">
                   <Link
-                    to="#"
+                    to="."
                     className="hover:text-primary-active text-sm font-medium text-dark leading-5.5"
                   >
                     {item.title}
@@ -98,3 +98,5 @@ export const Items = () => {
     </Card>
   );
 };
+
+

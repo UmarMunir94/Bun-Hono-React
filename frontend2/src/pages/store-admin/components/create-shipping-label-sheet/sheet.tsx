@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
@@ -53,7 +53,7 @@ export function StoreAdminCreateShippingLabelSheet({
                 Read Shipping
               </span>
               <Button mode="link" asChild>
-                <Link to="#" className="text-xs font-medium">
+                <Link to="." className="text-xs font-medium">
                   Terms & Conditions
                 </Link>
               </Button>
@@ -68,3 +68,5 @@ export function StoreAdminCreateShippingLabelSheet({
     </Sheet>
   );
 }
+
+

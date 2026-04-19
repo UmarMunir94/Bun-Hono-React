@@ -19,7 +19,7 @@ import { CircleCheck } from 'lucide-react';
 import { Circle } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Stepper, StepperItem, StepperNav, StepperTrigger } from '@/components/ui/stepper'; 
 
 // Interface for current stock data
@@ -200,7 +200,7 @@ export function OrderDetailsSheet({
 
                               <div className="flex flex-col justify-center gap-1.5 -mt-1">
                                 <Link
-                                  to="#"
+                                  to="."
                                   className="hover:text-primary text-sm font-medium text-dark leading-5.5"
                                 >
                                   {item.title}
@@ -415,7 +415,7 @@ export function OrderDetailsSheet({
           <div className="text-xs font-medium text-secondary-foreground">
             Read Shipping
             <Link
-              to="#"
+              to="."
               className="hover:text-primary text-xs font-medium text-primary ms-1"
             >
               Terms & Conditions
@@ -440,3 +440,5 @@ export function OrderDetailsSheet({
     </Sheet>
   );
 }
+
+

@@ -10,7 +10,7 @@ import {
   MessageSquareDot,
   Search,
 } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 
@@ -90,3 +90,4 @@ export function HeaderTopbar() {
     </div>
   );
 }
+

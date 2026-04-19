@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import {
   Dialog,
@@ -47,13 +47,13 @@ export function WelcomeMessageDialog({
           </div>
 
           <div className="flex justify-center mb-2">
-            <Link to="#" className="btn btn-primary flex justify-center">
+            <Link to="." className="btn btn-primary flex justify-center">
               Show me around
             </Link>
           </div>
 
           <Link
-            to="#"
+            to="."
             className="text-sm font-medium text-secondary-foreground hover:text-primary py-3"
           >
             Skip the tour
@@ -63,3 +63,5 @@ export function WelcomeMessageDialog({
     </Dialog>
   );
 }
+
+

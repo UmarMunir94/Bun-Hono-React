@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router';
+import { Outlet } from '@tanstack/react-router';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Container } from '@/components/common/container';
 import { Breadcrumb } from './breadcrumb';
@@ -17,3 +17,4 @@ export function Content() {
     </div>
   );
 }
+

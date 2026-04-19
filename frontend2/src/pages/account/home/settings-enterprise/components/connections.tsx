@@ -1,7 +1,7 @@
 import { DropdownMenu4 } from '@/partials/dropdown-menu/dropdown-menu-4';
 import { DropdownMenu5 } from '@/partials/dropdown-menu/dropdown-menu-5';
 import { Check, EllipsisVertical } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -73,7 +73,7 @@ const Connections = () => {
             />
             <div className="flex flex-col gap-0.5">
               <Link
-                to="#"
+                to="."
                 className="text-sm font-medium text-mono hover:text-primary-active mb-px"
               >
                 {table.name}
@@ -142,7 +142,7 @@ const Connections = () => {
       </CardContent>
       <CardFooter className="justify-center">
         <Button mode="link" underlined="dashed" asChild>
-          <Link to="#">View 64 more</Link>
+          <Link to=".">View 64 more</Link>
         </Button>
       </CardFooter>
     </Card>
@@ -150,3 +150,5 @@ const Connections = () => {
 };
 
 export { Connections, type IConnection, type IConnections };
+
+

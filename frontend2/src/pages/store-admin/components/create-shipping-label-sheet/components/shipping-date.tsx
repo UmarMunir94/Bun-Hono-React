@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
@@ -19,7 +19,7 @@ export const ShippingDate = () => {
         <Checkbox />
         <Label>Send</Label>
         <Button mode="link" asChild>
-          <Link to="#" className="text-xs font-medium">
+          <Link to="." className="text-xs font-medium">
             Shipping Info
           </Link>
         </Button>
@@ -28,3 +28,5 @@ export const ShippingDate = () => {
     </div>
   );
 };
+
+

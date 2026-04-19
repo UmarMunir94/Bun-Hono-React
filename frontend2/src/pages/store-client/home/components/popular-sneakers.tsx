@@ -1,5 +1,5 @@
 import { ChevronRight } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card2 } from '../../components/common/card2';
 import { INewArrivalsItem, INewArrivalsItems } from './new-arrivals';
@@ -62,3 +62,4 @@ export function PopularSneakers() {
     </div>
   );
 }
+

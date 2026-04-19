@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { cn } from '@/lib/utils';
 
 export function NavbarMenu() {
@@ -73,3 +73,4 @@ export function NavbarMenu() {
     </div>
   );
 }
+

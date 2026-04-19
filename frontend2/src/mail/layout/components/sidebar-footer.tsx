@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import {
   AccordionMenu,
   AccordionMenuGroup,
@@ -75,3 +75,4 @@ export function SidebarFooter() {
     </AccordionMenu>
   );
 }
+

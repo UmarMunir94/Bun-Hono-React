@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 
 import { useLayout } from './context';
 import { Button } from '@/components/ui/button';
@@ -55,3 +55,4 @@ export function HeaderLogo() {
     </div>
   );
 }
+

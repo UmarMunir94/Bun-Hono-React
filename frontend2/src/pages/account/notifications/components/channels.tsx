@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { CardNotification } from '@/partials/cards';
 import { LucideIcon, Mail, Monitor, Phone, Slack } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -39,7 +39,7 @@ const Channels = () => {
         'Receive instant alerts for messages and updates directly in Slack.',
       actions: (
         <Button variant="outline">
-          <Link to="#">Connect Slack</Link>
+          <Link to=".">Connect Slack</Link>
         </Button>
       ),
     },
@@ -85,3 +85,5 @@ const Channels = () => {
 };
 
 export { Channels, type IChannelsItem, type IChannelsItems };
+
+

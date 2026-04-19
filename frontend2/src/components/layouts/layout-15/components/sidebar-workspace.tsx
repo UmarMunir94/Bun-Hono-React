@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { 
   Building2, 
   Users, 
@@ -224,3 +224,4 @@ export function SidebarWorkspace({ onSwitchToDefault }: SidebarWorkspaceProps) {
     </>
   );
 }
+

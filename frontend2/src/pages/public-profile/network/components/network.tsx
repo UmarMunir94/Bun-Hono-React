@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CardConnection, CardConnectionRow } from '@/partials/cards';
 import { LayoutGrid, List } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
@@ -342,3 +342,4 @@ const Network = () => {
 };
 
 export { Network, type INetworkItem, type INetworkItems };
+

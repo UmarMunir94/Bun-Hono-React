@@ -1,5 +1,5 @@
 import { CalendarCog, Trash2 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -39,13 +39,13 @@ const CalendarAccounts = () => {
           />
           <div className="flex flex-col">
             <Link
-              to="#"
+              to="."
               className="text-sm font-medium text-mono hover:text-primary-active mb-px"
             >
               {item.title}
             </Link>
             <Link
-              to="#"
+              to="."
               className="text-sm text-secondary-foreground hover:text-primary-active"
             >
               {item.email}
@@ -88,3 +88,5 @@ export {
   type ICalendarAccountsItem,
   type ICalendarAccountsItems,
 };
+
+

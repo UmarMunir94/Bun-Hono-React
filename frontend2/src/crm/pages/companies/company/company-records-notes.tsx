@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { getInitials, toAbsoluteUrl } from '@/lib/helpers';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -97,7 +97,7 @@ export function CompanyRecordsNotes() {
                 <div className="flex items-center gap-2 mb-2">
                   <img src={note.logo} alt={note.org} className="size-4.5" />
                   <Link
-                    to="#"
+                    to="."
                     className="font-normal text-xs hover:text-primary"
                   >
                     {note.org}
@@ -121,7 +121,7 @@ export function CompanyRecordsNotes() {
                     <AvatarFallback>{getInitials(note.author)}</AvatarFallback>
                   </Avatar>
                   <Link
-                    to="#"
+                    to="."
                     className="font-medium text-mono text-xs hover:text-primary"
                   >
                     {note.author}
@@ -136,3 +136,5 @@ export function CompanyRecordsNotes() {
     </div>
   );
 }
+
+

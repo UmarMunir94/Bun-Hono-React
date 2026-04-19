@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { SectionHeader } from "./section-header";
 import { ChatThread } from "@/ai/types";
-import { useNavigate } from "react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { useChats } from "./chats-context";
 
@@ -221,3 +221,4 @@ export function RecentChats({ selectedChat, onChatSelect, onChatDelete }: Recent
     </div>
   );
 }
+

@@ -1,7 +1,7 @@
 'use client';
 
 import { Calendar, ChevronDown } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -52,7 +52,7 @@ export function ToolbarMenu() {
             className={item.active ? 'bg-muted font-medium' : ''}
             asChild
           >
-            <Link to="#" className="w-full">
+            <Link to="." className="w-full">
               {item.title}
             </Link>
           </DropdownMenuItem>
@@ -61,3 +61,5 @@ export function ToolbarMenu() {
     </DropdownMenu>
   );
 }
+
+

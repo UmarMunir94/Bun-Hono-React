@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import 'leaflet/dist/leaflet.css';
 import {
   RemixiconComponentType,
@@ -161,3 +161,4 @@ export {
   type IProfileProduct,
   type IProfileProducts,
 };
+

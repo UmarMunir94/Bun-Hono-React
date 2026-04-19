@@ -1,5 +1,5 @@
 import { Users } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { TimelineItem } from './timeline-item';
 
@@ -24,3 +24,4 @@ const ActivitiesNewArticle = () => {
 };
 
 export { ActivitiesNewArticle };
+

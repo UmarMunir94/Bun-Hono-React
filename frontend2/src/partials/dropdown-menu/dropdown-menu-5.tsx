@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { FileDown, FilePlus, FileUp, Settings } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -61,3 +61,4 @@ export function DropdownMenu5({ trigger }: { trigger: ReactNode }) {
     </DropdownMenu>
   );
 }
+

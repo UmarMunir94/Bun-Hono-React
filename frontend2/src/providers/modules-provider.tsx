@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from '@tanstack/react-router';
 import { ScreenLoader } from '@/components/screen-loader';
 
 const LazyCrmModule = lazy(() => import('@/crm'));
@@ -116,3 +116,4 @@ export function ModulesProvider() {
   // Redirect to CRM if no route matches
   return <Navigate to="/crm" replace />;
 }
+

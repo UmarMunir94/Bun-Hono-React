@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { ListChecks } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -22,7 +22,7 @@ export function OrderReceipt() {
             id="order_receipt_body"
           >
             <div className="flex flex-col items-center gap-3 mb-5 lg:mb-9">
-              <Link to="#" className="dark:hidden">
+              <Link to="." className="dark:hidden">
                 <img
                   src={toAbsoluteUrl('/media/app/default-logo.svg')}
                   className="default-logo h-[22px]"
@@ -30,7 +30,7 @@ export function OrderReceipt() {
                 />
               </Link>
 
-              <Link to="#" className="hidden dark:block">
+              <Link to="." className="hidden dark:block">
                 <img
                   src={toAbsoluteUrl('/media/app/default-logo-dark.svg')}
                   className="default-logo h-[22px]"
@@ -111,3 +111,5 @@ export function OrderReceipt() {
     </Fragment>
   );
 }
+
+

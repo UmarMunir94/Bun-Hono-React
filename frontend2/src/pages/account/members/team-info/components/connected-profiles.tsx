@@ -1,6 +1,6 @@
 import { DropdownMenu2 } from '@/partials/dropdown-menu/dropdown-menu-2';
 import { EllipsisVertical } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -57,7 +57,7 @@ const ConnectedProfiles = () => {
           />
           <div className="flex flex-col gap-1">
             <Link
-              to="#"
+              to="."
               className="text-sm font-medium text-mono hover:text-primary-active"
             >
               {item.user.name}
@@ -110,7 +110,7 @@ const ConnectedProfiles = () => {
       })}
       <CardFooter className="justify-center">
         <Button variant="outline">
-          <Link to="#">Connect Profile</Link>
+          <Link to=".">Connect Profile</Link>
         </Button>
       </CardFooter>
     </Card>
@@ -122,3 +122,5 @@ export {
   type IConnectedProfilesItem,
   type IConnectedProfilesItems,
 };
+
+

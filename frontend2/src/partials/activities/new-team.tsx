@@ -1,5 +1,5 @@
 import { SquareDashedBottomCode, Users, Volleyball } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { AvatarGroup } from '../common/avatar-group';
@@ -18,7 +18,7 @@ const ActivitiesNewTeam = () => {
               asChild
               className="text-sm font-medium text-mono hover:text-primary-active"
             >
-              <Link to="#">Market Mavericks</Link>
+              <Link to=".">Market Mavericks</Link>
             </Button>{' '}
             joined community
           </div>
@@ -62,7 +62,7 @@ const ActivitiesNewTeam = () => {
                   asChild
                   className="text-base font-medium hover:text-primary text-mono"
                 >
-                  <Link to="#">Market Mavericks</Link>
+                  <Link to=".">Market Mavericks</Link>
                 </Button>
                 <p className="text-sm text-secondary-foreground">
                   Navigating markets with strategic solutions
@@ -96,7 +96,7 @@ const ActivitiesNewTeam = () => {
               </div>
               <div className="grid justify-end min-w-20">
                 <Button variant="primary">
-                  <Link to="#">
+                  <Link to=".">
                     <Users />
                   </Link>{' '}
                   Join
@@ -111,3 +111,5 @@ const ActivitiesNewTeam = () => {
 };
 
 export { ActivitiesNewTeam };
+
+

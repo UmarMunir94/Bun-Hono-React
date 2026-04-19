@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Check, MoveLeft } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { BetterAuthAdapter } from '@/auth/adapters/better-auth-adapter';
 import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -137,3 +137,4 @@ export function ResetPasswordPage() {
     </div>
   );
 }
+

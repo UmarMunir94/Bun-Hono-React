@@ -1,7 +1,7 @@
 import { DropdownMenu3 } from '@/partials/dropdown-menu/dropdown-menu-3';
 import { DropdownMenu6 } from '@/partials/dropdown-menu/dropdown-menu-6';
 import { EllipsisVertical } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Button } from '@/components/ui/button';
 import {
@@ -59,7 +59,7 @@ const Contributors = () => {
           />
           <div className="flex flex-col">
             <Link
-              to="#"
+              to="."
               className="text-sm font-semibold text-mono hover:text-primary-active mb-px"
             >
               {item.name}
@@ -109,3 +109,5 @@ const Contributors = () => {
 };
 
 export { Contributors, type IContributorsItem, type IContributorsItems };
+
+

@@ -7,7 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { ShoppingCart, TrendingUp } from "lucide-react";
 import { toAbsoluteUrl } from "@/lib/helpers";
-import { Link } from "react-router";
+import { Link } from "@tanstack/react-router";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 
 export function RecentOrders() {
@@ -99,7 +99,7 @@ export function RecentOrders() {
                           <Tooltip>
                             <TooltipTrigger asChild>
                               <Link
-                                to="#"
+                                to="."
                                 onClick={() => {}}
                                 className="text-sm font-medium text-foreground hover:text-primary leading-3.5 text-left"
                               >
@@ -112,7 +112,7 @@ export function RecentOrders() {
                           </Tooltip>
                         ) : (
                           <Link
-                            to="#"
+                            to="."
                             className="text-sm font-medium text-foreground hover:text-primary leading-3.5 text-left"
                           >
                             {order.product}
@@ -143,3 +143,4 @@ export function RecentOrders() {
     </TooltipProvider>
   );
 }
+

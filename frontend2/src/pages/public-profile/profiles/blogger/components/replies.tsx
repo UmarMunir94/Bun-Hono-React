@@ -1,5 +1,5 @@
 import { Heart } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -85,3 +85,4 @@ const Replies = () => {
 };
 
 export { Replies, type IRepliesItem, type IRepliesItems };
+

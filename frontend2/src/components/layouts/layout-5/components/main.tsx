@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { addDays, format } from 'date-fns';
 import { CalendarDays } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
-import { Outlet } from 'react-router';
+import { Outlet } from '@tanstack/react-router';
 import { useBodyClass } from '@/hooks/use-body-class';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Button } from '@/components/ui/button';
@@ -83,3 +83,4 @@ export function Main() {
     </div>
   );
 };
+

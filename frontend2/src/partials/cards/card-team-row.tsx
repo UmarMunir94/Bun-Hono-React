@@ -1,5 +1,5 @@
 import { CircleCheck, Users } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -33,7 +33,7 @@ const CardTeamRow = ({
           </div>
           <div className="grid grid-col gap-1">
             <Link
-              to="#"
+              to="."
               className="text-base font-medium text-mono hover:text-primary-active mb-px"
             >
               {title}
@@ -74,14 +74,14 @@ const CardTeamRow = ({
           <div className="grid justify-end min-w-20">
             {connected ? (
               <Button variant="outline">
-                <Link to="#">
+                <Link to=".">
                   <CircleCheck size={16} />
                 </Link>{' '}
                 Joined
               </Button>
             ) : (
               <Button variant="primary">
-                <Link to="#">
+                <Link to=".">
                   <Users size={16} />
                 </Link>{' '}
                 Join
@@ -95,3 +95,5 @@ const CardTeamRow = ({
 };
 
 export { CardTeamRow };
+
+
