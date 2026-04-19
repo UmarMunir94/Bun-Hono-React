@@ -135,6 +135,48 @@ import { CustomerListDetails } from "@/store-inventory/pages/customer-list-detai
 import { OrderListProducts } from "@/store-inventory/pages/order-list-products/page";
 import { SettingsModal } from "@/store-inventory/pages/settings-modal/page";
 
+// CRM Imports
+import { DefaultLayout as CrmLayout } from "@/crm/layout";
+import { CompanyPage } from "@/crm/pages/companies/company/page";
+import { CompaniesListPage } from "@/crm/pages/companies/page";
+import ContactsPage from "@/crm/pages/contacts/page";
+import { Dashboard as CrmDashboard } from "@/crm/pages/dashboard/page";
+import { DealsPage } from "@/crm/pages/deals/page";
+import { NotesPage } from "@/crm/pages/notes/page";
+import { TasksPage } from "@/crm/pages/tasks/page";
+
+// Mail Imports
+import { DefaultLayout as MailLayout } from "@/mail/layout";
+import { InboxPage } from "@/mail/pages/inbox/page";
+import { SentPage } from "@/mail/pages/sent/page";
+import { DraftPage } from "@/mail/pages/draft/page";
+
+// AI Imports
+import { DefaultLayout as AiLayout } from "@/ai/layout";
+import { AIChatPage } from "@/ai/pages/chat";
+import { AIStartPage } from "@/ai/pages/start";
+
+// Calendar Imports
+import { DefaultLayout as CalendarLayout } from "@/calendar/layout";
+import { CalendarPage } from "@/calendar/pages/page";
+
+// Todo Imports
+import { DefaultLayout as TodoLayout } from "@/todo/layout";
+import { AllTasksPage } from "@/todo/pages/all-tasks/page";
+import { TodayPage } from "@/todo/pages/today/page";
+import { UpcomingPage } from "@/todo/pages/upcoming/page";
+import { PriorityPage } from "@/todo/pages/priority/page";
+import { CompletedPage } from "@/todo/pages/completed/page";
+
+// Real Estate Imports
+import { DefaultLayout as RealEstateLayout } from "@/real-estate/layout";
+import { Page as RealEstatePage } from "@/real-estate/pages/page";
+
+// Error Imports
+import { ErrorLayout } from "@/layouts/error/layout";
+import { Error404 } from "@/errors/error-404";
+import { Error500 } from "@/errors/error-500";
+
 import { SignInPage } from "@/auth/pages/signin-page";
 import { SignUpPage } from '@/auth/pages/signup-page';
 import { CallbackPage } from '@/auth/pages/callback-page';
@@ -1014,6 +1056,203 @@ export const inventoryOrderTrackingRoute = createRoute({
   component: OrderTrackingPage,
 });
 
+// CRM Routes
+export const crmLayoutRoute = createRoute({
+  getParentRoute: () => authLayoutRoute,
+  path: "/crm",
+  component: CrmLayout,
+});
+
+export const crmDashboardRoute = createRoute({
+  getParentRoute: () => crmLayoutRoute,
+  path: "/dashboard",
+  component: CrmDashboard,
+});
+
+export const crmTasksRoute = createRoute({
+  getParentRoute: () => crmLayoutRoute,
+  path: "/tasks",
+  component: TasksPage,
+});
+
+export const crmNotesRoute = createRoute({
+  getParentRoute: () => crmLayoutRoute,
+  path: "/notes",
+  component: NotesPage,
+});
+
+export const crmCompaniesListRoute = createRoute({
+  getParentRoute: () => crmLayoutRoute,
+  path: "/companies",
+  component: CompaniesListPage,
+});
+
+export const crmCompanyRoute = createRoute({
+  getParentRoute: () => crmLayoutRoute,
+  path: "/company",
+  component: CompanyPage,
+});
+
+const crmCompanyParamsSchema = z.object({
+  companyId: z.string(),
+});
+
+export const crmCompanyDetailsRoute = createRoute({
+  getParentRoute: () => crmLayoutRoute,
+  path: "/companies/$companyId",
+  component: CompanyPage,
+  parseParams: (params) => crmCompanyParamsSchema.parse(params),
+});
+
+export const crmContactsRoute = createRoute({
+  getParentRoute: () => crmLayoutRoute,
+  path: "/contacts",
+  component: ContactsPage,
+});
+
+const crmContactParamsSchema = z.object({
+  contactId: z.string(),
+});
+
+export const crmContactDetailsRoute = createRoute({
+  getParentRoute: () => crmLayoutRoute,
+  path: "/contacts/$contactId",
+  component: CompanyPage, // Reusing CompanyPage for contact details per legacy index
+  parseParams: (params) => crmContactParamsSchema.parse(params),
+});
+
+export const crmDealsRoute = createRoute({
+  getParentRoute: () => crmLayoutRoute,
+  path: "/deals",
+  component: DealsPage,
+});
+
+// Mail Routes
+export const mailLayoutRoute = createRoute({
+  getParentRoute: () => authLayoutRoute,
+  path: "/mail",
+  component: MailLayout,
+});
+
+export const mailInboxRoute = createRoute({
+  getParentRoute: () => mailLayoutRoute,
+  path: "/inbox",
+  component: InboxPage,
+});
+
+export const mailSentRoute = createRoute({
+  getParentRoute: () => mailLayoutRoute,
+  path: "/sent",
+  component: SentPage,
+});
+
+export const mailDraftRoute = createRoute({
+  getParentRoute: () => mailLayoutRoute,
+  path: "/draft",
+  component: DraftPage,
+});
+
+// AI Routes
+export const aiLayoutRoute = createRoute({
+  getParentRoute: () => authLayoutRoute,
+  path: "/ai",
+  component: AiLayout,
+});
+
+export const aiStartRoute = createRoute({
+  getParentRoute: () => aiLayoutRoute,
+  path: "/start",
+  component: AIStartPage,
+});
+
+export const aiChatRoute = createRoute({
+  getParentRoute: () => aiLayoutRoute,
+  path: "/chat",
+  component: AIChatPage,
+});
+
+// Calendar Routes
+export const calendarLayoutRoute = createRoute({
+  getParentRoute: () => authLayoutRoute,
+  path: "/calendar",
+  component: CalendarLayout,
+});
+
+export const calendarPageRoute = createRoute({
+  getParentRoute: () => calendarLayoutRoute,
+  path: "/page",
+  component: CalendarPage,
+});
+
+// Todo Routes
+export const todoLayoutRoute = createRoute({
+  getParentRoute: () => authLayoutRoute,
+  path: "/todo",
+  component: TodoLayout,
+});
+
+export const todoAllTasksRoute = createRoute({
+  getParentRoute: () => todoLayoutRoute,
+  path: "/all-tasks",
+  component: AllTasksPage,
+});
+
+export const todoTodayRoute = createRoute({
+  getParentRoute: () => todoLayoutRoute,
+  path: "/today",
+  component: TodayPage,
+});
+
+export const todoUpcomingRoute = createRoute({
+  getParentRoute: () => todoLayoutRoute,
+  path: "/upcoming",
+  component: UpcomingPage,
+});
+
+export const todoPriorityRoute = createRoute({
+  getParentRoute: () => todoLayoutRoute,
+  path: "/priority",
+  component: PriorityPage,
+});
+
+export const todoCompletedRoute = createRoute({
+  getParentRoute: () => todoLayoutRoute,
+  path: "/completed",
+  component: CompletedPage,
+});
+
+// Real Estate Routes
+export const realEstateLayoutRoute = createRoute({
+  getParentRoute: () => authLayoutRoute,
+  path: "/real-estate",
+  component: RealEstateLayout,
+});
+
+export const realEstatePageRoute = createRoute({
+  getParentRoute: () => realEstateLayoutRoute,
+  path: "/page",
+  component: RealEstatePage,
+});
+
+// Error Routes
+export const errorLayoutRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  id: "error-layout",
+  component: ErrorLayout,
+});
+
+export const error404Route = createRoute({
+  getParentRoute: () => errorLayoutRoute,
+  path: "/error/404",
+  component: Error404,
+});
+
+export const error500Route = createRoute({
+  getParentRoute: () => errorLayoutRoute,
+  path: "/error/500",
+  component: Error500,
+});
+
 // ── Route Tree ──────────────────────────────────────────────────────────────
 const routeTree = rootRoute.addChildren([
   authLayoutRoute.addChildren([
@@ -1129,6 +1368,43 @@ const routeTree = rootRoute.addChildren([
       inventoryOrderDetailsRoute,
       inventoryOrderTrackingRoute,
     ]),
+    crmLayoutRoute.addChildren([
+      crmDashboardRoute,
+      crmTasksRoute,
+      crmNotesRoute,
+      crmCompaniesListRoute,
+      crmCompanyRoute,
+      crmCompanyDetailsRoute,
+      crmContactsRoute,
+      crmContactDetailsRoute,
+      crmDealsRoute,
+    ]),
+    mailLayoutRoute.addChildren([
+      mailInboxRoute,
+      mailSentRoute,
+      mailDraftRoute,
+    ]),
+    aiLayoutRoute.addChildren([
+      aiStartRoute,
+      aiChatRoute,
+    ]),
+    calendarLayoutRoute.addChildren([
+      calendarPageRoute,
+    ]),
+    todoLayoutRoute.addChildren([
+      todoAllTasksRoute,
+      todoTodayRoute,
+      todoUpcomingRoute,
+      todoPriorityRoute,
+      todoCompletedRoute,
+    ]),
+    realEstateLayoutRoute.addChildren([
+      realEstatePageRoute,
+    ]),
+  ]),
+  errorLayoutRoute.addChildren([
+    error404Route,
+    error500Route,
   ]),
   brandedAuthLayoutRoute.addChildren([
     signinRoute,

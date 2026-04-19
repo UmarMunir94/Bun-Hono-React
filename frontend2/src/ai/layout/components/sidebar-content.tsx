@@ -10,12 +10,12 @@ import { useLayout } from "./context";
 import { useChats } from "./chats-context";
 import { cn } from "@/lib/utils";
 
-import { useSearchParams } from "@tanstack/react-router";
+import { useSearch } from "@tanstack/react-router";
 
 export function SidebarContent() {
   const { isSidebarOpen } = useLayout();
-  const [searchParams] = useSearchParams();
-  const chatId = searchParams.get("chatId");
+  const search = useSearch({ strict: false });
+  const chatId = (search as any).chatId;
   const [selectedChat, setSelectedChat] = useState<string | null>(chatId || "1");
   const [selectedModel, setSelectedModel] = useState("gpt-4");
   const { setChats } = useChats();
