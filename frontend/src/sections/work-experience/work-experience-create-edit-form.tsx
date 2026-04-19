@@ -12,16 +12,16 @@ import Button from '@mui/material/Button';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
-import { createWorkExperience } from 'src/lib/api';
+import { createWorkExperience, updateWorkExperience } from 'src/lib/api';
 
 import { toast } from 'src/components/snackbar';
 import { Form, Field } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
-export type WorkExperienceCreateSchemaType = zod.infer<typeof WorkExperienceCreateSchema>;
+export type WorkExperienceSchemaType = zod.infer<typeof WorkExperienceSchema>;
 
-export const WorkExperienceCreateSchema = zod.object({
+export const WorkExperienceSchema = zod.object({
   company: zod.string().min(2, { message: 'Company name must be at least 2 characters' }),
   location: zod.string().min(2, { message: 'Location must be at least 2 characters' }),
   position: zod.string().min(2, { message: 'Position must be at least 2 characters' }),
@@ -32,22 +32,37 @@ export const WorkExperienceCreateSchema = zod.object({
 
 // ----------------------------------------------------------------------
 
-export function WorkExperienceCreateEditForm() {
+export type WorkExperienceCurrentData = {
+  id: number;
+  company: string;
+  location: string;
+  position: string;
+  startDate: string;
+  endDate?: string | null;
+  description?: string | null;
+};
+
+type Props = {
+  currentData?: WorkExperienceCurrentData;
+};
+
+export function WorkExperienceCreateEditForm({ currentData }: Props) {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const isEdit = !!currentData;
 
-  const defaultValues: WorkExperienceCreateSchemaType = {
-    company: '',
-    location: '',
-    position: '',
-    startDate: '',
-    endDate: '',
-    description: '',
+  const defaultValues: WorkExperienceSchemaType = {
+    company: currentData?.company ?? '',
+    location: currentData?.location ?? '',
+    position: currentData?.position ?? '',
+    startDate: currentData?.startDate ?? '',
+    endDate: currentData?.endDate ?? '',
+    description: currentData?.description ?? '',
   };
 
-  const methods = useForm<WorkExperienceCreateSchemaType>({
+  const methods = useForm<WorkExperienceSchemaType>({
     mode: 'onSubmit',
-    resolver: zodResolver(WorkExperienceCreateSchema),
+    resolver: zodResolver(WorkExperienceSchema),
     defaultValues,
   });
 
@@ -60,23 +75,42 @@ export function WorkExperienceCreateEditForm() {
   const createMutation = useMutation({
     mutationFn: createWorkExperience,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["get-all-work-experience"] });
+      queryClient.invalidateQueries({ queryKey: ['get-all-work-experience'] });
       reset();
       toast.success('Create success!');
       router.push(paths.dashboard.workExperience.list);
     },
     onError: (error) => {
       console.error(error);
-      toast.error('Failed to create work experience records.');
-    }
+      toast.error('Failed to create work experience record.');
+    },
   });
+
+  const updateMutation = useMutation({
+    mutationFn: updateWorkExperience,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['get-all-work-experience'] });
+      toast.success('Update success!');
+      router.push(paths.dashboard.workExperience.list);
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error('Failed to update work experience record.');
+    },
+  });
+
+  const isPending = createMutation.isPending || updateMutation.isPending;
 
   const onSubmit = handleSubmit(async (data) => {
     const payload = {
       ...data,
       endDate: data.endDate && data.endDate.trim() !== '' ? data.endDate : null,
     };
-    createMutation.mutate({ value: payload });
+    if (isEdit) {
+      updateMutation.mutate({ id: currentData.id, value: payload });
+    } else {
+      createMutation.mutate({ value: payload });
+    }
   });
 
   return (
@@ -97,12 +131,18 @@ export function WorkExperienceCreateEditForm() {
               <Field.Text name="location" label="Location" />
               <Field.Text name="startDate" label="Start Date (YYYY-MM-DD)" placeholder="e.g. 2022-01-01" />
               <Field.Text name="endDate" label="End Date (Optional, YYYY-MM-DD)" placeholder="e.g. 2023-01-01" />
-              <Field.Text name="description" label="Description" multiline rows={4} sx={{ gridColumn: '1 / -1' }} />
+              <Field.Text
+                name="description"
+                label="Description"
+                multiline
+                rows={4}
+                sx={{ gridColumn: '1 / -1' }}
+              />
             </Box>
 
             <Stack sx={{ mt: 3, alignItems: 'flex-end' }}>
-              <Button type="submit" variant="contained" loading={isSubmitting || createMutation.isPending}>
-                Create Experience
+              <Button type="submit" variant="contained" loading={isSubmitting || isPending}>
+                {isEdit ? 'Save Changes' : 'Create Experience'}
               </Button>
             </Stack>
           </Card>

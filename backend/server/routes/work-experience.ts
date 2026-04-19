@@ -9,7 +9,7 @@ import {
   insertWorkExperienceSchema,
 } from "../db/schema/work-experience";
 import { eq, desc, and } from "drizzle-orm";
-import { createWorkExperienceSchema } from "../sharedTypes";
+import { createWorkExperienceSchema, updateWorkExperienceSchema } from "../sharedTypes";
 
 export const workExperienceRoute = new Hono<{
   Variables: {
@@ -70,4 +70,27 @@ export const workExperienceRoute = new Hono<{
     }
 
     return c.json({ workExperience: deleted });
+  })
+  .put("/:id{[0-9]+}", getUser, zValidator("json", updateWorkExperienceSchema), async (c) => {
+    const id = Number.parseInt(c.req.param("id"));
+    const user = c.var.user;
+    const body = c.req.valid("json");
+
+    const updated = await db
+      .update(workExperienceTable)
+      .set(body)
+      .where(
+        and(
+          eq(workExperienceTable.userId, user.id),
+          eq(workExperienceTable.id, id)
+        )
+      )
+      .returning()
+      .then((res) => res[0]);
+
+    if (!updated) {
+      return c.notFound();
+    }
+
+    return c.json({ workExperience: updated });
   });

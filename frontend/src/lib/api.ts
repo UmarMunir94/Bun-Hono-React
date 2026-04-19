@@ -1,7 +1,7 @@
 import { hc } from "hono/client";
 import { type ApiRoutes } from "@server/app";
 import { queryOptions } from "@tanstack/react-query";
-import { type CreateEducation, type CreateWorkExperience } from "@server/sharedTypes";
+import { type CreateEducation, type CreateWorkExperience, type UpdateEducation, type UpdateWorkExperience } from "@server/sharedTypes";
 
 // ─── Silent refresh interceptor ──────────────────────────────────────────────
 // When any API call returns 401, try to silently refresh the session using the
@@ -124,6 +124,15 @@ export async function deleteEducation({ id }: { id: number }) {
   if (!res.ok) throw new Error("server error");
 }
 
+export async function updateEducation({ id, value }: { id: number; value: UpdateEducation }) {
+  const res = await api.education[":id{[0-9]+}"].$put({
+    param: { id: id.toString() },
+    json: value,
+  });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
 // ── Work Experience ────────────────────────────────────────────────────────
 
 export async function getAllWorkExperience() {
@@ -161,4 +170,13 @@ export async function deleteWorkExperience({ id }: { id: number }) {
     param: { id: id.toString() },
   });
   if (!res.ok) throw new Error("server error");
+}
+
+export async function updateWorkExperience({ id, value }: { id: number; value: UpdateWorkExperience }) {
+  const res = await api["work-experience"][":id{[0-9]+}"].$put({
+    param: { id: id.toString() },
+    json: value,
+  });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
 }

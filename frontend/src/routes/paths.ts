@@ -125,11 +125,13 @@ export const paths = {
       root: `${ROOTS.DASHBOARD}/education`,
       list: `${ROOTS.DASHBOARD}/education/list`,
       new: `${ROOTS.DASHBOARD}/education/new`,
+      edit: (id: number | string) => `${ROOTS.DASHBOARD}/education/${id}/edit`,
     },
     workExperience: {
       root: `${ROOTS.DASHBOARD}/work-experience`,
       list: `${ROOTS.DASHBOARD}/work-experience/list`,
       new: `${ROOTS.DASHBOARD}/work-experience/new`,
+      edit: (id: number | string) => `${ROOTS.DASHBOARD}/work-experience/${id}/edit`,
     },
     product: {
       root: `${ROOTS.DASHBOARD}/product`,

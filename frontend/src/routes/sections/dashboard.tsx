@@ -46,9 +46,11 @@ const UserEditPage = lazy(() => import('src/pages/dashboard/user/edit'));
 // Education
 const EducationListPage = lazy(() => import('src/pages/dashboard/education/list'));
 const EducationCreatePage = lazy(() => import('src/pages/dashboard/education/new'));
+const EducationEditPage = lazy(() => import('src/pages/dashboard/education/edit'));
 // Work Experience
 const WorkExperienceListPage = lazy(() => import('src/pages/dashboard/work-experience/list'));
 const WorkExperienceCreatePage = lazy(() => import('src/pages/dashboard/work-experience/new'));
+const WorkExperienceEditPage = lazy(() => import('src/pages/dashboard/work-experience/edit'));
 // Account
 const AccountGeneralPage = lazy(() => import('src/pages/dashboard/user/account/general'));
 const AccountBillingPage = lazy(() => import('src/pages/dashboard/user/account/billing'));
@@ -151,6 +153,7 @@ export const dashboardRoutes: RouteObject[] = [
           { index: true, element: <EducationListPage /> },
           { path: 'list', element: <EducationListPage /> },
           { path: 'new', element: <EducationCreatePage /> },
+          { path: ':id/edit', element: <EducationEditPage /> },
         ],
       },
       {
@@ -159,6 +162,7 @@ export const dashboardRoutes: RouteObject[] = [
           { index: true, element: <WorkExperienceListPage /> },
           { path: 'list', element: <WorkExperienceListPage /> },
           { path: 'new', element: <WorkExperienceCreatePage /> },
+          { path: ':id/edit', element: <WorkExperienceEditPage /> },
         ],
       },
       {
