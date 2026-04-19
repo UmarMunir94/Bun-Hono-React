@@ -117,6 +117,24 @@ export const navData: NavSectionProps['data'] = [
         ],
       },
       {
+        title: 'Education',
+        path: paths.dashboard.education.root,
+        icon: ICONS.course,
+        children: [
+          { title: 'List', path: paths.dashboard.education.list },
+          { title: 'Create', path: paths.dashboard.education.new },
+        ],
+      },
+      {
+        title: 'Work Experience',
+        path: paths.dashboard.workExperience.root,
+        icon: ICONS.job,
+        children: [
+          { title: 'List', path: paths.dashboard.workExperience.list },
+          { title: 'Create', path: paths.dashboard.workExperience.new },
+        ],
+      },
+      {
         title: 'Invoice',
         path: paths.dashboard.invoice.root,
         icon: ICONS.invoice,

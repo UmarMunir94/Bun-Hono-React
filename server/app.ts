@@ -2,7 +2,6 @@ import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { serveStatic } from "hono/bun";
 import { cors } from "hono/cors";
-import { expensesRoute } from "./routes/expenses";
 import { educationRoute } from "./routes/education";
 import { workExperienceRoute } from "./routes/work-experience";
 import { auth } from "./auth";
@@ -37,7 +36,6 @@ const apiRoutes = app
     if (!user) return c.json({ error: "Unauthorized" }, 401);
     return c.json({ user });
   })
-  .route("/expenses", expensesRoute)
   .route("/education", educationRoute)
   .route("/work-experience", workExperienceRoute);
 
