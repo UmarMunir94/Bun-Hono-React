@@ -40,13 +40,8 @@ build/Release
 
 # Dependency directories
 node_modules/
-frontend/node_modules/
-vite-ts/node_modules/
-server/node_modules/
 jspm_packages/
 .bun/
-frontend/.bun/
-server/.bun/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
@@ -147,9 +142,3 @@ tsc-out.txt
 
 # Google Sign-in
 client_secret_google.json
-
-# Test frontend
-frontend-ts/
-frontend-ts/node_modules/
-vite-ts/
-vite-ts/node_modules/
