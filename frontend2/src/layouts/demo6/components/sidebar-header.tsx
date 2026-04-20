@@ -1,30 +1,32 @@
-import { useEffect, useState } from 'react';
-import { ChevronDown, Search } from 'lucide-react';
-import { Link, useLocation } from '@tanstack/react-router';
-import { MENU_ROOT } from '@/config/menu.config';
+// import { useEffect, useState } from 'react';
+// import { Link, useLocation } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
+// import { ChevronDown, Search } from 'lucide-react';
+// import { MENU_ROOT } from '@/config/menu.config';
 import { toAbsoluteUrl } from '@/lib/helpers';
-import { cn } from '@/lib/utils';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
+
+// import { cn } from '@/lib/utils';
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuTrigger,
+// } from '@/components/ui/dropdown-menu';
+// import { Input } from '@/components/ui/input';
 
 export function SidebarHeader() {
-  const { pathname } = useLocation();
-  const [selectedMenuItem, setSelectedMenuItem] = useState(MENU_ROOT[1]);
+  // const { pathname } = useLocation();
+  // const [selectedMenuItem, setSelectedMenuItem] = useState(MENU_ROOT[1]);
 
-  const handleInputChange = () => {};
+  // const handleInputChange = () => {};
 
-  useEffect(() => {
-    MENU_ROOT.forEach((item) => {
-      if (item.rootPath && pathname.includes(item.rootPath)) {
-        setSelectedMenuItem(item);
-      }
-    });
-  }, [pathname]);
+  // useEffect(() => {
+  //   MENU_ROOT.forEach((item) => {
+  //     if (item.rootPath && pathname.includes(item.rootPath)) {
+  //       setSelectedMenuItem(item);
+  //     }
+  //   });
+  // }, [pathname]);
 
   return (
     <div className="mb-3.5 shrink-0">
@@ -42,7 +44,7 @@ export function SidebarHeader() {
           />
         </Link>
 
-        <DropdownMenu>
+        {/* <DropdownMenu>
           <DropdownMenuTrigger className="cursor-pointer text-mono font-medium flex items-center justify-between gap-2 w-[150px]">
             Metronic Cloud
             <ChevronDown className="size-3.5! text-muted-foreground" />
@@ -61,10 +63,10 @@ export function SidebarHeader() {
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
       </div>
 
-      <div className="pt-2.5 px-3.5 mb-1">
+      {/* <div className="pt-2.5 px-3.5 mb-1">
         <div className="relative">
           <Search className="text-muted-foreground absolute top-1/2 start-3.5 -translate-y-1/2 size-4" />
           <Input
@@ -77,8 +79,7 @@ export function SidebarHeader() {
             cmd + /
           </span>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
-

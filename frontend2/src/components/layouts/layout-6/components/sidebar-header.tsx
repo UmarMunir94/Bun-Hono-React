@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { ChevronDown, Search } from 'lucide-react';
 import { Link, useLocation } from '@tanstack/react-router';
+import { ChevronDown, Search } from 'lucide-react';
 import { MENU_ROOT } from '@/config/layout-6.config';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
@@ -29,7 +29,7 @@ export function SidebarHeader() {
   return (
     <div className="mb-3.5">
       <div className="flex items-center justify-between gap-2.5 px-3.5 h-[70px]">
-        <Link to="/layout-6">
+        <Link to="/">
           <img
             src={toAbsoluteUrl('/media/app/mini-logo-circle.svg')}
             className="dark:hidden h-[42px]"
@@ -81,4 +81,3 @@ export function SidebarHeader() {
     </div>
   );
 }
-

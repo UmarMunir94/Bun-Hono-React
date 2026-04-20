@@ -916,7 +916,11 @@ export const MENU_MEGA: MenuConfig = [
           },
           { title: 'API Keys', icon: Key, path: '/account/api-keys' },
           { title: 'Education', icon: Book, path: '/education' },
-          { title: 'Work Experience', icon: Briefcase, path: '/work-experience' },
+          {
+            title: 'Work Experience',
+            icon: Briefcase,
+            path: '/work-experience',
+          },
           { title: 'Appearance', icon: Eye, path: '/account/appearance' },
           {
             title: 'Invite a Friend',

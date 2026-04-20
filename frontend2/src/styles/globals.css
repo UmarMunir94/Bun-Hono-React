@@ -135,12 +135,24 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--input);
+    background: var(--color-zinc-200);
     border-radius: 5px;
+    transition: background 0.2s ease;
   }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-zinc-300);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: var(--color-zinc-800);
+  }
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-zinc-700);
+  }
+
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--input) transparent;
+    scrollbar-color: var(--color-zinc-200) transparent;
   }
 }
 

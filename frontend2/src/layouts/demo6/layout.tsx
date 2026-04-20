@@ -58,7 +58,7 @@ const Demo6Layout = () => {
 
         <div className="flex flex-col grow min-w-0 pt-(--header-height-mobile) lg:pt-0 lg:ms-(--sidebar-width)">
           <main
-            className="flex flex-col grow min-w-0 items-stretch rounded-xl bg-background border border-input mt-2 sm:mt-[15px] mx-2 sm:mx-3.5 mb-2 sm:mb-[15px]"
+            className="flex flex-col grow min-w-0 items-stretch bg-[#fafafa]"
             role="content"
           >
             <div className="flex flex-col grow pt-5">
