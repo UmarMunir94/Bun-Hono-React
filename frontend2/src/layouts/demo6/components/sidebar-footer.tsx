@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 
 export function SidebarFooter() {
   return (
-    <div className="flex flex-center justify-between shrink-0 ps-4 pe-3.5 h-14">
+    <div className="flex flex-center justify-between shrink-0 ps-4 pe-3.5 h-14 bg-(--page-bg) dark:bg-(--page-bg-dark)">
       <UserDropdownMenu
         trigger={
           <img

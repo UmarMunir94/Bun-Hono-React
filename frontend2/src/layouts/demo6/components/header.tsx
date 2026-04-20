@@ -27,17 +27,17 @@ const Header = () => {
   }, [pathname]);
 
   return (
-    <header className="flex lg:hidden items-center fixed z-10 top-0 start-0 end-0 shrink-0 bg-muted h-(--header-height)">
-      <Container className="flex items-center justify-between flex-wrap gap-3">
-        <Link to="/">
+    <header className="flex lg:hidden items-center fixed z-10 top-0 start-0 end-0 shrink-0 bg-background/90 backdrop-blur-md border-b border-border/50 h-(--header-height-mobile)">
+      <Container className="flex items-center justify-between gap-2.5">
+        <Link to="/" className="flex items-center">
           <img
             src={toAbsoluteUrl('/media/app/mini-logo-gray.svg')}
-            className="dark:hidden min-h-[30px]"
+            className="dark:hidden h-7"
             alt="image"
           />
           <img
             src={toAbsoluteUrl('/media/app/mini-logo-gray-dark.svg')}
-            className="hidden dark:block min-h-[30px]"
+            className="hidden dark:block h-7"
             alt="image"
           />
         </Link>
@@ -45,8 +45,8 @@ const Header = () => {
         {isMobile && (
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" mode="icon">
-                <Menu />
+              <Button variant="ghost" size="icon" className="size-9">
+                <Menu className="size-5" />
               </Button>
             </SheetTrigger>
             <SheetContent
@@ -55,7 +55,7 @@ const Header = () => {
               close={false}
             >
               <SheetHeader className="p-0 space-y-0" />
-              <SheetBody className="p-0 flex flex-col grow">
+              <SheetBody className="p-0 flex flex-col grow min-h-0 overflow-hidden">
                 <SidebarHeader />
                 <SidebarMenu />
                 <SidebarFooter />

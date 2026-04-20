@@ -22,21 +22,21 @@ export function UserHero({ image, name, info }: UserHeroProps) {
   const buildInfo = (info: UserHeroInfo[]) => {
     return info.map((item, index) => {
       return (
-        <div className="flex gap-1.25 items-center" key={`info-${index}`}>
+        <div className="flex gap-1.25 items-center min-w-0" key={`info-${index}`}>
           {item.icon && (
-            <item.icon size={16} className="text-muted-foreground text-sm" />
+            <item.icon size={16} className="text-muted-foreground text-sm shrink-0" />
           )}
           {item.email ? (
             <Link
               to={item.email}
               target="_blank"
-              className="text-secondary-foreground font-medium hover:text-primary"
+              className="text-secondary-foreground font-medium hover:text-primary truncate"
               rel="noreferrer"
             >
               {item.email}
             </Link>
           ) : (
-            <span className="text-secondary-foreground font-medium">
+            <span className="text-secondary-foreground font-medium truncate">
               {item.label}
             </span>
           )}

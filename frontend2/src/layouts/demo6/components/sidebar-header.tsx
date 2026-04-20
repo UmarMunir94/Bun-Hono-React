@@ -27,7 +27,7 @@ export function SidebarHeader() {
   }, [pathname]);
 
   return (
-    <div className="mb-3.5">
+    <div className="mb-3.5 shrink-0">
       <div className="flex items-center justify-between gap-2.5 px-3.5 h-[70px]">
         <Link to="/">
           <img

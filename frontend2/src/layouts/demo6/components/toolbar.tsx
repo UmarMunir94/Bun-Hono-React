@@ -39,7 +39,7 @@ function ToolbarBreadcrumbs() {
   }
 
   return (
-    <div className="flex items-center gap-1 text-sm">
+    <div className="flex flex-wrap items-center gap-1 text-sm">
       {items.map((item, index) => {
         const isLast = index === items.length - 1;
         const active = item.path ? isActive(item.path) : false;
@@ -81,9 +81,11 @@ const ToolbarHeading = ({ title = '' }: ToolbarHeadingProps) => {
   const item = getCurrentItem(MENU_SIDEBAR);
 
   return (
-    <div className="flex flex-col md:flex-row md:items-center flex-wrap gap-1 lg:gap-5">
-      <h1 className="font-medium text-lg text-mono">{title || item?.title}</h1>
-      <ToolbarBreadcrumbs />
+    <div className="flex flex-col lg:flex-row lg:items-center flex-wrap min-w-0 gap-1 lg:gap-5">
+      <h1 className="font-medium text-lg text-mono shrink-0">{title || item?.title}</h1>
+      <div className="min-w-0 flex flex-wrap items-center">
+        <ToolbarBreadcrumbs />
+      </div>
     </div>
   );
 };
