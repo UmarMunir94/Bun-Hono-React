@@ -25,7 +25,6 @@ export function Demo3Layout() {
     [--header-height:58px] 
     [--sidebar-width:58px] 
     [--navbar-height:56px] 
-    lg:overflow-hidden 
     bg-muted!
   `);
 
@@ -47,9 +46,12 @@ export function Demo3Layout() {
 
           <Navbar />
 
-          <div className="flex grow rounded-b-xl bg-background border-x border-b border-border lg:mt-(--navbar-height) mx-5 lg:ms-(--sidebar-width) mb-5">
-            <div className="flex flex-col grow kt-scrollable-y lg:[scrollbar-width:auto] pt-7 lg:[&_[data-slot=container]]:pe-2">
-              <main className="grow" role="content">
+          <div className="flex flex-col grow lg:ms-(--sidebar-width) lg:mt-(--navbar-height) m-5">
+            <main
+              className="flex flex-col grow rounded-b-xl bg-background border-x border-b border-border"
+              role="content"
+            >
+              <div className="flex flex-col grow pt-7">
                 {pathname !== '/' && (
                   <Toolbar>
                     <ToolbarHeading />
@@ -64,9 +66,9 @@ export function Demo3Layout() {
                   </Toolbar>
                 )}
                 <Outlet />
-              </main>
+              </div>
               <Footer />
-            </div>
+            </main>
           </div>
         </div>
       </div>

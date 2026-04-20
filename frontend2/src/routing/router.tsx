@@ -10,7 +10,7 @@ import { type QueryClient } from "@tanstack/react-query";
 import { authClient } from "@/lib/auth-client";
 
 // Layouts
-import { Demo1Layout } from "@/layouts/demo1/layout";
+import { Demo3Layout } from "@/layouts/demo3/layout";
 
 // Pages
 import {
@@ -221,7 +221,7 @@ export const authLayoutRoute = createRoute({
       });
     }
   },
-  component: () => <Demo1Layout />, // Using the layout from frontend2
+  component: () => <Demo3Layout />, // Using the layout from frontend2
 });
 
 // ── Protected Routes ───────────────────────────────────────────────────────
