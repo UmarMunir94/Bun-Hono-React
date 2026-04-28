@@ -130,9 +130,9 @@ export function EducationCard() {
     }
   }
 
-  function handleDelete() {
-    if (editingId && confirm('Are you sure you want to delete this entry?')) {
-      deleteMutation.mutate({ id: editingId });
+  function handleDelete(id: number) {
+    if (confirm('Are you sure you want to delete this entry?')) {
+      deleteMutation.mutate({ id });
     }
   }
 
@@ -160,11 +160,15 @@ export function EducationCard() {
             <div className="space-y-6">
               {entries.map((entry: any) => (
                 <div key={entry.id} className="group relative flex flex-col gap-1">
-                  <div className="absolute right-0 top-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute right-0 top-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     <Button variant="ghost" mode="icon" onClick={() => handleOpenEdit(entry)} className="size-8">
                       <SquarePen className="size-4" />
                     </Button>
+                    <Button variant="ghost" mode="icon" onClick={() => handleDelete(entry.id)} className="size-8 text-destructive hover:text-destructive">
+                      <Trash2 className="size-4" />
+                    </Button>
                   </div>
+
                   
                   <div className="font-semibold text-foreground pr-8">
                     {entry.institution}
@@ -285,21 +289,7 @@ export function EducationCard() {
                 )}
               />
 
-              <DialogFooter className="pt-4 flex items-center justify-between">
-                {editingId ? (
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    onClick={handleDelete}
-                    disabled={isPending}
-                    className="mr-auto"
-                  >
-                    <Trash2 className="size-4 mr-2" />
-                    Delete
-                  </Button>
-                ) : (
-                  <div></div>
-                )}
+              <DialogFooter className="pt-4 flex justify-end">
                 <div className="flex gap-2">
                   <Button
                     type="button"
