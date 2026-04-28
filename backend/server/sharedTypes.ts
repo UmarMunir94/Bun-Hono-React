@@ -33,3 +33,21 @@ export type UpdateWorkExperience = z.infer<typeof updateWorkExperienceSchema>;
 export type WorkExperience = Omit<z.infer<typeof selectWorkExperienceSchema>, "createdAt"> & {
   createdAt: string | null;
 };
+
+import { generalInfo, insertGeneralInfoSchema, selectGeneralInfoSchema } from "./db/schema/general-info";
+
+export const createGeneralInfoSchema = insertGeneralInfoSchema.omit({
+  userId: true,
+  createdAt: true,
+  id: true,
+});
+
+export type CreateGeneralInfo = z.infer<typeof createGeneralInfoSchema>;
+
+export const updateGeneralInfoSchema = createGeneralInfoSchema.partial();
+
+export type UpdateGeneralInfo = z.infer<typeof updateGeneralInfoSchema>;
+
+export type GeneralInfo = Omit<z.infer<typeof selectGeneralInfoSchema>, "createdAt"> & {
+  createdAt: string | null;
+};

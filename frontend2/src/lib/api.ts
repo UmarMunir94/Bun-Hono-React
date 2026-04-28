@@ -185,3 +185,25 @@ export async function deleteWorkExperience({ id }: { id: number }) {
   });
   if (!res.ok) throw new Error("server error");
 }
+
+// ── General Info ───────────────────────────────────────────────────────────
+
+import { type GeneralInfo, type CreateGeneralInfo } from "@server/sharedTypes";
+
+export async function getGeneralInfo() {
+  const res = await api["general-info"].$get();
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export const generalInfoQueryOptions = queryOptions({
+  queryKey: ["get-general-info"],
+  queryFn: getGeneralInfo,
+  staleTime: 1000 * 60 * 5,
+});
+
+export async function updateGeneralInfo({ value }: { value: CreateGeneralInfo }) {
+  const res = await api["general-info"].$put({ json: value });
+  if (!res.ok) throw new Error("server error");
+  return (await res.json()) as { generalInfo: GeneralInfo };
+}

@@ -70,6 +70,7 @@ export const MENU_SIDEBAR: MenuConfig = [
     title: 'Public Profile',
     icon: UserCircle,
     children: [
+      { title: 'Overview', path: '/public-profile/profiles' },
       {
         title: 'Profiles',
         children: [
@@ -466,6 +467,7 @@ export const MENU_SIDEBAR_COMPACT: MenuConfig = [
     title: 'Public Profile',
     icon: UserCircle,
     children: [
+      { title: 'Overview', path: '/public-profile/profiles' },
       {
         title: 'Profiles',
         children: [
@@ -770,6 +772,11 @@ export const MENU_MEGA: MenuConfig = [
         children: [
           {
             children: [
+              {
+                title: 'Overview',
+                icon: Eye,
+                path: '/public-profile/profiles',
+              },
               {
                 title: 'Default',
                 icon: Badge,
@@ -1227,7 +1234,7 @@ export const MENU_MEGA_MOBILE: MenuConfig = [
           {
             title: 'Default',
             icon: Badge,
-            path: '/public-profile/profiles/default',
+            path: '/public-profile/profiles',
           },
           {
             title: 'Creator',
@@ -1701,7 +1708,7 @@ export const MENU_ROOT: MenuConfig = [
     title: 'Public Profile',
     icon: UserCircle,
     rootPath: '/public-profile/',
-    path: 'public-profile/profiles/default',
+    path: '/public-profile/profiles',
     childrenIndex: 2,
   },
   {

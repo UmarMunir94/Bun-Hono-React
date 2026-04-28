@@ -10,16 +10,18 @@ import { createRefreshToken } from "./routes/refresh";
 /**
  * How long the access session (session cookie) is valid, in SECONDS.
  * Default: 15 minutes (15 * 60 = 900).
+ * Current: 8 hours (8 * 60 * 60).
  * For quick testing, set to e.g. 30 (30 seconds).
  */
-const ACCESS_SESSION_EXPIRY_S = 15 * 60;
+const ACCESS_SESSION_EXPIRY_S = 8 * 60 * 60;
 
 /**
  * Cookie cache: how long a signed cookie can stand in for a DB query, in SECONDS.
  * Should always be ≤ ACCESS_SESSION_EXPIRY_S.
  * Default: 5 minutes.
+ * Current: 1 hour.
  */
-const COOKIE_CACHE_MAX_AGE_S = 5 * 60;
+const COOKIE_CACHE_MAX_AGE_S = 1 * 60 * 60;
 
 // ─── Auth Instance ───────────────────────────────────────────────────────────
 
@@ -58,8 +60,29 @@ export const auth = betterAuth({
     },
   },
 
-  // ── Issue a refresh token right after a successful sign-in ────────────────
   databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          let firstName = "";
+          let lastName = "";
+          
+          if (user.name) {
+            const nameParts = user.name.split(' ');
+            firstName = nameParts[0];
+            lastName = nameParts.slice(1).join(' ');
+          }
+
+          const { generalInfo } = await import("./db/schema/general-info");
+          await db.insert(generalInfo).values({
+            userId: user.id,
+            firstName,
+            lastName,
+            email: user.email,
+          });
+        }
+      }
+    },
     session: {
       create: {
         after: async (session) => {

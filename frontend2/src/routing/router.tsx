@@ -84,6 +84,7 @@ import {
   ProfileNetworkPage,
   ProfileNFTPage,
   ProfilePlainPage,
+  ProfileOverviewPage,
   ProfileTeamsPage,
   ProfileWorksPage,
   ProjectColumn2Page,
@@ -409,7 +410,21 @@ export const darkSidebarRoute = createRoute({
   component: Demo1DarkSidebarPage,
 });
 
+export const publicProfileRedirectRoute = createRoute({
+  getParentRoute: () => authLayoutRoute,
+  path: "/public-profile",
+  beforeLoad: () => {
+    throw redirect({ to: "/public-profile/profiles" });
+  },
+});
+
 // Profile Routes
+export const profileOverviewRoute = createRoute({
+  getParentRoute: () => authLayoutRoute,
+  path: "/public-profile/profiles",
+  component: ProfileOverviewPage,
+});
+
 export const profileDefaultRoute = createRoute({
   getParentRoute: () => authLayoutRoute,
   path: "/public-profile/profiles/default",
@@ -1260,6 +1275,8 @@ const routeTree = rootRoute.addChildren([
     educationRoute,
     workExperienceRoute,
     darkSidebarRoute,
+    publicProfileRedirectRoute,
+    profileOverviewRoute,
     profileDefaultRoute,
     profileCreatorRoute,
     profileCompanyRoute,

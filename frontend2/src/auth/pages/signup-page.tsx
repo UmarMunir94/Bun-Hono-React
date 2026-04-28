@@ -60,8 +60,7 @@ export function SignUpPage() {
         'Registration successful! Please check your email to confirm your account.',
       );
 
-      // After successful registration, you might want to update the user profile
-      // with additional metadata (firstName, lastName, etc.)
+
 
       // Optionally redirect to login page after a delay
       setTimeout(async () => {

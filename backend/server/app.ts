@@ -88,6 +88,8 @@ app.on(["POST", "GET"], "/api/auth/*", async (c) => {
 // ── Custom refresh-token endpoints ────────────────────────────────────────────
 app.route("/api/auth", refreshRoute);
 
+import { generalInfoRoute } from "./routes/general-info";
+
 // ── Application API routes ────────────────────────────────────────────────────
 const apiRoutes = app
   .basePath("/api")
@@ -97,7 +99,8 @@ const apiRoutes = app
     return c.json({ user });
   })
   .route("/education", educationRoute)
-  .route("/work-experience", workExperienceRoute);
+  .route("/work-experience", workExperienceRoute)
+  .route("/general-info", generalInfoRoute);
 
 app.get("*", serveStatic({ root: "./frontend/dist" }));
 app.get("*", serveStatic({ path: "./frontend/dist/index.html" }));

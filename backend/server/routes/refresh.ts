@@ -12,7 +12,8 @@ import type { Context } from "hono";
 // ─── Access session expiry ────────────────────────────────────────────────────
 // Mirrors the value in auth.ts so both files stay in sync via this constant.
 // If you change ACCESS_SESSION_EXPIRY_S in auth.ts, change it here too.
-const ACCESS_SESSION_EXPIRY_S = 15 * 60; // 15 minutes — edit for testing
+// const ACCESS_SESSION_EXPIRY_S = 15 * 60; // 15 minutes — edit for testing
+const ACCESS_SESSION_EXPIRY_S = 8 * 60 * 60; // 8 hours — edit for testing
 
 // ─── Cookie name ─────────────────────────────────────────────────────────────
 export const REFRESH_TOKEN_COOKIE = "refresh_token";
