@@ -48,7 +48,6 @@ export function SignUpPage() {
       const res = await signUp.email({
         email: values.email,
         password: values.password,
-        name: `${values.firstName} ${values.lastName}`
       });
 
       if (res.error) {

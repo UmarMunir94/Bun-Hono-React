@@ -16,15 +16,26 @@ export const generalInfoRoute = new Hono<{
   .get("/", getUser, async (c) => {
     const sessionUser = c.var.user;
 
-    const generalInfoResult = await db
-      .select()
-      .from(generalInfoTable)
-      .where(eq(generalInfoTable.userId, sessionUser.id))
-      .limit(1)
-      .then((res) => res[0]);
+    const [generalInfoResult, userResult] = await Promise.all([
+      db
+        .select()
+        .from(generalInfoTable)
+        .where(eq(generalInfoTable.userId, sessionUser.id))
+        .limit(1)
+        .then((res) => res[0]),
+      db
+        .select({ email: userTable.email })
+        .from(userTable)
+        .where(eq(userTable.id, sessionUser.id))
+        .limit(1)
+        .then((res) => res[0])
+    ]);
 
     return c.json({
-      generalInfo: generalInfoResult || null
+      generalInfo: {
+        ...(generalInfoResult || {}),
+        email: userResult?.email || null,
+      }
     });
   })
   .put("/", getUser, zValidator("json", createGeneralInfoSchema), async (c) => {
@@ -44,7 +55,6 @@ export const generalInfoRoute = new Hono<{
         set: {
           firstName: validated.firstName,
           lastName: validated.lastName,
-          email: validated.email,
           phone: validated.phone,
           city: validated.city,
           country: validated.country,

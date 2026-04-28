@@ -78,7 +78,6 @@ export const auth = betterAuth({
             userId: user.id,
             firstName,
             lastName,
-            email: user.email,
           });
         }
       }
