@@ -61,19 +61,6 @@ export function AccountLayout({ children, ...other }: DashboardContentProps) {
         sx={{ mb: 3 }}
       />
 
-      <Tabs value={removeLastSlash(pathname)} sx={{ mb: { xs: 3, md: 5 } }}>
-        {NAV_ITEMS.map((tab) => (
-          <Tab
-            component={RouterLink}
-            key={tab.href}
-            label={tab.label}
-            icon={tab.icon}
-            value={tab.href}
-            href={tab.href}
-          />
-        ))}
-      </Tabs>
-
       {children}
     </DashboardContent>
   );

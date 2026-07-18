@@ -88,12 +88,11 @@ export const navData: NavSectionProps['data'] = [
         path: paths.dashboard.user.root,
         icon: ICONS.user,
         children: [
-          { title: 'Profile', path: paths.dashboard.user.root },
-          { title: 'Cards', path: paths.dashboard.user.cards },
-          { title: 'List', path: paths.dashboard.user.list },
-          { title: 'Create', path: paths.dashboard.user.new },
-          { title: 'Edit', path: paths.dashboard.user.demo.edit },
-          { title: 'Account', path: paths.dashboard.user.account, deepMatch: true },
+          { title: 'General', path: paths.dashboard.user.account },
+          { title: 'Billing', path: `${paths.dashboard.user.account}/billing` },
+          { title: 'Notifications', path: `${paths.dashboard.user.account}/notifications` },
+          { title: 'Social links', path: `${paths.dashboard.user.account}/socials` },
+          { title: 'Security', path: `${paths.dashboard.user.account}/change-password` },
         ],
       },
       // {
