@@ -8,11 +8,7 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
-import { paths } from 'src/routes/paths';
-
 import { CONFIG } from 'src/global-config';
-
-import { Label } from 'src/components/label';
 
 import { useMockedUser } from 'src/auth/hooks';
 
@@ -32,7 +28,7 @@ export function NavUpgrade({ sx, ...other }: BoxProps) {
             {user?.displayName?.charAt(0).toUpperCase()}
           </Avatar>
 
-          <Label
+          {/* <Label
             color="success"
             variant="filled"
             sx={{
@@ -45,7 +41,7 @@ export function NavUpgrade({ sx, ...other }: BoxProps) {
             }}
           >
             Free
-          </Label>
+          </Label> */}
         </Box>
 
         <Box sx={{ mb: 2, mt: 1.5, width: 1 }}>
@@ -66,14 +62,14 @@ export function NavUpgrade({ sx, ...other }: BoxProps) {
           </Typography>
         </Box>
 
-        <Button
+        {/* <Button
           variant="contained"
           href={paths.minimalStore}
           target="_blank"
           rel="noopener noreferrer"
         >
           Upgrade to Pro
-        </Button>
+        </Button> */}
       </Box>
     </Box>
   );

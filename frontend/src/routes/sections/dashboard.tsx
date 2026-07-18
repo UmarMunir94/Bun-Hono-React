@@ -3,8 +3,10 @@ import type { RouteObject } from 'react-router';
 import { lazy, Suspense } from 'react';
 import { Outlet, Navigate } from 'react-router';
 
+import { queryClient } from 'src/main';
 import { CONFIG } from 'src/global-config';
 import { DashboardLayout } from 'src/layouts/dashboard';
+import { getGeneralInfoQueryOptions } from 'src/lib/api';
 
 import { LoadingScreen } from 'src/components/loading-screen';
 
@@ -138,7 +140,11 @@ export const dashboardRoutes: RouteObject[] = [
             path: 'account',
             element: accountLayout(),
             children: [
-              { index: true, element: <AccountGeneralPage /> },
+              {
+                index: true,
+                element: <AccountGeneralPage />,
+                loader: () => queryClient.ensureQueryData(getGeneralInfoQueryOptions),
+              },
               { path: 'billing', element: <AccountBillingPage /> },
               { path: 'notifications', element: <AccountNotificationsPage /> },
               { path: 'socials', element: <AccountSocialsPage /> },

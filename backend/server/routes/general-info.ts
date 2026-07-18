@@ -13,6 +13,9 @@ export const generalInfoRoute = new Hono<{
     user: typeof auth.$Infer.Session.user;
   };
 }>()
+  // ── GET /api/general-info ─────────────────────────────────────────────────
+  // Returns the current user's general profile info, merged with their email
+  // from the user table (email is managed by Better Auth, not editable here).
   .get("/", getUser, async (c) => {
     const sessionUser = c.var.user;
 
@@ -28,18 +31,23 @@ export const generalInfoRoute = new Hono<{
         .from(userTable)
         .where(eq(userTable.id, sessionUser.id))
         .limit(1)
-        .then((res) => res[0])
+        .then((res) => res[0]),
     ]);
 
     return c.json({
       generalInfo: {
         ...(generalInfoResult || {}),
-        email: userResult?.email || null,
-      }
+        email: userResult?.email ?? null,
+      },
     });
   })
+
+  // ── PUT /api/general-info ─────────────────────────────────────────────────
+  // Upserts all general profile fields for the current user.
+  // Note: email is intentionally excluded — changing email requires a
+  // separate verification flow via Better Auth (auth.api.changeEmail).
   .put("/", getUser, zValidator("json", createGeneralInfoSchema), async (c) => {
-    const body = await c.req.valid("json");
+    const body = c.req.valid("json");
     const sessionUser = c.var.user;
 
     const validated = insertGeneralInfoSchema.parse({
@@ -59,6 +67,12 @@ export const generalInfoRoute = new Hono<{
           city: validated.city,
           country: validated.country,
           linkedinProfile: validated.linkedinProfile,
+          // ── New fields ──────────────────────────────────────────────────
+          avatarUrl: validated.avatarUrl,
+          address: validated.address,
+          state: validated.state,
+          zipCode: validated.zipCode,
+          about: validated.about,
         },
       })
       .returning()

@@ -2,6 +2,7 @@ import { z as zod } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { isValidPhoneNumber } from 'react-phone-number-input/input';
+import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -12,10 +13,10 @@ import Typography from '@mui/material/Typography';
 
 import { fData } from 'src/utils/format-number';
 
+import { updateGeneralInfo, getGeneralInfoQueryOptions } from 'src/lib/api';
+
 import { toast } from 'src/components/snackbar';
 import { Form, Field, schemaHelper } from 'src/components/hook-form';
-
-import { useMockedUser } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
@@ -38,6 +39,7 @@ export const UpdateUserSchema = zod.object({
   city: zod.string().min(1, { message: 'City is required!' }),
   zipCode: zod.string().min(1, { message: 'Zip code is required!' }),
   about: zod.string().min(1, { message: 'About is required!' }),
+  linkedinProfile: zod.string().url({ message: 'Must be a valid URL' }).optional().or(zod.literal('')),
   // Not required
   isPublic: zod.boolean(),
 });
@@ -45,21 +47,17 @@ export const UpdateUserSchema = zod.object({
 // ----------------------------------------------------------------------
 
 export function AccountGeneral() {
-  const { user } = useMockedUser();
+  const queryClient = useQueryClient();
 
-  const currentUser: UpdateUserSchemaType = {
-    displayName: user?.displayName,
-    email: user?.email,
-    photoURL: user?.photoURL,
-    phoneNumber: user?.phoneNumber,
-    country: user?.country,
-    address: user?.address,
-    state: user?.state,
-    city: user?.city,
-    zipCode: user?.zipCode,
-    about: user?.about,
-    isPublic: user?.isPublic,
-  };
+  // ── Fetch live data from the API ─────────────────────────────────────────
+  const { data } = useSuspenseQuery(getGeneralInfoQueryOptions);
+  const info = data?.generalInfo;
+
+  // Combine firstName + lastName into displayName for the form
+  const displayName =
+    info?.firstName && info?.lastName
+      ? `${info.firstName} ${info.lastName}`.trim()
+      : info?.firstName ?? info?.lastName ?? '';
 
   const defaultValues: UpdateUserSchemaType = {
     displayName: '',
@@ -72,6 +70,7 @@ export function AccountGeneral() {
     city: '',
     zipCode: '',
     about: '',
+    linkedinProfile: '',
     isPublic: false,
   };
 
@@ -79,7 +78,22 @@ export function AccountGeneral() {
     mode: 'all',
     resolver: zodResolver(UpdateUserSchema),
     defaultValues,
-    values: currentUser,
+    // `values` re-syncs the form whenever the query data changes
+    values: {
+      displayName,
+      email: info?.email ?? '',
+      // avatarUrl from DB is a URL string; UploadAvatar accepts string | File | null
+      photoURL: info?.avatarUrl ?? null,
+      phoneNumber: info?.phone ?? '',
+      country: info?.country ?? null,
+      address: info?.address ?? '',
+      state: info?.state ?? '',
+      city: info?.city ?? '',
+      zipCode: info?.zipCode ?? '',
+      about: info?.about ?? '',
+      linkedinProfile: info?.linkedinProfile ?? '',
+      isPublic: false,
+    },
   });
 
   const {
@@ -87,13 +101,65 @@ export function AccountGeneral() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async (formData) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      toast.success('Update success!');
-      console.info('DATA', data);
+      // Split displayName back into firstName / lastName for the API
+      const nameParts = formData.displayName.trim().split(/\s+/);
+      const firstName = nameParts[0] ?? '';
+      const lastName = nameParts.slice(1).join(' ') ?? '';
+
+      // Build the payload — avatarUrl only if it's already a string URL
+      // (File objects from UploadAvatar are not yet uploaded to a CDN)
+      const avatarUrl =
+        typeof formData.photoURL === 'string' ? formData.photoURL : info?.avatarUrl ?? undefined;
+
+      const payload = {
+        firstName,
+        lastName,
+        phone: formData.phoneNumber || undefined,
+        country: formData.country ?? undefined,
+        city: formData.city || undefined,
+        address: formData.address || undefined,
+        state: formData.state || undefined,
+        zipCode: formData.zipCode || undefined,
+        about: formData.about || undefined,
+        linkedinProfile: formData.linkedinProfile || undefined,
+        avatarUrl,
+      };
+
+      // ── Optimistic UI ─────────────────────────────────────────────────────
+      // Immediately reflect the update in the cache so the UI feels instant
+      queryClient.setQueryData(getGeneralInfoQueryOptions.queryKey, (old) => {
+        if (!old) return old;
+        return {
+          ...old,
+          generalInfo: {
+            ...old.generalInfo,
+            ...payload,
+            phone: payload.phone ?? null,
+            country: payload.country ?? null,
+            city: payload.city ?? null,
+            address: payload.address ?? null,
+            state: payload.state ?? null,
+            zipCode: payload.zipCode ?? null,
+            about: payload.about ?? null,
+            linkedinProfile: payload.linkedinProfile ?? null,
+            avatarUrl: payload.avatarUrl ?? null,
+          },
+        };
+      });
+
+      await updateGeneralInfo({ value: payload });
+
+      // Refresh the cache with the canonical server response
+      await queryClient.invalidateQueries({ queryKey: getGeneralInfoQueryOptions.queryKey });
+
+      toast.success('Profile updated successfully!');
     } catch (error) {
       console.error(error);
+      // Roll back optimistic update
+      await queryClient.invalidateQueries({ queryKey: getGeneralInfoQueryOptions.queryKey });
+      toast.error('Failed to update profile. Please try again.');
     }
   });
 
@@ -128,17 +194,6 @@ export function AccountGeneral() {
                 </Typography>
               }
             />
-
-            <Field.Switch
-              name="isPublic"
-              labelPlacement="start"
-              label="Public profile"
-              sx={{ mt: 5 }}
-            />
-
-            <Button variant="soft" color="error" sx={{ mt: 3 }}>
-              Delete user
-            </Button>
           </Card>
         </Grid>
 
@@ -153,7 +208,15 @@ export function AccountGeneral() {
               }}
             >
               <Field.Text name="displayName" label="Name" />
-              <Field.Text name="email" label="Email address" />
+
+              {/* Email is read-only — changes require a separate verification flow */}
+              <Field.Text
+                name="email"
+                label="Email address"
+                disabled
+                helperText="Contact support to change your email"
+              />
+
               <Field.Phone name="phoneNumber" label="Phone number" />
               <Field.Text name="address" label="Address" />
 
@@ -162,10 +225,16 @@ export function AccountGeneral() {
               <Field.Text name="state" label="State/region" />
               <Field.Text name="city" label="City" />
               <Field.Text name="zipCode" label="Zip/code" />
+
+              <Field.Text
+                name="linkedinProfile"
+                label="LinkedIn Profile URL"
+                placeholder="https://linkedin.com/in/username"
+              />
             </Box>
 
             <Stack spacing={3} sx={{ mt: 3, alignItems: 'flex-end' }}>
-              <Field.Text name="about" multiline rows={4} label="About" />
+              <Field.Text name="about" multiline rows={4} label="About" sx={{ width: '100%' }} />
 
               <Button type="submit" variant="contained" loading={isSubmitting}>
                 Save changes

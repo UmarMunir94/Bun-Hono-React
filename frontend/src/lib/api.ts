@@ -1,7 +1,13 @@
 import { hc } from "hono/client";
 import { type ApiRoutes } from "@server/app";
 import { queryOptions } from "@tanstack/react-query";
-import { type CreateEducation, type UpdateEducation, type CreateWorkExperience, type UpdateWorkExperience } from "@server/sharedTypes";
+import {
+  type CreateEducation,
+  type UpdateEducation,
+  type CreateGeneralInfo,
+  type CreateWorkExperience,
+  type UpdateWorkExperience,
+} from "@server/sharedTypes";
 
 // ─── Silent refresh interceptor ──────────────────────────────────────────────
 // When any API call returns 401, try to silently refresh the session using the
@@ -88,6 +94,26 @@ export const userQueryOptions = queryOptions({
   queryFn: getCurrentUser,
   staleTime: Infinity,
 });
+
+// ── General Info ───────────────────────────────────────────────────────────
+
+async function getGeneralInfo() {
+  const res = await api["general-info"].$get();
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export const getGeneralInfoQueryOptions = queryOptions({
+  queryKey: ["get-general-info"],
+  queryFn: getGeneralInfo,
+  staleTime: 1000 * 60 * 5,
+});
+
+export async function updateGeneralInfo({ value }: { value: CreateGeneralInfo }) {
+  const res = await api["general-info"].$put({ json: value });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
 
 // ── Education ──────────────────────────────────────────────────────────────
 

@@ -7,6 +7,7 @@ import { workExperienceRoute } from "./routes/work-experience";
 import { refreshRoute, REFRESH_TOKEN_COOKIE } from "./routes/refresh";
 import { auth } from "./auth";
 import { sessionMiddleware } from "./auth-middleware";
+import { openApiApp } from "./openapi";
 import { db } from "./db";
 import { refreshToken as refreshTokenTable } from "./db/schema/refresh-tokens";
 import { session as sessionTable } from "./db/schema/auth";
@@ -101,6 +102,9 @@ const apiRoutes = app
   .route("/education", educationRoute)
   .route("/work-experience", workExperienceRoute)
   .route("/general-info", generalInfoRoute);
+
+// ── OpenAPI spec + Scalar UI (must be before static catch-all) ──────────────
+app.route("/", openApiApp);
 
 app.get("*", serveStatic({ root: "./frontend/dist" }));
 app.get("*", serveStatic({ path: "./frontend/dist/index.html" }));
