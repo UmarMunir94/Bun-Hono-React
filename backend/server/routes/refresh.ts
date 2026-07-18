@@ -177,6 +177,43 @@ const postSignOut = createRoute({
   },
 });
 
+const postChangePassword = createRoute({
+  method: "post",
+  path: "/change-password",
+  tags: ["Auth"],
+  request: {
+    body: {
+      content: {
+        "application/json": {
+          schema: z.object({
+            newPassword: z.string().min(6),
+            currentPassword: z.string().min(1),
+            revokeOtherSessions: z.boolean().optional(),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    200: {
+      description: "Successfully changed password",
+      content: {
+        "application/json": {
+          schema: z.object({ success: z.boolean() }),
+        },
+      },
+    },
+    400: {
+      description: "Invalid password",
+      content: {
+        "application/json": {
+          schema: z.object({ error: z.string() }),
+        },
+      },
+    },
+  },
+});
+
 export const refreshRoute = app
   .openapi(postRefresh, async (c) => {
     const incomingToken = getCookie(c, REFRESH_TOKEN_COOKIE);
@@ -278,6 +315,10 @@ export const refreshRoute = app
     return c.json({} as any, 200);
   })
   .openapi(postSignOut, async (c) => {
+    // Stub endpoint for OpenAPI generation.
+    return c.json({} as any, 200);
+  })
+  .openapi(postChangePassword, async (c) => {
     // Stub endpoint for OpenAPI generation.
     return c.json({} as any, 200);
   });
