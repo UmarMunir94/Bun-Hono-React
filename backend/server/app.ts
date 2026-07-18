@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { logger } from "hono/logger";
 import { serveStatic } from "hono/bun";
 import { cors } from "hono/cors";
@@ -7,18 +7,21 @@ import { workExperienceRoute } from "./routes/work-experience";
 import { refreshRoute, REFRESH_TOKEN_COOKIE } from "./routes/refresh";
 import { auth } from "./auth";
 import { sessionMiddleware } from "./auth-middleware";
-import { openApiApp } from "./openapi";
 import { db } from "./db";
 import { refreshToken as refreshTokenTable } from "./db/schema/refresh-tokens";
 import { session as sessionTable } from "./db/schema/auth";
 import { eq, isNull, desc } from "drizzle-orm";
+import { apiReference } from "@scalar/hono-api-reference";
+import { generalInfoRoute } from "./routes/general-info";
+import { UserSchema, UnauthorizedSchema } from "./lib/openapi-schemas";
+import { z } from "zod";
 
 type AppVariables = {
   user: typeof auth.$Infer.Session.user | null;
   session: typeof auth.$Infer.Session.session | null;
 };
 
-const app = new Hono<{ Variables: AppVariables }>();
+const app = new OpenAPIHono<{ Variables: AppVariables }>();
 
 app.use(
   "*",
@@ -86,28 +89,68 @@ app.on(["POST", "GET"], "/api/auth/*", async (c) => {
   return cloned;
 });
 
-// ── Custom refresh-token endpoints ────────────────────────────────────────────
-app.route("/api/auth", refreshRoute);
-
-import { generalInfoRoute } from "./routes/general-info";
-
 // ── Application API routes ────────────────────────────────────────────────────
-const apiRoutes = app
-  .basePath("/api")
-  .get("/me", (c) => {
-    const user = c.get("user");
-    if (!user) return c.json({ error: "Unauthorized" }, 401);
-    return c.json({ user });
-  })
+const apiApp = new OpenAPIHono<{ Variables: AppVariables }>();
+
+const getMeRoute = createRoute({
+  method: "get",
+  path: "/me",
+  tags: ["Auth"],
+  responses: {
+    200: {
+      content: { "application/json": { schema: z.object({ user: UserSchema.shape.user }) } },
+      description: "Current user session",
+    },
+    401: {
+      content: { "application/json": { schema: UnauthorizedSchema } },
+      description: "Unauthorized",
+    },
+  },
+});
+
+const meApp = new OpenAPIHono<{ Variables: AppVariables }>().openapi(getMeRoute, (c) => {
+  const user = c.get("user");
+  if (!user) return c.json({ error: "Unauthorized" }, 401);
+  
+  // Coerce dates to strings
+  const mappedUser = {
+    ...user,
+    createdAt: user.createdAt instanceof Date ? user.createdAt.toISOString() : String(user.createdAt),
+    updatedAt: user.updatedAt instanceof Date ? user.updatedAt.toISOString() : String(user.updatedAt),
+  };
+  
+  return c.json({ user: mappedUser as any }, 200);
+});
+
+const apiRoutes = apiApp
+  .route("/auth", refreshRoute)
+  .route("/", meApp)
   .route("/education", educationRoute)
   .route("/work-experience", workExperienceRoute)
   .route("/general-info", generalInfoRoute);
 
-// ── OpenAPI spec + Scalar UI (must be before static catch-all) ──────────────
-app.route("/", openApiApp);
+// ── OpenAPI spec + Scalar UI ──────────────
+apiApp.doc31("/openapi.json", {
+  openapi: "3.1.0",
+  info: {
+    title: "Axentia API",
+    version: "1.0.0",
+  },
+  servers: [{ url: "http://localhost:5173/api" }],
+});
+
+apiApp.get(
+  "/docs",
+  apiReference({
+    theme: "saturn",
+    spec: { url: "/api/openapi.json" },
+  })
+);
+
+const routes = app.route("/api", apiRoutes);
 
 app.get("*", serveStatic({ root: "./frontend/dist" }));
 app.get("*", serveStatic({ path: "./frontend/dist/index.html" }));
 
 export default app;
-export type ApiRoutes = typeof apiRoutes;
+export type ApiRoutes = typeof routes;

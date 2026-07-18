@@ -1,22 +1,83 @@
-import { Hono } from "hono";
-import { zValidator } from "@hono/zod-validator";
+import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
+import { z } from "zod";
+
 import { getUser } from "../auth-middleware";
 import { auth } from "../auth";
 import { db } from "../db";
-import { generalInfo as generalInfoTable, insertGeneralInfoSchema } from "../db/schema/general-info";
+import { generalInfo as generalInfoTable, insertGeneralInfoSchema, selectGeneralInfoSchema } from "../db/schema/general-info";
 import { user as userTable } from "../db/schema/auth";
 import { eq } from "drizzle-orm";
 import { createGeneralInfoSchema } from "../sharedTypes";
+import { UnauthorizedSchema, ValidationErrorSchema, defaultHook } from "../lib/openapi-schemas";
 
-export const generalInfoRoute = new Hono<{
+const GeneralInfoItemSchema = selectGeneralInfoSchema.extend({
+  createdAt: z.string().nullable(),
+  email: z.string().nullable().optional().describe("email is fetched from the user table and merged in the GET response"),
+}).openapi("GeneralInfoItem");
+
+const app = new OpenAPIHono<{
   Variables: {
     user: typeof auth.$Infer.Session.user;
   };
-}>()
-  // ── GET /api/general-info ─────────────────────────────────────────────────
-  // Returns the current user's general profile info, merged with their email
-  // from the user table (email is managed by Better Auth, not editable here).
-  .get("/", getUser, async (c) => {
+}>({ defaultHook });
+
+const getGeneralInfo = createRoute({
+  method: "get",
+  path: "/",
+  tags: ["General Info"],
+  middleware: [getUser] as const,
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: z.object({
+            generalInfo: GeneralInfoItemSchema.partial(),
+          }),
+        },
+      },
+      description: "Current user's general profile info",
+    },
+    401: {
+      content: { "application/json": { schema: UnauthorizedSchema } },
+      description: "Unauthorized",
+    },
+  },
+});
+
+const putGeneralInfo = createRoute({
+  method: "put",
+  path: "/",
+  tags: ["General Info"],
+  middleware: [getUser] as const,
+  request: {
+    body: {
+      content: { "application/json": { schema: createGeneralInfoSchema } },
+    },
+  },
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: z.object({
+            generalInfo: GeneralInfoItemSchema,
+          }),
+        },
+      },
+      description: "Upserted general profile info",
+    },
+    400: {
+      content: { "application/json": { schema: ValidationErrorSchema } },
+      description: "Validation error",
+    },
+    401: {
+      content: { "application/json": { schema: UnauthorizedSchema } },
+      description: "Unauthorized",
+    },
+  },
+});
+
+export const generalInfoRoute = app
+  .openapi(getGeneralInfo, async (c) => {
     const sessionUser = c.var.user;
 
     const [generalInfoResult, userResult] = await Promise.all([
@@ -34,19 +95,19 @@ export const generalInfoRoute = new Hono<{
         .then((res) => res[0]),
     ]);
 
-    return c.json({
-      generalInfo: {
-        ...(generalInfoResult || {}),
-        email: userResult?.email ?? null,
-      },
-    });
-  })
+    const raw = {
+      ...(generalInfoResult || {}),
+      email: userResult?.email ?? null,
+    };
 
-  // ── PUT /api/general-info ─────────────────────────────────────────────────
-  // Upserts all general profile fields for the current user.
-  // Note: email is intentionally excluded — changing email requires a
-  // separate verification flow via Better Auth (auth.api.changeEmail).
-  .put("/", getUser, zValidator("json", createGeneralInfoSchema), async (c) => {
+    const mapped = {
+      ...raw,
+      createdAt: "createdAt" in raw && raw.createdAt ? (raw.createdAt instanceof Date ? raw.createdAt.toISOString() : String(raw.createdAt)) : null,
+    };
+
+    return c.json({ generalInfo: mapped as any }, 200);
+  })
+  .openapi(putGeneralInfo, async (c) => {
     const body = c.req.valid("json");
     const sessionUser = c.var.user;
 
@@ -78,5 +139,10 @@ export const generalInfoRoute = new Hono<{
       .returning()
       .then((res) => res[0]);
 
-    return c.json({ generalInfo: result });
+    const mapped = {
+      ...result,
+      createdAt: result.createdAt ? (result.createdAt instanceof Date ? result.createdAt.toISOString() : String(result.createdAt)) : null,
+    };
+
+    return c.json({ generalInfo: mapped as any }, 200);
   });

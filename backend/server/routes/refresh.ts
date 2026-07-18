@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { getCookie, setCookie, deleteCookie } from "hono/cookie";
 import { eq, and, isNull } from "drizzle-orm";
 import { db } from "../db";
@@ -8,6 +8,8 @@ import {
 } from "../db/schema/refresh-tokens";
 import { session as sessionTable } from "../db/schema/auth";
 import type { Context } from "hono";
+import { z } from "zod";
+import { defaultHook, UnauthorizedSchema } from "../lib/openapi-schemas";
 
 // ─── Access session expiry ────────────────────────────────────────────────────
 // Mirrors the value in auth.ts so both files stay in sync via this constant.
@@ -54,113 +56,228 @@ export function setRefreshTokenCookie(c: Context, token: string) {
 }
 
 // ─── Routes ──────────────────────────────────────────────────────────────────
-export const refreshRoute = new Hono();
+const app = new OpenAPIHono({ defaultHook });
 
-/**
- * POST /api/auth/refresh
- *
- * Validates the `refresh_token` httpOnly cookie and rotates it:
- *  1. Looks up the token in PostgreSQL — must exist, not revoked, not expired.
- *  2. Soft-deletes (revokes) the old token.
- *  3. Creates a fresh Better Auth session row directly in the DB.
- *  4. Mints a new refresh token and sets both cookies.
- *
- * The frontend calls this automatically when any API request returns 401.
- */
-refreshRoute.post("/refresh", async (c) => {
-  const incomingToken = getCookie(c, REFRESH_TOKEN_COOKIE);
-
-  if (!incomingToken) {
-    return c.json({ error: "No refresh token" }, 401);
-  }
-
-  // 1. Validate stored token
-  const [stored] = await db
-    .select()
-    .from(refreshTokenTable)
-    .where(
-      and(
-        eq(refreshTokenTable.token, incomingToken),
-        isNull(refreshTokenTable.revokedAt)
-      )
-    )
-    .limit(1);
-
-  if (!stored) {
-    deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: "/" });
-    return c.json({ error: "Invalid or revoked refresh token" }, 401);
-  }
-
-  if (stored.expiresAt < new Date()) {
-    await db
-      .update(refreshTokenTable)
-      .set({ revokedAt: new Date() })
-      .where(eq(refreshTokenTable.id, stored.id));
-    deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: "/" });
-    return c.json({ error: "Refresh token expired" }, 401);
-  }
-
-  // 2. Rotate: revoke the consumed token
-  await db
-    .update(refreshTokenTable)
-    .set({ revokedAt: new Date() })
-    .where(eq(refreshTokenTable.id, stored.id));
-
-  // 3. Create a new Better Auth session row directly
-  const sessionToken = crypto.randomUUID();
-  const sessionId = crypto.randomUUID();
-  const now = new Date();
-  const sessionExpiresAt = new Date(now.getTime() + ACCESS_SESSION_EXPIRY_S * 1000);
-
-  await db.insert(sessionTable).values({
-    id: sessionId,
-    token: sessionToken,
-    userId: stored.userId,
-    expiresAt: sessionExpiresAt,
-    createdAt: now,
-    updatedAt: now,
-    ipAddress: c.req.header("x-forwarded-for") ?? null,
-    userAgent: c.req.header("user-agent") ?? null,
-  });
-
-  // 4. Mint a new refresh token (rotation); this also inserts a DB row.
-  const newRefreshToken = await createRefreshToken(stored.userId, sessionId);
-
-  // Set the Better Auth session cookie
-  setCookie(c, "better-auth.session_token", sessionToken, {
-    httpOnly: true,
-    sameSite: "Lax",
-    path: "/",
-    maxAge: ACCESS_SESSION_EXPIRY_S,
-  });
-
-  // Set the new refresh token cookie
-  setRefreshTokenCookie(c, newRefreshToken);
-
-  return c.json({ ok: true });
+const postRefresh = createRoute({
+  method: "post",
+  path: "/refresh",
+  tags: ["Auth"],
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: z.object({ ok: z.boolean() }),
+        },
+      },
+      description: "Successfully refreshed the token",
+    },
+    401: {
+      content: {
+        "application/json": {
+          schema: UnauthorizedSchema,
+        },
+      },
+      description: "Unauthorized",
+    },
+  },
 });
 
-/**
- * POST /api/auth/revoke-refresh-token
- *
- * Soft-deletes the current refresh token so it can never be replayed.
- * Call this from your frontend logout handler alongside Better Auth's signOut.
- */
-refreshRoute.post("/revoke-refresh-token", async (c) => {
-  const incomingToken = getCookie(c, REFRESH_TOKEN_COOKIE);
+const postRevoke = createRoute({
+  method: "post",
+  path: "/revoke-refresh-token",
+  tags: ["Auth"],
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: z.object({ ok: z.boolean() }),
+        },
+      },
+      description: "Successfully revoked token",
+    },
+  },
+});
 
-  if (incomingToken) {
-    await db
-      .update(refreshTokenTable)
-      .set({ revokedAt: new Date() })
+const postSignInEmail = createRoute({
+  method: "post",
+  path: "/sign-in/email",
+  tags: ["Auth"],
+  request: {
+    body: {
+      content: {
+        "application/json": {
+          schema: z.object({
+            email: z.string().email(),
+            password: z.string(),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    200: {
+      description: "Successfully signed in",
+      content: {
+        "application/json": {
+          schema: z.object({
+            user: z.object({ id: z.string(), email: z.string(), name: z.string() }),
+            session: z.object({ token: z.string() }),
+          }),
+        },
+      },
+    },
+  },
+});
+
+const postSignUpEmail = createRoute({
+  method: "post",
+  path: "/sign-up/email",
+  tags: ["Auth"],
+  request: {
+    body: {
+      content: {
+        "application/json": {
+          schema: z.object({
+            email: z.string().email(),
+            password: z.string(),
+            name: z.string(),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    200: {
+      description: "Successfully signed up",
+      content: {
+        "application/json": {
+          schema: z.object({
+            user: z.object({ id: z.string(), email: z.string(), name: z.string() }),
+            session: z.object({ token: z.string() }),
+          }),
+        },
+      },
+    },
+  },
+});
+
+const postSignOut = createRoute({
+  method: "post",
+  path: "/sign-out",
+  tags: ["Auth"],
+  responses: {
+    200: {
+      description: "Successfully signed out",
+      content: {
+        "application/json": {
+          schema: z.object({ success: z.boolean() }),
+        },
+      },
+    },
+  },
+});
+
+export const refreshRoute = app
+  .openapi(postRefresh, async (c) => {
+    const incomingToken = getCookie(c, REFRESH_TOKEN_COOKIE);
+
+    if (!incomingToken) {
+      return c.json({ error: "No refresh token" }, 401);
+    }
+
+    // 1. Validate stored token
+    const [stored] = await db
+      .select()
+      .from(refreshTokenTable)
       .where(
         and(
           eq(refreshTokenTable.token, incomingToken),
           isNull(refreshTokenTable.revokedAt)
         )
-      );
-  }
+      )
+      .limit(1);
 
-  deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: "/" });
-  return c.json({ ok: true });
-});
+    if (!stored) {
+      deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: "/" });
+      return c.json({ error: "Invalid or revoked refresh token" }, 401);
+    }
+
+    if (stored.expiresAt < new Date()) {
+      await db
+        .update(refreshTokenTable)
+        .set({ revokedAt: new Date() })
+        .where(eq(refreshTokenTable.id, stored.id));
+      deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: "/" });
+      return c.json({ error: "Refresh token expired" }, 401);
+    }
+
+    // 2. Rotate: revoke the consumed token
+    await db
+      .update(refreshTokenTable)
+      .set({ revokedAt: new Date() })
+      .where(eq(refreshTokenTable.id, stored.id));
+
+    // 3. Create a new Better Auth session row directly
+    const sessionToken = crypto.randomUUID();
+    const sessionId = crypto.randomUUID();
+    const now = new Date();
+    const sessionExpiresAt = new Date(now.getTime() + ACCESS_SESSION_EXPIRY_S * 1000);
+
+    await db.insert(sessionTable).values({
+      id: sessionId,
+      token: sessionToken,
+      userId: stored.userId,
+      expiresAt: sessionExpiresAt,
+      createdAt: now,
+      updatedAt: now,
+      ipAddress: c.req.header("x-forwarded-for") ?? null,
+      userAgent: c.req.header("user-agent") ?? null,
+    });
+
+    // 4. Mint a new refresh token (rotation); this also inserts a DB row.
+    const newRefreshToken = await createRefreshToken(stored.userId, sessionId);
+
+    // Set the Better Auth session cookie
+    setCookie(c, "better-auth.session_token", sessionToken, {
+      httpOnly: true,
+      sameSite: "Lax",
+      path: "/",
+      maxAge: ACCESS_SESSION_EXPIRY_S,
+    });
+
+    // Set the new refresh token cookie
+    setRefreshTokenCookie(c, newRefreshToken);
+
+    return c.json({ ok: true }, 200);
+  })
+  .openapi(postRevoke, async (c) => {
+    const incomingToken = getCookie(c, REFRESH_TOKEN_COOKIE);
+
+    if (incomingToken) {
+      await db
+        .update(refreshTokenTable)
+        .set({ revokedAt: new Date() })
+        .where(
+          and(
+            eq(refreshTokenTable.token, incomingToken),
+            isNull(refreshTokenTable.revokedAt)
+          )
+        );
+    }
+
+    deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: "/" });
+    return c.json({ ok: true }, 200);
+  })
+  .openapi(postSignInEmail, async (c) => {
+    // Stub endpoint for OpenAPI generation.
+    // BetterAuth's global interceptor catches this request before it reaches here.
+    return c.json({} as any, 200);
+  })
+  .openapi(postSignUpEmail, async (c) => {
+    // Stub endpoint for OpenAPI generation.
+    return c.json({} as any, 200);
+  })
+  .openapi(postSignOut, async (c) => {
+    // Stub endpoint for OpenAPI generation.
+    return c.json({} as any, 200);
+  });
