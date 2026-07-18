@@ -74,28 +74,68 @@ export function WorkExperienceCreateEditForm({ currentData }: Props) {
 
   const createMutation = useMutation({
     mutationFn: createWorkExperience,
-    onSuccess: () => {
+    onMutate: async ({ value }) => {
+      await queryClient.cancelQueries({ queryKey: ['get-all-work-experience'] });
+      const previous = queryClient.getQueryData(['get-all-work-experience']);
+
+      queryClient.setQueryData(['get-all-work-experience'], (old: any) => {
+        if (!old?.workExperience) return old;
+        return {
+          ...old,
+          workExperience: [...old.workExperience, { ...value, id: Math.random() }],
+        };
+      });
+
+      return { previous };
+    },
+    onError: (error, variables, context) => {
+      console.error(error);
+      toast.error('Failed to create work experience record.');
+      if (context?.previous) {
+        queryClient.setQueryData(['get-all-work-experience'], context.previous);
+      }
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['get-all-work-experience'] });
+    },
+    onSuccess: () => {
       reset();
       toast.success('Create success!');
       router.push(paths.dashboard.workExperience.list);
-    },
-    onError: (error) => {
-      console.error(error);
-      toast.error('Failed to create work experience record.');
     },
   });
 
   const updateMutation = useMutation({
     mutationFn: updateWorkExperience,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['get-all-work-experience'] });
-      toast.success('Update success!');
-      router.push(paths.dashboard.workExperience.list);
+    onMutate: async ({ id, value }) => {
+      await queryClient.cancelQueries({ queryKey: ['get-all-work-experience'] });
+      const previous = queryClient.getQueryData(['get-all-work-experience']);
+
+      queryClient.setQueryData(['get-all-work-experience'], (old: any) => {
+        if (!old?.workExperience) return old;
+        return {
+          ...old,
+          workExperience: old.workExperience.map((item: any) =>
+            item.id === id ? { ...item, ...value } : item
+          ),
+        };
+      });
+
+      return { previous };
     },
-    onError: (error) => {
+    onError: (error, variables, context) => {
       console.error(error);
       toast.error('Failed to update work experience record.');
+      if (context?.previous) {
+        queryClient.setQueryData(['get-all-work-experience'], context.previous);
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['get-all-work-experience'] });
+    },
+    onSuccess: () => {
+      toast.success('Update success!');
+      router.push(paths.dashboard.workExperience.list);
     },
   });
 

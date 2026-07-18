@@ -74,28 +74,68 @@ export function EducationCreateEditForm({ currentData }: Props) {
 
   const createMutation = useMutation({
     mutationFn: createEducation,
-    onSuccess: () => {
+    onMutate: async ({ value }) => {
+      await queryClient.cancelQueries({ queryKey: ['get-all-education'] });
+      const previous = queryClient.getQueryData(['get-all-education']);
+
+      queryClient.setQueryData(['get-all-education'], (old: any) => {
+        if (!old?.education) return old;
+        return {
+          ...old,
+          education: [...old.education, { ...value, id: Math.random() }],
+        };
+      });
+
+      return { previous };
+    },
+    onError: (error, variables, context) => {
+      console.error(error);
+      toast.error('Failed to create education record.');
+      if (context?.previous) {
+        queryClient.setQueryData(['get-all-education'], context.previous);
+      }
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['get-all-education'] });
+    },
+    onSuccess: () => {
       reset();
       toast.success('Create success!');
       router.push(paths.dashboard.education.list);
-    },
-    onError: (error) => {
-      console.error(error);
-      toast.error('Failed to create education record.');
     },
   });
 
   const updateMutation = useMutation({
     mutationFn: updateEducation,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['get-all-education'] });
-      toast.success('Update success!');
-      router.push(paths.dashboard.education.list);
+    onMutate: async ({ id, value }) => {
+      await queryClient.cancelQueries({ queryKey: ['get-all-education'] });
+      const previous = queryClient.getQueryData(['get-all-education']);
+
+      queryClient.setQueryData(['get-all-education'], (old: any) => {
+        if (!old?.education) return old;
+        return {
+          ...old,
+          education: old.education.map((item: any) =>
+            item.id === id ? { ...item, ...value } : item
+          ),
+        };
+      });
+
+      return { previous };
     },
-    onError: (error) => {
+    onError: (error, variables, context) => {
       console.error(error);
       toast.error('Failed to update education record.');
+      if (context?.previous) {
+        queryClient.setQueryData(['get-all-education'], context.previous);
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['get-all-education'] });
+    },
+    onSuccess: () => {
+      toast.success('Update success!');
+      router.push(paths.dashboard.education.list);
     },
   });
 
