@@ -9,9 +9,6 @@ import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-
-import { fData } from 'src/utils/format-number';
 
 import { updateGeneralInfo, getGeneralInfoQueryOptions } from 'src/lib/api';
 
@@ -166,7 +163,7 @@ export function AccountGeneral() {
   return (
     <Form methods={methods} onSubmit={onSubmit}>
       <Grid container spacing={3}>
-        <Grid size={{ xs: 12, md: 4 }}>
+        {/* <Grid size={{ xs: 12, md: 4 }}>
           <Card
             sx={{
               pt: 10,
@@ -195,9 +192,9 @@ export function AccountGeneral() {
               }
             />
           </Card>
-        </Grid>
+        </Grid> */}
 
-        <Grid size={{ xs: 12, md: 8 }}>
+        <Grid size={{ xs: 12 }}>
           <Card sx={{ p: 3 }}>
             <Box
               sx={{

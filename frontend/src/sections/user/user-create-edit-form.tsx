@@ -17,8 +17,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
-import { fData } from 'src/utils/format-number';
-
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
 import { Form, Field, schemaHelper } from 'src/components/hook-form';
@@ -122,7 +120,7 @@ export function UserCreateEditForm({ currentUser }: Props) {
               </Label>
             )}
 
-            <Box sx={{ mb: 5 }}>
+            {/* <Box sx={{ mb: 5 }}>
               <Field.UploadAvatar
                 name="avatarUrl"
                 maxSize={3145728}
@@ -142,7 +140,7 @@ export function UserCreateEditForm({ currentUser }: Props) {
                   </Typography>
                 }
               />
-            </Box>
+            </Box> */}
 
             {currentUser && (
               <FormControlLabel
