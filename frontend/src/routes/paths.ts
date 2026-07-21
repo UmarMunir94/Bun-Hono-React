@@ -49,6 +49,7 @@ export const paths = {
     betterAuth: {
       signIn: `${ROOTS.AUTH}/sign-in`,
       signUp: `${ROOTS.AUTH}/sign-up`,
+      verifyEmail: `${ROOTS.AUTH}/verify-email`,
     },
     amplify: {
       signIn: `${ROOTS.AUTH}/amplify/sign-in`,

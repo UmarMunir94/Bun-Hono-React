@@ -43,8 +43,8 @@ export const signInWithGoogle = async (): Promise<void> => {
 /** **************************************
  * Sign up
  *************************************** */
-export const signUp = async ({ email, password, firstName, lastName }: SignUpParams): Promise<void> => {
-  const { error } = await authSignUp.email({
+export const signUp = async ({ email, password, firstName, lastName }: SignUpParams): Promise<any> => {
+  const { data, error } = await authSignUp.email({
     email,
     password,
     name: `${firstName} ${lastName}`,
@@ -53,6 +53,8 @@ export const signUp = async ({ email, password, firstName, lastName }: SignUpPar
   if (error) {
     throw new Error(error.message || 'Failed to sign up');
   }
+
+  return data;
 };
 
 /** **************************************

@@ -9,6 +9,7 @@
   "devDependencies": {
     "@flydotio/dockerfile": "latest",
     "@types/bun": "latest",
+    "@types/nodemailer": "^8.0.1",
     "drizzle-kit": "^0.31.10"
   },
   "peerDependencies": {
@@ -22,6 +23,7 @@
     "drizzle-orm": "^0.45.1",
     "drizzle-zod": "^0.5.1",
     "hono": "4.12.9",
+    "nodemailer": "^9.0.3",
     "pg": "^8.11.3",
     "postgres": "^3.4.3",
     "zod": "^3.22.4"

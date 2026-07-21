@@ -122,8 +122,11 @@ const meApp = new OpenAPIHono<{ Variables: AppVariables }>().openapi(getMeRoute,
   return c.json({ user: mappedUser as any }, 200);
 });
 
+import { authCheckRoute } from "./routes/auth-check";
+
 const apiRoutes = apiApp
   .route("/auth", refreshRoute)
+  .route("/", authCheckRoute)
   .route("/", meApp)
   .route("/education", educationRoute)
   .route("/work-experience", workExperienceRoute)

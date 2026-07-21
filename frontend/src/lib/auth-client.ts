@@ -4,4 +4,4 @@ export const authClient = createAuthClient({
   baseURL: import.meta.env.VITE_SERVER_URL ?? window.location.origin,
 });
 
-export const { signIn, signUp, signOut, useSession, changePassword } = authClient;
+export const { signIn, signUp, signOut, useSession, getSession, changePassword, sendVerificationEmail } = authClient;

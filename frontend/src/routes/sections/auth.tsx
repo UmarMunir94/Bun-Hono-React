@@ -17,6 +17,7 @@ import { GuestGuard } from 'src/auth/guard';
 const BetterAuth = {
   SignInPage: lazy(() => import('src/pages/auth/better-auth/sign-in')),
   SignUpPage: lazy(() => import('src/pages/auth/better-auth/sign-up')),
+  VerifyEmailPage: lazy(() => import('src/pages/auth/better-auth/verify-email')),
 };
 
 const authBetterAuth = [
@@ -42,6 +43,14 @@ const authBetterAuth = [
           <BetterAuth.SignUpPage />
         </AuthSplitLayout>
       </GuestGuard>
+    ),
+  },
+  {
+    path: 'verify-email',
+    element: (
+      <AuthSplitLayout>
+        <BetterAuth.VerifyEmailPage />
+      </AuthSplitLayout>
     ),
   },
 ];

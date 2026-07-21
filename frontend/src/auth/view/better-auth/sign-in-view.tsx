@@ -70,6 +70,12 @@ export function BetterAuthSignInView() {
     } catch (error) {
       console.error(error);
       const feedbackMessage = getErrorMessage(error);
+      
+      if (feedbackMessage.toLowerCase().includes('not verified')) {
+        router.push(`${paths.auth.betterAuth.verifyEmail}?email=${encodeURIComponent(data.email)}`);
+        return;
+      }
+
       setErrorMessage(feedbackMessage);
     }
   });
