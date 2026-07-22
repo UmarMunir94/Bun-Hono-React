@@ -1,4 +1,5 @@
-import { Hono } from "hono";
+import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
+import { apiReference } from "@scalar/hono-api-reference";
 import { logger } from "hono/logger";
 import { serveStatic } from "hono/bun";
 import { cors } from "hono/cors";
@@ -17,7 +18,7 @@ type AppVariables = {
   session: typeof auth.$Infer.Session.session | null;
 };
 
-const app = new Hono<{ Variables: AppVariables }>();
+const app = new OpenAPIHono<{ Variables: AppVariables }>();
 
 app.use(
   "*",
@@ -90,14 +91,57 @@ app.route("/api/auth", refreshRoute);
 
 import { generalInfoRoute } from "./routes/general-info";
 
+// ── OpenAPI Schema and Scalar UI ──────────────────────────────────────────────
+app.doc("/api/openapi.json", {
+  openapi: "3.0.0",
+  info: {
+    version: "1.0.0",
+    title: "Application API",
+  },
+});
+
+app.get(
+  "/api/docs",
+  apiReference({
+    theme: "saturn",
+    spec: { url: "/api/openapi.json" },
+  })
+);
+
 // ── Application API routes ────────────────────────────────────────────────────
 const apiRoutes = app
   .basePath("/api")
-  .get("/me", (c) => {
-    const user = c.get("user");
-    if (!user) return c.json({ error: "Unauthorized" }, 401);
-    return c.json({ user });
-  })
+  .openapi(
+    createRoute({
+      method: "get",
+      path: "/me",
+      responses: {
+        200: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                user: z.record(z.string(), z.any()), // basic typing for now
+              }),
+            },
+          },
+          description: "Get current authenticated user",
+        },
+        401: {
+          content: {
+            "application/json": {
+              schema: z.object({ error: z.string() }),
+            },
+          },
+          description: "Unauthorized",
+        },
+      },
+    }),
+    (c) => {
+      const user = c.get("user");
+      if (!user) return c.json({ error: "Unauthorized" }, 401);
+      return c.json({ user }, 200);
+    }
+  )
   .route("/education", educationRoute)
   .route("/work-experience", workExperienceRoute)
   .route("/general-info", generalInfoRoute);

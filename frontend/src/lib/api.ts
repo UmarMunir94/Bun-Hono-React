@@ -118,14 +118,14 @@ export async function createEducation({ value }: { value: CreateEducation }) {
 }
 
 export async function deleteEducation({ id }: { id: number }) {
-  const res = await api.education[":id{[0-9]+}"].$delete({
+  const res = await api.education[":id"].$delete({
     param: { id: id.toString() },
   });
   if (!res.ok) throw new Error("server error");
 }
 
 export async function updateEducation({ id, value }: { id: number; value: UpdateEducation }) {
-  const res = await api.education[":id{[0-9]+}"].$put({
+  const res = await api.education[":id"].$put({
     param: { id: id.toString() },
     json: value,
   });
@@ -166,14 +166,14 @@ export async function createWorkExperience({
 }
 
 export async function deleteWorkExperience({ id }: { id: number }) {
-  const res = await api["work-experience"][":id{[0-9]+}"].$delete({
+  const res = await api["work-experience"][":id"].$delete({
     param: { id: id.toString() },
   });
   if (!res.ok) throw new Error("server error");
 }
 
 export async function updateWorkExperience({ id, value }: { id: number; value: UpdateWorkExperience }) {
-  const res = await api["work-experience"][":id{[0-9]+}"].$put({
+  const res = await api["work-experience"][":id"].$put({
     param: { id: id.toString() },
     json: value,
   });

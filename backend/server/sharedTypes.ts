@@ -1,6 +1,6 @@
 import { education, insertEducationSchema, selectEducationSchema } from "./db/schema/education";
 import { workExperience, insertWorkExperienceSchema, selectWorkExperienceSchema } from "./db/schema/work-experience";
-import { z } from "zod";
+import { z } from "@hono/zod-openapi";
 
 export const createEducationSchema = insertEducationSchema.omit({
   userId: true,

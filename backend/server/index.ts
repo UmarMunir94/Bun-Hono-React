@@ -1,3 +1,4 @@
+import "./zod-setup";
 import app from "./app";
 import { z } from "zod";
 
