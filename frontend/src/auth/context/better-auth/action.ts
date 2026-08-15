@@ -1,4 +1,4 @@
-import { api } from 'src/lib/api';
+import { checkEmail } from 'src/lib/api';
 import { signIn, authClient, signUp as authSignUp, signOut as authSignOut } from 'src/lib/auth-client';
 
 export type SignInParams = {
@@ -83,8 +83,7 @@ export const signOut = async (): Promise<void> => {
 export const forgotPassword = async (email: string, redirectTo?: string): Promise<void> => {
   // Pre-check: verify the email exists so we can show a clear error instead of
   // silently succeeding (better-auth returns 200 even for unknown emails).
-  const checkRes = await api['check-email'].$post({ json: { email } });
-  const checkData = await checkRes.json();
+  const checkData = await checkEmail(email);
 
   if (!checkData.exists) {
     throw new Error('No account found with this email address.');

@@ -98,6 +98,14 @@ export const userQueryOptions = queryOptions({
   staleTime: Infinity,
 });
 
+// ── Auth Check ────────────────────────────────────────────────────────────────
+
+export async function checkEmail(email: string) {
+  const res = await api['check-email'].$post({ json: { email } });
+  if (!res.ok) throw new Error('Failed to check email');
+  return res.json();
+}
+
 // ── General Info ───────────────────────────────────────────────────────────
 
 async function getGeneralInfo() {
