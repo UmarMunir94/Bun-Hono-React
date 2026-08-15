@@ -24,7 +24,7 @@ import { fShortenNumber } from 'src/utils/format-number';
 import { Image } from 'src/components/image';
 import { Iconify } from 'src/components/iconify';
 
-import { useMockedUser } from 'src/auth/hooks';
+import { useUser } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ type Props = {
 };
 
 export function ProfilePostItem({ post }: Props) {
-  const { user } = useMockedUser();
+  const { user } = useUser();
 
   const fileRef = useRef<HTMLInputElement>(null);
   const commentRef = useRef<HTMLInputElement>(null);

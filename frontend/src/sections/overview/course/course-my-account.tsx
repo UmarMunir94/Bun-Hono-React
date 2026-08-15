@@ -9,12 +9,12 @@ import Typography from '@mui/material/Typography';
 import { Iconify } from 'src/components/iconify';
 import { AnimateBorder } from 'src/components/animate';
 
-import { useMockedUser } from 'src/auth/hooks';
+import { useUser } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
 export function CourseMyAccount({ sx, ...other }: CardProps) {
-  const { user } = useMockedUser();
+  const { user } = useUser();
 
   const renderAvatar = () => (
     <AnimateBorder

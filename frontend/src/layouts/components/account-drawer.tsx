@@ -24,7 +24,7 @@ import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 import { AnimateBorder } from 'src/components/animate';
 
-import { useMockedUser } from 'src/auth/hooks';
+import { useUser } from 'src/auth/hooks';
 
 import { UpgradeBlock } from './nav-upgrade';
 import { AccountButton } from './account-button';
@@ -44,7 +44,7 @@ export type AccountDrawerProps = IconButtonProps & {
 export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
   const pathname = usePathname();
 
-  const { user } = useMockedUser();
+  const { user } = useUser();
 
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
@@ -66,8 +66,9 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
       disablePadding
       sx={[
         (theme) => ({
-          py: 3,
+          py: 2,
           px: 2.5,
+          mt: 2,
           borderTop: `dashed 1px ${theme.vars.palette.divider}`,
           borderBottom: `dashed 1px ${theme.vars.palette.divider}`,
           '& li': { p: 0 },
@@ -166,7 +167,7 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
             </Typography>
           </Box>
 
-          <Box
+          {/* <Box
             sx={{
               p: 3,
               gap: 1,
@@ -200,13 +201,13 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
                 <Iconify icon="mingcute:add-line" />
               </IconButton>
             </Tooltip>
-          </Box>
+          </Box> */}
 
           {renderList()}
 
-          <Box sx={{ px: 2.5, py: 3 }}>
+          {/* <Box sx={{ px: 2.5, py: 3 }}>
             <UpgradeBlock />
-          </Box>
+          </Box> */}
         </Scrollbar>
 
         <Box sx={{ p: 2.5 }}>

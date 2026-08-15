@@ -10,12 +10,12 @@ import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/global-config';
 
-import { useMockedUser } from 'src/auth/hooks';
+import { useUser } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
 export function NavUpgrade({ sx, ...other }: BoxProps) {
-  const { user } = useMockedUser();
+  const { user } = useUser();
 
   return (
     <Box

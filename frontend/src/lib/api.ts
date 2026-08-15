@@ -82,6 +82,9 @@ export const api = client.api;
 
 async function getCurrentUser() {
   const res = await api.me.$get();
+  if (res.status === 401) {
+    return null;
+  }
   if (!res.ok) {
     throw new Error("server error");
   }
