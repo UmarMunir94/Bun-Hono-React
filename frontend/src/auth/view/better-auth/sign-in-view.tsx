@@ -98,7 +98,7 @@ export function BetterAuthSignInView() {
       <Box sx={{ gap: 1.5, display: 'flex', flexDirection: 'column' }}>
         <Link
           component={RouterLink}
-          href="#"
+          href={paths.auth.betterAuth.forgotPassword}
           variant="body2"
           color="inherit"
           sx={{ alignSelf: 'flex-end' }}

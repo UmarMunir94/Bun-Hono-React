@@ -1,4 +1,5 @@
-import { signIn, signUp as authSignUp, signOut as authSignOut } from 'src/lib/auth-client';
+import { api } from 'src/lib/api';
+import { signIn, authClient, signUp as authSignUp, signOut as authSignOut } from 'src/lib/auth-client';
 
 export type SignInParams = {
   email: string;
@@ -73,5 +74,50 @@ export const signOut = async (): Promise<void> => {
 
   if (error) {
     throw new Error(error.message || 'Failed to sign out');
+  }
+};
+
+/** **************************************
+ * Forgot password
+ *************************************** */
+export const forgotPassword = async (email: string, redirectTo?: string): Promise<void> => {
+  // Pre-check: verify the email exists so we can show a clear error instead of
+  // silently succeeding (better-auth returns 200 even for unknown emails).
+  const checkRes = await api['check-email'].$post({ json: { email } });
+  const checkData = await checkRes.json();
+
+  if (!checkData.exists) {
+    throw new Error('No account found with this email address.');
+  }
+
+  const { error } = await authClient.$fetch('/request-password-reset', {
+    method: 'POST',
+    body: { email, redirectTo },
+  });
+
+  if (error) {
+    throw new Error((error as any).message || 'Failed to send password reset email');
+  }
+};
+
+/** **************************************
+ * Reset password
+ *************************************** */
+export const resetPassword = async (password: string, token: string): Promise<void> => {
+  const { error } = await authClient.$fetch('/reset-password', {
+    method: 'POST',
+    body: { newPassword: password, token },
+  });
+
+  if (error) {
+    throw new Error((error as any).message || 'Failed to reset password');
+  }
+
+  // Sign out any session that better-auth may have auto-created after the reset,
+  // so the user is redirected to the login page and must sign in explicitly.
+  try {
+    await authSignOut();
+  } catch (_) {
+    // Non-fatal — proceed to login redirect regardless
   }
 };

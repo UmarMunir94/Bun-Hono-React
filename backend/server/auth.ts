@@ -61,6 +61,30 @@ export const auth = betterAuth({
     enabled: true,
     requireEmailVerification: true, // Enforce email verification
     preventEmailEnumeration: false, // Disable so we can show "user exists" errors
+    sendResetPassword: async ({ user, url }) => {
+      try {
+        await transporter.sendMail({
+          from: '"Axentia App" <no-reply@axentia.local>',
+          to: user.email,
+          subject: "Reset your password",
+          text: `Click the link to reset your password: ${url}`,
+          html: `
+            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+              <h2>Hello, ${user.name}!</h2>
+              <p>You recently requested to reset your password for your Axentia account. Click the button below to reset it.</p>
+              <a href="${url}" style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin: 16px 0;">
+                Reset Password
+              </a>
+              <p>If you did not request a password reset, please ignore this email.</p>
+              <p>Or copy and paste this link: <br/> <a href="${url}">${url}</a></p>
+            </div>
+          `,
+        });
+        console.log(`Password reset email sent to ${user.email} (Check Mailpit at http://localhost:8025)`);
+      } catch (error) {
+        console.error("Failed to send password reset email:", error);
+      }
+    },
   },
 
   emailVerification: {

@@ -18,6 +18,8 @@ const BetterAuth = {
   SignInPage: lazy(() => import('src/pages/auth/better-auth/sign-in')),
   SignUpPage: lazy(() => import('src/pages/auth/better-auth/sign-up')),
   VerifyEmailPage: lazy(() => import('src/pages/auth/better-auth/verify-email')),
+  ForgotPasswordPage: lazy(() => import('src/pages/auth/better-auth/forgot-password')),
+  ResetPasswordPage: lazy(() => import('src/pages/auth/better-auth/reset-password')),
 };
 
 const authBetterAuth = [
@@ -50,6 +52,22 @@ const authBetterAuth = [
     element: (
       <AuthSplitLayout>
         <BetterAuth.VerifyEmailPage />
+      </AuthSplitLayout>
+    ),
+  },
+  {
+    path: 'forgot-password',
+    element: (
+      <AuthSplitLayout>
+        <BetterAuth.ForgotPasswordPage />
+      </AuthSplitLayout>
+    ),
+  },
+  {
+    path: 'reset-password',
+    element: (
+      <AuthSplitLayout>
+        <BetterAuth.ResetPasswordPage />
       </AuthSplitLayout>
     ),
   },
