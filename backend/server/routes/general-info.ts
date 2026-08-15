@@ -139,6 +139,22 @@ export const generalInfoRoute = app
       .returning()
       .then((res) => res[0]);
 
+    // Keep the better-auth user table and cookie cache in sync
+    const newName = `${validated.firstName} ${validated.lastName}`.trim();
+    const updateRes = await auth.api.updateUser({
+      headers: c.req.raw.headers,
+      body: {
+        name: newName,
+        ...(validated.avatarUrl !== undefined && { image: validated.avatarUrl }),
+      },
+      asResponse: true,
+    });
+
+    const setCookies = updateRes.headers.getSetCookie();
+    for (const cookie of setCookies) {
+      c.header("Set-Cookie", cookie, { append: true });
+    }
+
     const mapped = {
       ...result,
       createdAt: result.createdAt ? (result.createdAt instanceof Date ? result.createdAt.toISOString() : String(result.createdAt)) : null,

@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-import { updateGeneralInfo, getGeneralInfoQueryOptions } from 'src/lib/api';
+import { userQueryOptions, updateGeneralInfo, getGeneralInfoQueryOptions } from 'src/lib/api';
 
 import { toast } from 'src/components/snackbar';
 import { Form, Field, schemaHelper } from 'src/components/hook-form';
@@ -20,22 +20,20 @@ import { Form, Field, schemaHelper } from 'src/components/hook-form';
 export type UpdateUserSchemaType = zod.infer<typeof UpdateUserSchema>;
 
 export const UpdateUserSchema = zod.object({
-  displayName: zod.string().min(1, { message: 'Name is required!' }),
+  firstName: zod.string().min(1, { message: 'First name is required!' }),
+  lastName: zod.string().min(1, { message: 'Last name is required!' }),
   email: zod
     .string()
     .min(1, { message: 'Email is required!' })
     .email({ message: 'Email must be a valid email address!' }),
   photoURL: zod.custom<File | string | null>(),
-  phoneNumber: schemaHelper.phoneNumber({ isValid: isValidPhoneNumber }),
-  country: schemaHelper.nullableInput(zod.string().min(1, { message: 'Country is required!' }), {
-    // message for null value
-    message: 'Country is required!',
-  }),
-  address: zod.string().min(1, { message: 'Address is required!' }),
-  state: zod.string().min(1, { message: 'State is required!' }),
-  city: zod.string().min(1, { message: 'City is required!' }),
-  zipCode: zod.string().min(1, { message: 'Zip code is required!' }),
-  about: zod.string().min(1, { message: 'About is required!' }),
+  phoneNumber: schemaHelper.phoneNumber({ isValid: isValidPhoneNumber }).optional().or(zod.literal('')),
+  country: zod.string().nullable().optional().or(zod.literal('')),
+  address: zod.string().optional().or(zod.literal('')),
+  state: zod.string().optional().or(zod.literal('')),
+  city: zod.string().optional().or(zod.literal('')),
+  zipCode: zod.string().optional().or(zod.literal('')),
+  about: zod.string().optional().or(zod.literal('')),
   linkedinProfile: zod.string().url({ message: 'Must be a valid URL' }).optional().or(zod.literal('')),
   // Not required
   isPublic: zod.boolean(),
@@ -50,14 +48,9 @@ export function AccountGeneral() {
   const { data } = useSuspenseQuery(getGeneralInfoQueryOptions);
   const info = data?.generalInfo;
 
-  // Combine firstName + lastName into displayName for the form
-  const displayName =
-    info?.firstName && info?.lastName
-      ? `${info.firstName} ${info.lastName}`.trim()
-      : info?.firstName ?? info?.lastName ?? '';
-
   const defaultValues: UpdateUserSchemaType = {
-    displayName: '',
+    firstName: '',
+    lastName: '',
     email: '',
     photoURL: null,
     phoneNumber: '',
@@ -77,7 +70,8 @@ export function AccountGeneral() {
     defaultValues,
     // `values` re-syncs the form whenever the query data changes
     values: {
-      displayName,
+      firstName: info?.firstName ?? '',
+      lastName: info?.lastName ?? '',
       email: info?.email ?? '',
       // avatarUrl from DB is a URL string; UploadAvatar accepts string | File | null
       photoURL: info?.avatarUrl ?? null,
@@ -100,28 +94,23 @@ export function AccountGeneral() {
 
   const onSubmit = handleSubmit(async (formData) => {
     try {
-      // Split displayName back into firstName / lastName for the API
-      const nameParts = formData.displayName.trim().split(/\s+/);
-      const firstName = nameParts[0] ?? '';
-      const lastName = nameParts.slice(1).join(' ') ?? '';
-
       // Build the payload — avatarUrl only if it's already a string URL
       // (File objects from UploadAvatar are not yet uploaded to a CDN)
       const avatarUrl =
         typeof formData.photoURL === 'string' ? formData.photoURL : info?.avatarUrl ?? undefined;
 
       const payload = {
-        firstName,
-        lastName,
-        phone: formData.phoneNumber || undefined,
-        country: formData.country ?? undefined,
-        city: formData.city || undefined,
-        address: formData.address || undefined,
-        state: formData.state || undefined,
-        zipCode: formData.zipCode || undefined,
-        about: formData.about || undefined,
-        linkedinProfile: formData.linkedinProfile || undefined,
-        avatarUrl,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        phone: formData.phoneNumber || null,
+        country: formData.country ?? null,
+        city: formData.city || null,
+        address: formData.address || null,
+        state: formData.state || null,
+        zipCode: formData.zipCode || null,
+        about: formData.about || null,
+        linkedinProfile: formData.linkedinProfile || null,
+        avatarUrl: avatarUrl || null,
       };
 
       // ── Optimistic UI ─────────────────────────────────────────────────────
@@ -150,6 +139,7 @@ export function AccountGeneral() {
 
       // Refresh the cache with the canonical server response
       await queryClient.invalidateQueries({ queryKey: getGeneralInfoQueryOptions.queryKey });
+      await queryClient.invalidateQueries({ queryKey: userQueryOptions.queryKey });
 
       toast.success('Profile updated successfully!');
     } catch (error) {
@@ -204,7 +194,8 @@ export function AccountGeneral() {
                 gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
               }}
             >
-              <Field.Text name="displayName" label="Name" />
+              <Field.Text name="firstName" label="First name" />
+              <Field.Text name="lastName" label="Last name" />
 
               {/* Email is read-only — changes require a separate verification flow */}
               <Field.Text
