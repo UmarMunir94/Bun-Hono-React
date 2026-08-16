@@ -66,7 +66,7 @@ const postRefresh = createRoute({
     200: {
       content: {
         "application/json": {
-          schema: z.object({ ok: z.boolean() }),
+          schema: z.object({ ok: z.boolean().openapi({ example: true }) }).openapi("RefreshResponse"),
         },
       },
       description: "Successfully refreshed the token",
@@ -90,7 +90,7 @@ const postRevoke = createRoute({
     200: {
       content: {
         "application/json": {
-          schema: z.object({ ok: z.boolean() }),
+          schema: z.object({ ok: z.boolean().openapi({ example: true }) }).openapi("RevokeResponse"),
         },
       },
       description: "Successfully revoked token",
@@ -106,10 +106,12 @@ const postSignInEmail = createRoute({
     body: {
       content: {
         "application/json": {
-          schema: z.object({
-            email: z.string().email(),
-            password: z.string(),
-          }),
+          schema: z
+            .object({
+              email: z.string().email().openapi({ example: "user@example.com" }),
+              password: z.string().openapi({ example: "password123" }),
+            })
+            .openapi("SignInEmailRequest"),
         },
       },
     },
@@ -119,10 +121,16 @@ const postSignInEmail = createRoute({
       description: "Successfully signed in",
       content: {
         "application/json": {
-          schema: z.object({
-            user: z.object({ id: z.string(), email: z.string(), name: z.string() }),
-            session: z.object({ token: z.string() }),
-          }),
+          schema: z
+            .object({
+              user: z.object({
+                id: z.string().openapi({ example: "123" }),
+                email: z.string().openapi({ example: "user@example.com" }),
+                name: z.string().openapi({ example: "John Doe" }),
+              }).openapi("SignInEmailResponseUser"),
+              session: z.object({ token: z.string().openapi({ example: "abc" }) }).openapi("SignInEmailResponseSession"),
+            })
+            .openapi("SignInEmailResponse"),
         },
       },
     },
@@ -137,11 +145,13 @@ const postSignUpEmail = createRoute({
     body: {
       content: {
         "application/json": {
-          schema: z.object({
-            email: z.string().email(),
-            password: z.string(),
-            name: z.string(),
-          }),
+          schema: z
+            .object({
+              email: z.string().email().openapi({ example: "user@example.com" }),
+              password: z.string().openapi({ example: "password123" }),
+              name: z.string().openapi({ example: "John Doe" }),
+            })
+            .openapi("SignUpEmailRequest"),
         },
       },
     },
@@ -151,10 +161,16 @@ const postSignUpEmail = createRoute({
       description: "Successfully signed up",
       content: {
         "application/json": {
-          schema: z.object({
-            user: z.object({ id: z.string(), email: z.string(), name: z.string() }),
-            session: z.object({ token: z.string() }),
-          }),
+          schema: z
+            .object({
+              user: z.object({
+                id: z.string().openapi({ example: "123" }),
+                email: z.string().openapi({ example: "user@example.com" }),
+                name: z.string().openapi({ example: "John Doe" }),
+              }).openapi("SignUpEmailResponseUser"),
+              session: z.object({ token: z.string().openapi({ example: "abc" }) }).openapi("SignUpEmailResponseSession"),
+            })
+            .openapi("SignUpEmailResponse"),
         },
       },
     },
@@ -170,7 +186,7 @@ const postSignOut = createRoute({
       description: "Successfully signed out",
       content: {
         "application/json": {
-          schema: z.object({ success: z.boolean() }),
+          schema: z.object({ success: z.boolean().openapi({ example: true }) }).openapi("SignOutResponse"),
         },
       },
     },
@@ -185,11 +201,13 @@ const postChangePassword = createRoute({
     body: {
       content: {
         "application/json": {
-          schema: z.object({
-            newPassword: z.string().min(6),
-            currentPassword: z.string().min(1),
-            revokeOtherSessions: z.boolean().optional(),
-          }),
+          schema: z
+            .object({
+              newPassword: z.string().min(6).openapi({ example: "newpassword123" }),
+              currentPassword: z.string().min(1).openapi({ example: "oldpassword123" }),
+              revokeOtherSessions: z.boolean().optional().openapi({ example: false }),
+            })
+            .openapi("ChangePasswordRequest"),
         },
       },
     },
@@ -199,7 +217,7 @@ const postChangePassword = createRoute({
       description: "Successfully changed password",
       content: {
         "application/json": {
-          schema: z.object({ success: z.boolean() }),
+          schema: z.object({ success: z.boolean().openapi({ example: true }) }).openapi("ChangePasswordSuccessResponse"),
         },
       },
     },
@@ -207,7 +225,67 @@ const postChangePassword = createRoute({
       description: "Invalid password",
       content: {
         "application/json": {
-          schema: z.object({ error: z.string() }),
+          schema: z.object({ error: z.string().openapi({ example: "Invalid password" }) }).openapi("ChangePasswordErrorResponse"),
+        },
+      },
+    },
+  },
+});
+
+const postRequestPasswordReset = createRoute({
+  method: "post",
+  path: "/request-password-reset",
+  tags: ["Auth"],
+  request: {
+    body: {
+      content: {
+        "application/json": {
+          schema: z
+            .object({
+              email: z.string().email().openapi({ example: "user@example.com" }),
+              redirectTo: z.string().optional().openapi({ example: "http://localhost:8080/reset-password" }),
+            })
+            .openapi("RequestPasswordResetRequest"),
+        },
+      },
+    },
+  },
+  responses: {
+    200: {
+      description: "Successfully requested password reset",
+      content: {
+        "application/json": {
+          schema: z.object({ success: z.boolean().openapi({ example: true }) }).openapi("RequestPasswordResetResponse"),
+        },
+      },
+    },
+  },
+});
+
+const postResetPassword = createRoute({
+  method: "post",
+  path: "/reset-password",
+  tags: ["Auth"],
+  request: {
+    body: {
+      content: {
+        "application/json": {
+          schema: z
+            .object({
+              newPassword: z.string().min(6).openapi({ example: "newpassword123" }),
+              token: z.string().openapi({ example: "reset-token-123" }),
+            })
+            .openapi("ResetPasswordRequest"),
+        },
+      },
+    },
+  },
+  responses: {
+    200: {
+      description: "Successfully reset password",
+      content: {
+        "application/json": {
+          schema: z.object({ success: z.boolean().openapi({ example: true }) }).openapi("ResetPasswordResponse"),
         },
       },
     },
@@ -319,6 +397,14 @@ export const refreshRoute = app
     return c.json({} as any, 200);
   })
   .openapi(postChangePassword, async (c) => {
+    // Stub endpoint for OpenAPI generation.
+    return c.json({} as any, 200);
+  })
+  .openapi(postRequestPasswordReset, async (c) => {
+    // Stub endpoint for OpenAPI generation.
+    return c.json({} as any, 200);
+  })
+  .openapi(postResetPassword, async (c) => {
     // Stub endpoint for OpenAPI generation.
     return c.json({} as any, 200);
   });

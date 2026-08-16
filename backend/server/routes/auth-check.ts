@@ -12,9 +12,11 @@ const checkEmailRoute = createRoute({
     body: {
       content: {
         "application/json": {
-          schema: z.object({
-            email: z.string().email(),
-          }),
+          schema: z
+            .object({
+              email: z.string().email().openapi({ example: "john.doe@email.com" }),
+            })
+            .openapi("CheckEmailRequest"),
         },
       },
     },
@@ -23,13 +25,15 @@ const checkEmailRoute = createRoute({
     200: {
       content: {
         "application/json": {
-          schema: z.object({
-            exists: z.boolean(),
-            verified: z.boolean().optional(),
-          }),
+          schema: z
+            .object({
+              exists: z.boolean().openapi({ example: true }),
+              verified: z.boolean().optional().openapi({ example: true }),
+            })
+            .openapi("CheckEmailResponse"),
         },
       },
-      description: "Check if email exists",
+      description: "Check if email exists and is verified",
     },
   },
 });
