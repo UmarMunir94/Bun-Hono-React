@@ -35,7 +35,8 @@ export function dashboardNavColorVars(
     case 'integrate':
       return {
         layout: {
-          '--layout-nav-bg': palette.background.default,
+          // '--layout-nav-bg': palette.background.paper, // neutral, paper, default, nav
+          '--layout-nav-bg': palette.background.nav,
           '--layout-nav-horizontal-bg': varAlpha(palette.background.defaultChannel, 0.8),
           '--layout-nav-border-color': varAlpha(palette.grey['500Channel'], 0.12),
           '--layout-nav-text-primary-color': palette.text.primary,
