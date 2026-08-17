@@ -38,8 +38,8 @@ export const themeConfig: ThemeConfig = {
    * Typography
    *************************************** */
   fontFamily: {
-    primary: '"Plus Jakarta Sans", sans-serif',
-    secondary: '"Plus Jakarta Sans", sans-serif',
+    primary: 'DM Sans Variable, Nunito Sans, sans-serif',
+    secondary: 'DM Sans, Nunito Sans, sans-serif',
   },
   /** **************************************
    * Palette

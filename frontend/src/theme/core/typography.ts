@@ -129,6 +129,7 @@ export const typography: TypographyVariantsOptions = {
   body2: {
     lineHeight: 22 / 14,
     fontSize: pxToRem(14),
+    fontWeight: baseTypography.fontWeightRegular,
     ...responsiveFontSizes({ sm: 12, md: 12, lg: 14, xl: 16 }),
   },
   caption: {

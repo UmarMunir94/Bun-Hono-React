@@ -11,7 +11,7 @@ const MuiBreadcrumbs: Components<Theme>['MuiBreadcrumbs'] = {
     }),
     li: ({ theme }) => ({
       display: 'inline-flex',
-      '& > *': { ...theme.typography.body2 },
+      '& > *': { ...theme.typography.body2, fontWeight: theme.typography.fontWeightSemiBold },
     }),
     separator: { margin: 0 },
   },
