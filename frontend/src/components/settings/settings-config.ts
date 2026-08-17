@@ -12,8 +12,8 @@ export const defaultSettings: SettingsState = {
   direction: themeConfig.direction,
   contrast: 'default',
   navLayout: 'vertical',
-  primaryColor: 'preset4',
-  navColor: 'apparent',
+  primaryColor: 'preset4', // default, preset1-preset5
+  navColor: 'integrate', // integrate/apparent
   compactLayout: true,
   fontSize: 16,
   fontFamily: themeConfig.fontFamily.primary,
