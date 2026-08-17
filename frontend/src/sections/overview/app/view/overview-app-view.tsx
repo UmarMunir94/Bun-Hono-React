@@ -172,7 +172,7 @@ export function OverviewAppView() {
           <AppTopRelated title="Related applications" list={_appRelated} />
         </Grid>
 
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+        {/* <Grid size={{ xs: 12, md: 6, lg: 4 }}>
           <AppTopInstalledCountries title="Top installed countries" list={_appInstalled} />
         </Grid>
 
@@ -200,7 +200,7 @@ export function OverviewAppView() {
               sx={{ bgcolor: 'info.dark', [`& .${svgColorClasses.root}`]: { color: 'info.light' } }}
             />
           </Box>
-        </Grid>
+        </Grid> */}
       </Grid>
     </DashboardContent>
   );

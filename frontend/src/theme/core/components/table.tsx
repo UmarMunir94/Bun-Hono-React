@@ -40,9 +40,11 @@ const MuiTableRow: Components<Theme>['MuiTableRow'] = {
 const MuiTableCell: Components<Theme>['MuiTableCell'] = {
   // ▼▼▼▼▼▼▼▼ 🎨 STYLE ▼▼▼▼▼▼▼▼
   styleOverrides: {
-    root: {
+    root: ({ theme }) => ({
       borderBottomStyle: 'dashed',
-    },
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+    }),
     head: ({ theme }) => ({
       fontSize: theme.typography.pxToRem(14),
       color: theme.vars.palette.text.secondary,

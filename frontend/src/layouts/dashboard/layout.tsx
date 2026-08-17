@@ -23,13 +23,13 @@ import { VerticalDivider } from './content';
 import { NavVertical } from './nav-vertical';
 import { NavHorizontal } from './nav-horizontal';
 import { _account } from '../nav-config-account';
-import { Searchbar } from '../components/searchbar';
+// import { Searchbar } from '../components/searchbar';
 // import { _workspaces } from '../nav-config-workspace';
 import { MenuButton } from '../components/menu-button';
 import { AccountDrawer } from '../components/account-drawer';
 import { SettingsButton } from '../components/settings-button';
-import { LanguagePopover } from '../components/language-popover';
-import { ContactsPopover } from '../components/contacts-popover';
+// import { LanguagePopover } from '../components/language-popover';
+// import { ContactsPopover } from '../components/contacts-popover';
 // import { WorkspacesPopover } from '../components/workspaces-popover';
 import { navData as dashboardNavData } from '../nav-config-dashboard';
 import { dashboardLayoutVars, dashboardNavColorVars } from './css-vars';
@@ -146,16 +146,16 @@ export function DashboardLayout({
       rightArea: (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0, sm: 0.75 } }}>
           {/** @slot Searchbar */}
-          <Searchbar data={navData} />
+          {/* <Searchbar data={navData} /> */}
 
           {/** @slot Language popover */}
-          <LanguagePopover data={allLangs} />
+          {/* <LanguagePopover data={allLangs} /> */}
 
           {/** @slot Notifications popover */}
           <NotificationsDrawer data={_notifications} />
 
           {/** @slot Contacts popover */}
-          <ContactsPopover data={_contacts} />
+          {/* <ContactsPopover data={_contacts} /> */}
 
           {/** @slot Settings button */}
           <SettingsButton />
