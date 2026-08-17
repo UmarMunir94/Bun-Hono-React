@@ -90,7 +90,7 @@ export function OverviewAppView() {
           />
         </Grid>
 
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+        {/* <Grid size={{ xs: 12, md: 6, lg: 4 }}>
           <AppCurrentDownload
             title="Current download"
             subheader="Downloaded by operating system"
@@ -152,7 +152,7 @@ export function OverviewAppView() {
               ],
             }}
           />
-        </Grid>
+        </Grid> */}
 
         <Grid size={{ xs: 12, lg: 8 }}>
           <AppNewInvoices
