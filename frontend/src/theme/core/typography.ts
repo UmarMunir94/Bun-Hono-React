@@ -91,13 +91,14 @@ export const typography: TypographyVariantsOptions = {
     fontWeight: baseTypography.fontWeightBold,
     lineHeight: 1.5,
     fontSize: pxToRem(24),
-    ...responsiveFontSizes({ sm: 40, md: 44, lg: 46 }),
+    // ...responsiveFontSizes({ sm: 40, md: 44, lg: 46 }),
+    ...responsiveFontSizes({ sm: 16, md: 20, lg: 26, xl: 30 }),
   },
   h4: {
-    fontWeight: baseTypography.fontWeightBold,
+    fontWeight: baseTypography.fontWeightSemiBold,
     lineHeight: 1.5,
     fontSize: pxToRem(20),
-    ...responsiveFontSizes({ sm: 16, md: 20, lg: 26, xl: 30 }),
+    ...responsiveFontSizes({ sm: 14, md: 18, lg: 24, xl: 28 }),
   },
   h5: {
     fontWeight: baseTypography.fontWeightSemiBold,
