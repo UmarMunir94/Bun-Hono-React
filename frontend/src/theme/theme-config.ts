@@ -38,8 +38,8 @@ export const themeConfig: ThemeConfig = {
    * Typography
    *************************************** */
   fontFamily: {
-    primary: 'Public Sans Variable',
-    secondary: 'Barlow',
+    primary: 'DM Sans Variable, Nunito Sans, sans-serif',
+    secondary: 'DM Sans, Nunito Sans, sans-serif',
   },
   /** **************************************
    * Palette

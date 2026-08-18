@@ -31,7 +31,7 @@ export function AppWelcome({ title, description, action, img, sx, ...other }: Pr
           pb: 5,
           pr: 3,
           gap: 5,
-          borderRadius: 2,
+          borderRadius: 1,
           display: 'flex',
           height: { md: 1 },
           position: 'relative',

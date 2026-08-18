@@ -7,32 +7,45 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import ButtonBase from '@mui/material/ButtonBase';
 
 import { paths } from 'src/routes/paths';
+import { RouterLink } from 'src/routes/components';
 
 import { CONFIG } from 'src/global-config';
 
-import { Label } from 'src/components/label';
-
-import { useMockedUser } from 'src/auth/hooks';
+import { useUser } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
 export function NavUpgrade({ sx, ...other }: BoxProps) {
-  const { user } = useMockedUser();
+  const { user } = useUser();
 
   return (
     <Box
       sx={[{ px: 2, py: 5, textAlign: 'center' }, ...(Array.isArray(sx) ? sx : [sx])]}
       {...other}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+      <ButtonBase
+        component={RouterLink}
+        href={paths.dashboard.user.profile}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'column',
+          width: 1,
+          borderRadius: 2,
+          py: 1,
+          transition: (theme) => theme.transitions.create('opacity'),
+          '&:hover': { opacity: 0.8 },
+        }}
+      >
         <Box sx={{ position: 'relative' }}>
           <Avatar src={user?.photoURL} alt={user?.displayName} sx={{ width: 48, height: 48 }}>
             {user?.displayName?.charAt(0).toUpperCase()}
           </Avatar>
 
-          <Label
+          {/* <Label
             color="success"
             variant="filled"
             sx={{
@@ -45,7 +58,7 @@ export function NavUpgrade({ sx, ...other }: BoxProps) {
             }}
           >
             Free
-          </Label>
+          </Label> */}
         </Box>
 
         <Box sx={{ mb: 2, mt: 1.5, width: 1 }}>
@@ -66,15 +79,15 @@ export function NavUpgrade({ sx, ...other }: BoxProps) {
           </Typography>
         </Box>
 
-        <Button
+        {/* <Button
           variant="contained"
           href={paths.minimalStore}
           target="_blank"
           rel="noopener noreferrer"
         >
           Upgrade to Pro
-        </Button>
-      </Box>
+        </Button> */}
+      </ButtonBase>
     </Box>
   );
 }

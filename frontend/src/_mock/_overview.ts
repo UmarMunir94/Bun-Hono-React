@@ -42,10 +42,10 @@ export const _appAuthors = Array.from({ length: 3 }, (_, index) => ({
   totalFavorites: _mock.number.nativeL(index),
 }));
 
-export const _appInvoices = Array.from({ length: 5 }, (_, index) => {
-  const category = ['Android', 'Mac', 'Windows', 'Android', 'Mac'][index];
+export const _appInvoices = Array.from({ length: 8 }, (_, index) => {
+  const category = ['Android', 'Mac', 'Windows', 'Android', 'Mac', 'Windows', 'Android', 'Mac'][index];
 
-  const status = ['paid', 'out of date', 'progress', 'paid', 'paid'][index];
+  const status = ['paid', 'out of date', 'progress', 'paid', 'paid', 'paid', 'out of date', 'progress',][index];
 
   return {
     id: _mock.id(index),

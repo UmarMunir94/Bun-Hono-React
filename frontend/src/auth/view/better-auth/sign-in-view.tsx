@@ -22,7 +22,7 @@ import { Form, Field } from 'src/components/hook-form';
 import { useAuthContext } from '../../hooks';
 import { getErrorMessage } from '../../utils';
 import { FormHead } from '../../components/form-head';
-import { signInWithPassword, signInWithGoogle } from '../../context/better-auth';
+import { signInWithGoogle, signInWithPassword } from '../../context/better-auth';
 
 // ----------------------------------------------------------------------
 
@@ -70,6 +70,12 @@ export function BetterAuthSignInView() {
     } catch (error) {
       console.error(error);
       const feedbackMessage = getErrorMessage(error);
+      
+      if (feedbackMessage.toLowerCase().includes('not verified')) {
+        router.push(`${paths.auth.betterAuth.verifyEmail}?email=${encodeURIComponent(data.email)}`);
+        return;
+      }
+
       setErrorMessage(feedbackMessage);
     }
   });
@@ -87,12 +93,12 @@ export function BetterAuthSignInView() {
 
   const renderForm = () => (
     <Box sx={{ gap: 3, display: 'flex', flexDirection: 'column' }}>
-      <Field.Text name="email" label="Email address" slotProps={{ inputLabel: { shrink: true } }} />
+      <Field.Text name="email" label="Email address" placeholder="john.doe@email.com" slotProps={{ inputLabel: { shrink: true } }} />
 
       <Box sx={{ gap: 1.5, display: 'flex', flexDirection: 'column' }}>
         <Link
           component={RouterLink}
-          href="#"
+          href={paths.auth.betterAuth.forgotPassword}
           variant="body2"
           color="inherit"
           sx={{ alignSelf: 'flex-end' }}

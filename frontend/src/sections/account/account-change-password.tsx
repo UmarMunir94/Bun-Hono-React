@@ -9,6 +9,8 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
+import { changePassword } from 'src/lib/auth-client';
+
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
@@ -60,12 +62,22 @@ export function AccountChangePassword() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const { error } = await changePassword({
+        newPassword: data.newPassword,
+        currentPassword: data.oldPassword,
+        revokeOtherSessions: true,
+      });
+
+      if (error) {
+        toast.error(error.message || 'Failed to change password');
+        return;
+      }
+
       reset();
-      toast.success('Update success!');
-      console.info('DATA', data);
+      toast.success('Password changed successfully!');
     } catch (error) {
       console.error(error);
+      toast.error('An unexpected error occurred');
     }
   });
 

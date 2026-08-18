@@ -3,16 +3,17 @@ import type { TableHeadCellProps } from 'src/components/table';
 
 import { usePopover } from 'minimal-shared/hooks';
 
-import Box from '@mui/material/Box';
+// import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
+import { useTheme } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
 
@@ -55,18 +56,6 @@ export function AppNewInvoices({ title, subheader, tableData, headCells, sx, ...
           </TableBody>
         </Table>
       </Scrollbar>
-
-      <Divider sx={{ borderStyle: 'dashed' }} />
-
-      <Box sx={{ p: 2, textAlign: 'right' }}>
-        <Button
-          size="small"
-          color="inherit"
-          endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
-        >
-          View all
-        </Button>
-      </Box>
     </Card>
   );
 }
@@ -78,6 +67,7 @@ type RowItemProps = {
 };
 
 function RowItem({ row }: RowItemProps) {
+  const theme = useTheme();
   const menuActions = usePopover();
 
   const handleDownload = () => {
@@ -136,22 +126,32 @@ function RowItem({ row }: RowItemProps) {
   return (
     <>
       <TableRow>
-        <TableCell>{row.invoiceNumber}</TableCell>
+        <TableCell sx={{ borderRight: `1px solid ${theme.palette.divider}` }}>{row.invoiceNumber}</TableCell>
 
-        <TableCell>{row.category}</TableCell>
+        <TableCell sx={{ borderRight: `1px solid ${theme.palette.divider}` }}>{row.category}</TableCell>
 
-        <TableCell>{fCurrency(row.price)}</TableCell>
+        <TableCell sx={{ borderRight: `1px solid ${theme.palette.divider}` }}>{fCurrency(row.price)}</TableCell>
 
-        <TableCell>
+        <TableCell sx={{ borderRight: `1px solid ${theme.palette.divider}` }}>
           <Label
-            variant="soft"
-            color={
-              (row.status === 'progress' && 'warning') ||
-              (row.status === 'out of date' && 'error') ||
-              'success'
-            }
+            sx={{
+              ...(row.status === 'progress' && {
+                bgcolor: theme.palette.pastels.purple,
+                color: '#1A1A1A',
+              }),
+              ...(row.status === 'out of date' && {
+                bgcolor: theme.palette.pastels.yellow,
+                color: '#1A1A1A',
+              }),
+              ...(row.status === 'paid' && {
+                bgcolor: theme.palette.pastels.green,
+                color: '#1A1A1A',
+              }),
+            }}
           >
-            {row.status}
+            {row.status === 'progress' && 'In Progress'}
+            {row.status === 'out of date' && 'Pending'}
+            {row.status === 'paid' && 'Completed'}
           </Label>
         </TableCell>
 

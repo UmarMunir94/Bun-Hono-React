@@ -49,6 +49,9 @@ export const paths = {
     betterAuth: {
       signIn: `${ROOTS.AUTH}/sign-in`,
       signUp: `${ROOTS.AUTH}/sign-up`,
+      verifyEmail: `${ROOTS.AUTH}/verify-email`,
+      forgotPassword: `${ROOTS.AUTH}/forgot-password`,
+      resetPassword: `${ROOTS.AUTH}/reset-password`,
     },
     amplify: {
       signIn: `${ROOTS.AUTH}/amplify/sign-in`,
@@ -125,11 +128,13 @@ export const paths = {
       root: `${ROOTS.DASHBOARD}/education`,
       list: `${ROOTS.DASHBOARD}/education/list`,
       new: `${ROOTS.DASHBOARD}/education/new`,
+      edit: (id: number | string) => `${ROOTS.DASHBOARD}/education/${id}/edit`,
     },
     workExperience: {
       root: `${ROOTS.DASHBOARD}/work-experience`,
       list: `${ROOTS.DASHBOARD}/work-experience/list`,
       new: `${ROOTS.DASHBOARD}/work-experience/new`,
+      edit: (id: number | string) => `${ROOTS.DASHBOARD}/work-experience/${id}/edit`,
     },
     product: {
       root: `${ROOTS.DASHBOARD}/product`,

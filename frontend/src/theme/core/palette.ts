@@ -51,6 +51,8 @@ export type TypeTextExtend = {
 export type TypeBackgroundExtend = {
   neutral: string;
   neutralChannel: string;
+  nav: string;
+  navChannel: string;
 };
 
 // Extended grey colors
@@ -69,6 +71,13 @@ export type GreyExtend = {
 
 // Extended palette
 export type PaletteExtend = {
+  pastels: {
+    purple: string;
+    yellow: string;
+    red: string;
+    green: string;
+    dark: string;
+  };
   shared: {
     inputOutlined: string;
     inputUnderline: string;
@@ -102,8 +111,18 @@ export const text = {
 };
 
 export const background = {
-  light: createPaletteChannel({ paper: '#FFFFFF', default: '#FFFFFF', neutral: grey[200] }),
-  dark: createPaletteChannel({ paper: grey[800], default: grey[900], neutral: '#28323D' }),
+  light: createPaletteChannel({
+    paper: '#FAFAFA',
+    default: '#F1F1F1',
+    neutral: grey[200],
+    nav: grey[200],
+  }),
+  dark: createPaletteChannel({
+    paper: '#303d43',
+    default: '#273238',
+    neutral: '#28323D',
+    nav: '#303d43',
+  }),
 };
 
 export const action = (mode: 'light' | 'dark'): Partial<TypeAction> => ({
@@ -125,7 +144,16 @@ export const action = (mode: 'light' | 'dark'): Partial<TypeAction> => ({
  * ➤ ➤ Extended palette
  * ➤
  */
+export const pastels = {
+  purple: '#B5A8FF',
+  yellow: '#FFDE70',
+  red: '#FF99A8',
+  green: '#8CE09F',
+  dark: '#1E1E1E',
+};
+
 export const extendPalette: PaletteExtend = {
+  pastels,
   shared: {
     inputUnderline: varAlpha(grey['500Channel'], opacity.inputUnderline),
     inputOutlined: varAlpha(grey['500Channel'], 0.2),

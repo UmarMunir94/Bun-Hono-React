@@ -9,6 +9,8 @@ import { ErrorBoundary } from './routes/components';
 
 // ----------------------------------------------------------------------
 
+export const queryClient = new QueryClient();
+
 const router = createBrowserRouter([
   {
     Component: () => (
@@ -22,8 +24,6 @@ const router = createBrowserRouter([
 ]);
 
 const root = createRoot(document.getElementById('root')!);
-
-const queryClient = new QueryClient();
 
 root.render(
   <StrictMode>

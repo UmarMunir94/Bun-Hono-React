@@ -25,7 +25,7 @@ const visuallyHidden: CSSObject = {
 
 export type TableHeadCellProps = {
   id: string;
-  label?: string;
+  label?: React.ReactNode;
   width?: CSSObject['width'];
   align?: 'left' | 'center' | 'right';
   sx?: SxProps<Theme>;

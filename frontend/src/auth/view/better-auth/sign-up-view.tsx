@@ -67,16 +67,41 @@ export function BetterAuthSignUpView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      // 1. Check if the user already exists in our database explicitly
+      const checkRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/check-email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: data.email }),
+      });
+      const checkData = await checkRes.json();
+
+      if (checkData.exists) {
+        if (checkData.verified) {
+          throw new Error("Your account already exists. Please sign in.");
+        } else {
+          // If unverified, proceed with BetterAuth's signUp which will gracefully resend the email
+          // We manually force isExisting = true so the user sees the tailored message.
+          await signUp({
+            email: data.email,
+            password: data.password,
+            firstName: data.firstName,
+            lastName: data.lastName,
+          });
+          router.push(`${paths.auth.betterAuth.verifyEmail}?email=${encodeURIComponent(data.email)}&existing=true`);
+          return;
+        }
+      }
+
+      // 2. Normal sign up for a brand new user
       await signUp({
         email: data.email,
         password: data.password,
         firstName: data.firstName,
         lastName: data.lastName,
       });
+
       await checkUserSession?.();
-      router.refresh();
-      // Explicit location redirect to guarantee guard processing
-      window.location.href = paths.dashboard.root;
+      router.push(`${paths.auth.betterAuth.verifyEmail}?email=${encodeURIComponent(data.email)}`);
     } catch (error) {
       console.error(error);
       const feedbackMessage = getErrorMessage(error);
@@ -103,16 +128,18 @@ export function BetterAuthSignUpView() {
         <Field.Text
           name="firstName"
           label="First name"
+          placeholder="John"
           slotProps={{ inputLabel: { shrink: true } }}
         />
         <Field.Text
           name="lastName"
           label="Last name"
+          placeholder="Doe"
           slotProps={{ inputLabel: { shrink: true } }}
         />
       </Box>
 
-      <Field.Text name="email" label="Email address" slotProps={{ inputLabel: { shrink: true } }} />
+      <Field.Text name="email" placeholder="john.doe@email.com" label="Email address" slotProps={{ inputLabel: { shrink: true } }} />
 
       <Field.Text
         name="password"

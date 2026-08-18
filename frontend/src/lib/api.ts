@@ -1,7 +1,13 @@
 import { hc } from "hono/client";
 import { type ApiRoutes } from "@server/app";
 import { queryOptions } from "@tanstack/react-query";
-import { type CreateEducation, type CreateWorkExperience } from "@server/sharedTypes";
+import {
+  type CreateEducation,
+  type UpdateEducation,
+  type CreateGeneralInfo,
+  type CreateWorkExperience,
+  type UpdateWorkExperience,
+} from "@server/sharedTypes";
 
 // ─── Silent refresh interceptor ──────────────────────────────────────────────
 // When any API call returns 401, try to silently refresh the session using the
@@ -57,7 +63,7 @@ async function fetchWithRefresh(
 
   if (!refreshed) {
     // Refresh token is also expired — force re-login
-    window.location.href = "/sign-in";
+    window.location.href = "/auth/sign-in";
     return response;
   }
 
@@ -76,6 +82,9 @@ export const api = client.api;
 
 async function getCurrentUser() {
   const res = await api.me.$get();
+  if (res.status === 401) {
+    return null;
+  }
   if (!res.ok) {
     throw new Error("server error");
   }
@@ -88,6 +97,34 @@ export const userQueryOptions = queryOptions({
   queryFn: getCurrentUser,
   staleTime: Infinity,
 });
+
+// ── Auth Check ────────────────────────────────────────────────────────────────
+
+export async function checkEmail(email: string) {
+  const res = await api['check-email'].$post({ json: { email } });
+  if (!res.ok) throw new Error('Failed to check email');
+  return res.json();
+}
+
+// ── General Info ───────────────────────────────────────────────────────────
+
+async function getGeneralInfo() {
+  const res = await api["general-info"].$get();
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export const getGeneralInfoQueryOptions = queryOptions({
+  queryKey: ["get-general-info"],
+  queryFn: getGeneralInfo,
+  staleTime: 1000 * 60 * 5,
+});
+
+export async function updateGeneralInfo({ value }: { value: CreateGeneralInfo }) {
+  const res = await api["general-info"].$put({ json: value });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
 
 // ── Education ──────────────────────────────────────────────────────────────
 
@@ -122,6 +159,15 @@ export async function deleteEducation({ id }: { id: number }) {
     param: { id: id.toString() },
   });
   if (!res.ok) throw new Error("server error");
+}
+
+export async function updateEducation({ id, value }: { id: number; value: UpdateEducation }) {
+  const res = await api.education[":id{[0-9]+}"].$put({
+    param: { id: id.toString() },
+    json: value,
+  });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
 }
 
 // ── Work Experience ────────────────────────────────────────────────────────
@@ -161,4 +207,13 @@ export async function deleteWorkExperience({ id }: { id: number }) {
     param: { id: id.toString() },
   });
   if (!res.ok) throw new Error("server error");
+}
+
+export async function updateWorkExperience({ id, value }: { id: number; value: UpdateWorkExperience }) {
+  const res = await api["work-experience"][":id{[0-9]+}"].$put({
+    param: { id: id.toString() },
+    json: value,
+  });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
 }

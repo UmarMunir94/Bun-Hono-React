@@ -7,9 +7,10 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import { SeoIllustration } from 'src/assets/illustrations';
 import { _appAuthors, _appRelated, _appFeatured, _appInvoices, _appInstalled } from 'src/_mock';
 
+import PastelCard from 'src/components/PastelCard';
 import { svgColorClasses } from 'src/components/svg-color';
 
-import { useMockedUser } from 'src/auth/hooks';
+import { useUser } from 'src/auth/hooks';
 
 import { AppWidget } from '../app-widget';
 import { AppWelcome } from '../app-welcome';
@@ -18,14 +19,13 @@ import { AppTopAuthors } from '../app-top-authors';
 import { AppTopRelated } from '../app-top-related';
 import { AppNewInvoices } from '../app-new-invoices';
 import { AppAreaInstalled } from '../app-area-installed';
-import { AppWidgetSummary } from '../app-widget-summary';
 import { AppCurrentDownload } from '../app-current-download';
 import { AppTopInstalledCountries } from '../app-top-installed-countries';
 
 // ----------------------------------------------------------------------
 
 export function OverviewAppView() {
-  const { user } = useMockedUser();
+  const { user } = useUser();
 
   const theme = useTheme();
 
@@ -50,10 +50,11 @@ export function OverviewAppView() {
         </Grid>
 
         <Grid size={{ xs: 12, md: 4 }}>
-          <AppWidgetSummary
+          <PastelCard
+            color="purple"
             title="Total active users"
+            value="18,765"
             percent={2.6}
-            total={18765}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
               series: [15, 18, 12, 51, 68, 11, 39, 37],
@@ -62,10 +63,11 @@ export function OverviewAppView() {
         </Grid>
 
         <Grid size={{ xs: 12, md: 4 }}>
-          <AppWidgetSummary
+          <PastelCard
+            color="yellow"
             title="Total installed"
+            value="4,876"
             percent={0.2}
-            total={4876}
             chart={{
               colors: [theme.palette.info.main],
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
@@ -75,10 +77,11 @@ export function OverviewAppView() {
         </Grid>
 
         <Grid size={{ xs: 12, md: 4 }}>
-          <AppWidgetSummary
+          <PastelCard
+            color="green"
             title="Total downloads"
+            value="678"
             percent={-0.1}
-            total={678}
             chart={{
               colors: [theme.palette.error.main],
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
@@ -87,7 +90,7 @@ export function OverviewAppView() {
           />
         </Grid>
 
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+        {/* <Grid size={{ xs: 12, md: 6, lg: 4 }}>
           <AppCurrentDownload
             title="Current download"
             subheader="Downloaded by operating system"
@@ -149,7 +152,7 @@ export function OverviewAppView() {
               ],
             }}
           />
-        </Grid>
+        </Grid> */}
 
         <Grid size={{ xs: 12, lg: 8 }}>
           <AppNewInvoices
@@ -169,7 +172,7 @@ export function OverviewAppView() {
           <AppTopRelated title="Related applications" list={_appRelated} />
         </Grid>
 
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+        {/* <Grid size={{ xs: 12, md: 6, lg: 4 }}>
           <AppTopInstalledCountries title="Top installed countries" list={_appInstalled} />
         </Grid>
 
@@ -197,7 +200,7 @@ export function OverviewAppView() {
               sx={{ bgcolor: 'info.dark', [`& .${svgColorClasses.root}`]: { color: 'info.light' } }}
             />
           </Box>
-        </Grid>
+        </Grid> */}
       </Grid>
     </DashboardContent>
   );
