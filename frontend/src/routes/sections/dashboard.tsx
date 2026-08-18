@@ -130,8 +130,16 @@ export const dashboardRoutes: RouteObject[] = [
       {
         path: 'user',
         children: [
-          { index: true, element: <UserProfilePage /> },
-          { path: 'profile', element: <UserProfilePage /> },
+          {
+            index: true,
+            element: <UserProfilePage />,
+            loader: () => queryClient.ensureQueryData(getGeneralInfoQueryOptions),
+          },
+          {
+            path: 'profile',
+            element: <UserProfilePage />,
+            loader: () => queryClient.ensureQueryData(getGeneralInfoQueryOptions),
+          },
           { path: 'cards', element: <UserCardsPage /> },
           { path: 'list', element: <UserListPage /> },
           { path: 'new', element: <UserCreatePage /> },

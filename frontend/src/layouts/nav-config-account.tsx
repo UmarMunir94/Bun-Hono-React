@@ -8,7 +8,7 @@ export const _account: AccountDrawerProps['data'] = [
   { label: 'Home', href: '/', icon: <Iconify icon="solar:home-angle-bold-duotone" /> },
   {
     label: 'Profile',
-    href: '/dashboard/user/account',
+    href: '/dashboard/user/profile',
     icon: <Iconify icon="custom:profile-duotone" />,
   },
   // {
