@@ -36,15 +36,15 @@ function getHighlight(event: any, userId: string | undefined): EventCardHighligh
 
 const highlightStyles: Record<EventCardHighlight, object> = {
   mine: {
-    backgroundColor: (theme: any) => theme.vars.palette.pastels?.red?.light || theme.vars.palette.error.main,
+    backgroundColor: (theme: any) => theme.vars.palette.pastels?.purple?.light || theme.vars.palette.primary.lighter,
     border: 'none',
   },
   joined: {
-    backgroundColor: (theme: any) => theme.vars.palette.pastels?.green?.light || theme.vars.palette.success.main,
+    backgroundColor: (theme: any) => theme.vars.palette.pastels?.green?.light || theme.vars.palette.success.lighter,
     border: 'none',
   },
   requested: {
-    backgroundColor: (theme: any) => theme.vars.palette.pastels?.yellow?.light || theme.vars.palette.warning.main,
+    backgroundColor: (theme: any) => theme.vars.palette.pastels?.yellow?.light || theme.vars.palette.warning.lighter,
     border: 'none',
   },
   none: {
@@ -292,14 +292,14 @@ export function EventListView() {
                         component={RouterLink}
                         href={paths.dashboard.events.edit(event.id.toString())}
                         variant="outlined"
-                        color="secondary"
+                        // color="primary"
                         size="small"
                       >
                         Edit
                       </Button>
                       <Button
                         color="error"
-                        variant="outlined"
+                        variant="soft"
                         size="small"
                         onClick={() => handleDelete(event.id)}
                       >
@@ -313,7 +313,7 @@ export function EventListView() {
                     <>
                       {event.myStatus === 'none' && (
                         <Button
-                          variant="outlined"
+                          variant="soft"
                           size="small"
                           color="primary"
                           onClick={() => handleJoin(event.id)}
@@ -338,7 +338,7 @@ export function EventListView() {
                   {/* Joined Events actions */}
                   {event.myStatus === 'approved' && event.userId !== user?.id && (
                     <Button
-                      variant="outlined"
+                      variant="soft"
                       size="small"
                       color="error"
                       onClick={() => handleLeave(event.id)}
