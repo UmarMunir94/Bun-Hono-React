@@ -72,11 +72,11 @@ export type GreyExtend = {
 // Extended palette
 export type PaletteExtend = {
   pastels: {
-    purple: string;
-    yellow: string;
-    red: string;
-    green: string;
-    dark: string;
+    purple: PaletteColorWithChannels;
+    yellow: PaletteColorWithChannels;
+    red: PaletteColorWithChannels;
+    green: PaletteColorWithChannels;
+    dark: PaletteColorWithChannels;
   };
   shared: {
     inputOutlined: string;
@@ -144,20 +144,98 @@ export const action = (mode: 'light' | 'dark'): Partial<TypeAction> => ({
  * ➤ ➤ Extended palette
  * ➤
  */
-export const pastels = {
-  light: {
-    purple: '#B5A8FF',
-    yellow: '#FFDE70',
-    red: '#FF99A8',
-    green: '#8CE09F',
-    dark: '#1E1E1E',
+const pastelsBase = {
+  purple: {
+    lighter: '#F3EFFF',
+    light: '#EBDDFF',
+    main: '#B5A8FF',
+    dark: '#9B8EF1',
+    darker: '#2E244C',
+    contrastText: '#FFFFFF',
+  },
+  yellow: {
+    lighter: '#FFF8E1',
+    light: '#FFF5D1',
+    main: '#FFDE70',
+    dark: '#E8C550',
+    darker: '#423719',
+    contrastText: '#1C252E',
+  },
+  red: {
+    lighter: '#FFE5EC',
+    light: '#FFE5E8',
+    main: '#FF99A8',
+    dark: '#EE8092',
+    darker: '#4C242C',
+    contrastText: '#FFFFFF',
+  },
+  green: {
+    lighter: '#E8F5E9',
+    light: '#D9F2E1',
+    main: '#8CE09F',
+    dark: '#74D28A',
+    darker: '#1B3B26',
+    contrastText: '#1C252E',
   },
   dark: {
-    purple: '#9B8EF1',
-    yellow: '#E8C550',
-    red: '#EE8092',
-    green: '#74D28A',
-    dark: '#F0F0F0',
+    lighter: '#F0F0F0',
+    light: '#D9D9D9',
+    main: '#1E1E1E',
+    dark: '#141414',
+    darker: '#0A0A0A',
+    contrastText: '#FFFFFF',
+  },
+};
+
+export const pastels = {
+  light: {
+    purple: createPaletteChannel(pastelsBase.purple),
+    yellow: createPaletteChannel(pastelsBase.yellow),
+    red: createPaletteChannel(pastelsBase.red),
+    green: createPaletteChannel(pastelsBase.green),
+    dark: createPaletteChannel(pastelsBase.dark),
+  },
+  dark: {
+    purple: createPaletteChannel({
+      lighter: pastelsBase.purple.main,
+      light: pastelsBase.purple.dark,
+      main: pastelsBase.purple.darker,
+      dark: pastelsBase.purple.darker,
+      darker: pastelsBase.purple.darker,
+      contrastText: pastelsBase.purple.contrastText,
+    }),
+    yellow: createPaletteChannel({
+      lighter: pastelsBase.yellow.main,
+      light: pastelsBase.yellow.dark,
+      main: pastelsBase.yellow.darker,
+      dark: pastelsBase.yellow.darker,
+      darker: pastelsBase.yellow.darker,
+      contrastText: pastelsBase.yellow.contrastText,
+    }),
+    red: createPaletteChannel({
+      lighter: pastelsBase.red.main,
+      light: pastelsBase.red.dark,
+      main: pastelsBase.red.darker,
+      dark: pastelsBase.red.darker,
+      darker: pastelsBase.red.darker,
+      contrastText: pastelsBase.red.contrastText,
+    }),
+    green: createPaletteChannel({
+      lighter: pastelsBase.green.main,
+      light: pastelsBase.green.dark,
+      main: pastelsBase.green.darker,
+      dark: pastelsBase.green.darker,
+      darker: pastelsBase.green.darker,
+      contrastText: pastelsBase.green.contrastText,
+    }),
+    dark: createPaletteChannel({
+      lighter: pastelsBase.dark.main,
+      light: pastelsBase.dark.dark,
+      main: pastelsBase.dark.darker,
+      dark: pastelsBase.dark.darker,
+      darker: pastelsBase.dark.darker,
+      contrastText: pastelsBase.dark.contrastText,
+    }),
   },
 };
 

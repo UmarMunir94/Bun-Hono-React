@@ -43,6 +43,27 @@
       "when": 1775143552939,
       "tag": "0005_greedy_the_anarchist",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1775200000000,
+      "tag": "0006_refresh_token_table",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1775200100000,
+      "tag": "0007_general_info_account_fields",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1775200200000,
+      "tag": "0008_events_tables",
+      "breakpoints": true
     }
   ]
 }

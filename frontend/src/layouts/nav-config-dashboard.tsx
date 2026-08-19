@@ -133,6 +133,15 @@ export const navData: NavSectionProps['data'] = [
           { title: 'Create', path: paths.dashboard.workExperience.new },
         ],
       },
+      {
+        title: 'Events',
+        path: paths.dashboard.events.root,
+        icon: ICONS.calendar,
+        children: [
+          { title: 'List', path: paths.dashboard.events.list },
+          { title: 'Create', path: paths.dashboard.events.new },
+        ],
+      },
       // {
       //   title: 'Invoice',
       //   path: paths.dashboard.invoice.root,

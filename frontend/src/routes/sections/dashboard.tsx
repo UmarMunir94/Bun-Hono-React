@@ -45,10 +45,16 @@ const UserCardsPage = lazy(() => import('src/pages/dashboard/user/cards'));
 const UserListPage = lazy(() => import('src/pages/dashboard/user/list'));
 const UserCreatePage = lazy(() => import('src/pages/dashboard/user/new'));
 const UserEditPage = lazy(() => import('src/pages/dashboard/user/edit'));
+const UserPublicProfilePage = lazy(() => import('src/pages/dashboard/user/public'));
 // Education
 const EducationListPage = lazy(() => import('src/pages/dashboard/education/list'));
 const EducationCreatePage = lazy(() => import('src/pages/dashboard/education/new'));
 const EducationEditPage = lazy(() => import('src/pages/dashboard/education/edit'));
+// Events
+const EventListPage = lazy(() => import('src/pages/dashboard/events/list'));
+const EventDetailsPage = lazy(() => import('src/pages/dashboard/events/details'));
+const EventCreatePage = lazy(() => import('src/pages/dashboard/events/new'));
+const EventEditPage = lazy(() => import('src/pages/dashboard/events/edit'));
 // Work Experience
 const WorkExperienceListPage = lazy(() => import('src/pages/dashboard/work-experience/list'));
 const WorkExperienceCreatePage = lazy(() => import('src/pages/dashboard/work-experience/new'));
@@ -144,6 +150,7 @@ export const dashboardRoutes: RouteObject[] = [
           { path: 'list', element: <UserListPage /> },
           { path: 'new', element: <UserCreatePage /> },
           { path: ':id/edit', element: <UserEditPage /> },
+          { path: ':id/public', element: <UserPublicProfilePage /> },
           {
             path: 'account',
             element: accountLayout(),
@@ -177,6 +184,16 @@ export const dashboardRoutes: RouteObject[] = [
           { path: 'list', element: <WorkExperienceListPage /> },
           { path: 'new', element: <WorkExperienceCreatePage /> },
           { path: ':id/edit', element: <WorkExperienceEditPage /> },
+        ],
+      },
+      {
+        path: 'events',
+        children: [
+          { index: true, element: <EventListPage /> },
+          { path: 'list', element: <EventListPage /> },
+          { path: 'new', element: <EventCreatePage /> },
+          { path: ':id/edit', element: <EventEditPage /> },
+          { path: ':id', element: <EventDetailsPage /> },
         ],
       },
       {

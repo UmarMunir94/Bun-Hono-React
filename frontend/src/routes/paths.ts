@@ -121,6 +121,7 @@ export const paths = {
       cards: `${ROOTS.DASHBOARD}/user/cards`,
       profile: `${ROOTS.DASHBOARD}/user/profile`,
       account: `${ROOTS.DASHBOARD}/user/account`,
+      public: (id: string) => `${ROOTS.DASHBOARD}/user/${id}/public`,
       edit: (id: string) => `${ROOTS.DASHBOARD}/user/${id}/edit`,
       demo: { edit: `${ROOTS.DASHBOARD}/user/${MOCK_ID}/edit` },
     },
@@ -135,6 +136,13 @@ export const paths = {
       list: `${ROOTS.DASHBOARD}/work-experience/list`,
       new: `${ROOTS.DASHBOARD}/work-experience/new`,
       edit: (id: number | string) => `${ROOTS.DASHBOARD}/work-experience/${id}/edit`,
+    },
+    events: {
+      root: `${ROOTS.DASHBOARD}/events`,
+      list: `${ROOTS.DASHBOARD}/events/list`,
+      new: `${ROOTS.DASHBOARD}/events/new`,
+      edit: (id: number | string) => `${ROOTS.DASHBOARD}/events/${id}/edit`,
+      details: (id: number | string) => `${ROOTS.DASHBOARD}/events/${id}`,
     },
     product: {
       root: `${ROOTS.DASHBOARD}/product`,

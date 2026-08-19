@@ -2,6 +2,8 @@ import { hc } from "hono/client";
 import { type ApiRoutes } from "@server/app";
 import { queryOptions } from "@tanstack/react-query";
 import {
+  type CreateEvent,
+  type UpdateEvent,
   type CreateEducation,
   type UpdateEducation,
   type CreateGeneralInfo,
@@ -217,3 +219,106 @@ export async function updateWorkExperience({ id, value }: { id: number; value: U
   if (!res.ok) throw new Error("server error");
   return res.json();
 }
+
+// ── Events ──────────────────────────────────────────────────────────────────
+
+export async function getAllEvents({ tab }: { tab: "all" | "managed" | "joined" }) {
+  const res = await api.events.$get({ query: { tab } });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export const getAllEventsQueryOptions = (tab: "all" | "managed" | "joined" = "all") =>
+  queryOptions({
+    queryKey: ["get-all-events", tab],
+    queryFn: () => getAllEvents({ tab }),
+    staleTime: 1000 * 60 * 5,
+  });
+
+export async function getEventById({ id }: { id: number }) {
+  const res = await api.events[":id{[0-9]+}"].$get({
+    param: { id: id.toString() },
+  });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export const getEventByIdQueryOptions = (id: number) =>
+  queryOptions({
+    queryKey: ["get-event", id],
+    queryFn: () => getEventById({ id }),
+    staleTime: 1000 * 60 * 5,
+  });
+
+export async function createEvent({ value }: { value: CreateEvent }) {
+  const res = await api.events.$post({ json: value });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export async function updateEvent({ id, value }: { id: number; value: UpdateEvent }) {
+  const res = await api.events[":id{[0-9]+}"].$put({
+    param: { id: id.toString() },
+    json: value,
+  });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export async function deleteEvent({ id }: { id: number }) {
+  const res = await api.events[":id{[0-9]+}"].$delete({
+    param: { id: id.toString() },
+  });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export async function joinEvent({ id }: { id: number }) {
+  const res = await api.events[":id{[0-9]+}"].join.$post({
+    param: { id: id.toString() },
+  });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export async function leaveEvent({ id }: { id: number }) {
+  const res = await api.events[":id{[0-9]+}"].join.$delete({
+    param: { id: id.toString() },
+  });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export async function updateEventAttendee({
+  eventId,
+  attendeeId,
+  status,
+}: {
+  eventId: number;
+  attendeeId: number;
+  status: "requested" | "approved" | "rejected";
+}) {
+  const res = await api.events[":id{[0-9]+}"].attendees[":attendeeId{[0-9]+}"].$put({
+    param: { id: eventId.toString(), attendeeId: attendeeId.toString() },
+    json: { status },
+  });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+// ── Users (Public Profile) ──────────────────────────────────────────────────
+
+export async function getPublicProfile({ userId }: { userId: string }) {
+  const res = await api.users[":userId"].public.$get({
+    param: { userId },
+  });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
+export const getPublicProfileQueryOptions = (userId: string) =>
+  queryOptions({
+    queryKey: ["get-public-profile", userId],
+    queryFn: () => getPublicProfile({ userId }),
+    staleTime: 1000 * 60 * 5,
+  });

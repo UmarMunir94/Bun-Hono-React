@@ -2,8 +2,8 @@ import type { ChartOptions } from 'src/components/chart';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import { useTheme, useColorScheme } from '@mui/material/styles';
 
 import { fNumber, fPercent } from 'src/utils/format-number';
 
@@ -25,9 +25,13 @@ export interface PastelCardProps {
   };
 }
 
+
 export default function PastelCard({ color, title, value, percent, chart }: PastelCardProps) {
   const theme = useTheme();
-  const backgroundColor = theme.vars.palette.pastels?.[color] || '#FFFFFF';
+  const { mode } = useColorScheme();
+  
+  const shade = mode === 'dark' ? 'light' : 'main';
+  const backgroundColor = theme.vars.palette.pastels?.[color]?.[shade] || '#FFFFFF';
 
   const chartOptions = useChart({
     chart: { sparkline: { enabled: true } },
@@ -74,7 +78,8 @@ export default function PastelCard({ color, title, value, percent, chart }: Past
       sx={{
         backgroundColor,
         boxShadow: 'none',
-        color: '#1A1A1A',
+        // color: theme.vars.palette.text.primary,
+        color: theme.palette.common.black,
         p: 3,
         display: 'flex',
         alignItems: 'center',

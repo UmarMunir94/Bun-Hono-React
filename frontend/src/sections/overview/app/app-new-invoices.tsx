@@ -134,20 +134,13 @@ function RowItem({ row }: RowItemProps) {
 
         <TableCell sx={{ borderRight: `1px solid ${theme.palette.divider}` }}>
           <Label
-            sx={{
-              ...(row.status === 'progress' && {
-                bgcolor: theme.vars.palette.pastels.purple,
-                color: '#1A1A1A',
-              }),
-              ...(row.status === 'out of date' && {
-                bgcolor: theme.vars.palette.pastels.yellow,
-                color: '#1A1A1A',
-              }),
-              ...(row.status === 'paid' && {
-                bgcolor: theme.vars.palette.pastels.green,
-                color: '#1A1A1A',
-              }),
-            }}
+            variant="soft"
+            color={
+              (row.status === 'progress' && 'primary') ||
+              (row.status === 'out of date' && 'warning') ||
+              (row.status === 'paid' && 'success') ||
+              'default'
+            }
           >
             {row.status === 'progress' && 'In Progress'}
             {row.status === 'out of date' && 'Pending'}

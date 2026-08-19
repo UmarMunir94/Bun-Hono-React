@@ -108,3 +108,34 @@ export type GeneralInfo = Omit<z.infer<typeof selectGeneralInfoSchema>, "created
   /** email is fetched from the user table and merged in the GET response */
   email?: string | null;
 };
+
+// ── Events ─────────────────────────────────────────────────────────────────────
+
+import { insertEventSchema, selectEventSchema, insertEventAttendeeSchema, selectEventAttendeeSchema } from "./db/schema/events";
+
+export const createEventSchema = insertEventSchema
+  .omit({ userId: true, createdAt: true, id: true })
+  .extend({
+    name: insertEventSchema.shape.name.describe("Name of the event (min 2 characters)"),
+    location: insertEventSchema.shape.location.describe("Location of the event (min 2 characters)"),
+    slots: insertEventSchema.shape.slots.describe("Number of available slots"),
+    description: insertEventSchema.shape.description.describe("Event description"),
+    dateAndTime: z.string().describe("Date and time of the event in ISO string format"),
+    isPrivate: z.boolean().optional().default(false).describe("Whether the event is private"),
+    autoApprove: z.boolean().optional().default(false).describe("Whether to automatically approve requests"),
+  });
+
+export type CreateEvent = z.infer<typeof createEventSchema>;
+
+export const updateEventSchema = createEventSchema.partial();
+
+export type UpdateEvent = z.infer<typeof updateEventSchema>;
+
+export type Event = Omit<z.infer<typeof selectEventSchema>, "createdAt" | "dateAndTime"> & {
+  createdAt: string | null;
+  dateAndTime: string;
+};
+
+export type EventAttendee = Omit<z.infer<typeof selectEventAttendeeSchema>, "createdAt"> & {
+  createdAt: string | null;
+};

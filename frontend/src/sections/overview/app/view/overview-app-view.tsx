@@ -1,26 +1,19 @@
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import { SeoIllustration } from 'src/assets/illustrations';
-import { _appAuthors, _appRelated, _appFeatured, _appInvoices, _appInstalled } from 'src/_mock';
+import { _appRelated, _appFeatured, _appInvoices } from 'src/_mock';
 
 import PastelCard from 'src/components/PastelCard';
-import { svgColorClasses } from 'src/components/svg-color';
 
 import { useUser } from 'src/auth/hooks';
 
-import { AppWidget } from '../app-widget';
 import { AppWelcome } from '../app-welcome';
 import { AppFeatured } from '../app-featured';
-import { AppTopAuthors } from '../app-top-authors';
 import { AppTopRelated } from '../app-top-related';
 import { AppNewInvoices } from '../app-new-invoices';
-import { AppAreaInstalled } from '../app-area-installed';
-import { AppCurrentDownload } from '../app-current-download';
-import { AppTopInstalledCountries } from '../app-top-installed-countries';
 
 // ----------------------------------------------------------------------
 
@@ -28,6 +21,8 @@ export function OverviewAppView() {
   const { user } = useUser();
 
   const theme = useTheme();
+
+
 
   return (
     <DashboardContent maxWidth="xl">

@@ -1,13 +1,7 @@
 import type { DashboardContentProps } from 'src/layouts/dashboard';
 
-import { removeLastSlash } from 'minimal-shared/utils';
-
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-
 import { paths } from 'src/routes/paths';
 import { usePathname } from 'src/routes/hooks';
-import { RouterLink } from 'src/routes/components';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 

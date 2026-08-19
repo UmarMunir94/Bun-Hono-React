@@ -2,6 +2,9 @@ import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { logger } from "hono/logger";
 import { serveStatic } from "hono/bun";
 import { cors } from "hono/cors";
+import { authCheckRoute } from "./routes/auth-check";
+import { usersRoute } from "./routes/users";
+import { eventsRoute } from "./routes/events";
 import { educationRoute } from "./routes/education";
 import { workExperienceRoute } from "./routes/work-experience";
 import { refreshRoute, REFRESH_TOKEN_COOKIE } from "./routes/refresh";
@@ -122,15 +125,16 @@ const meApp = new OpenAPIHono<{ Variables: AppVariables }>().openapi(getMeRoute,
   return c.json({ user: mappedUser as any }, 200);
 });
 
-import { authCheckRoute } from "./routes/auth-check";
-
 const apiRoutes = apiApp
   .route("/auth", refreshRoute)
   .route("/", authCheckRoute)
   .route("/", meApp)
   .route("/education", educationRoute)
   .route("/work-experience", workExperienceRoute)
-  .route("/general-info", generalInfoRoute);
+  .route("/general-info", generalInfoRoute)
+  .route("/events", eventsRoute)
+  .route("/users", usersRoute);
+
 
 // ── OpenAPI spec + Scalar UI ──────────────
 apiApp.doc31("/openapi.json", {
