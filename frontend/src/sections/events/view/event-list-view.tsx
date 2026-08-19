@@ -162,7 +162,7 @@ export function EventListView() {
       >
         <Tab value="all" label="All Events" />
         <Tab value="managed" label="Managed" />
-        <Tab value="joined" label="Joined Events" />
+        <Tab value="joined" label="Joined" />
       </Tabs>
 
       {isLoading ? (
@@ -238,7 +238,7 @@ export function EventListView() {
 
                 {/* Slots bar */}
                 <Box sx={{ mt: 1 }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5, alignItems: 'center', gap: 1 }}>
                     <Typography variant="caption" color="text.primary">
                       {event.attendeeCount ?? 0} going
                     </Typography>
@@ -248,7 +248,7 @@ export function EventListView() {
                           {event.interestedCount} interested
                         </Typography>
                       )}
-                      <Typography variant="caption" color={isFull ? 'error.main' : 'text.primary'}>
+                      <Typography variant="caption" color={isFull ? 'error.main' : 'text.primary'} fontWeight="medium">
                         {isFull ? 'Full' : `${slotsLeft} spot${slotsLeft === 1 ? '' : 's'} left`}
                       </Typography>
                     </Box>
@@ -335,17 +335,13 @@ export function EventListView() {
                     </>
                   )}
 
-                  {/* Joined Events tab actions */}
-                  {currentTab === 'joined' && (
+                  {/* Joined Events actions */}
+                  {event.myStatus === 'approved' && event.userId !== user?.id && (
                     <Button
                       variant="outlined"
                       size="small"
                       color="error"
                       onClick={() => handleLeave(event.id)}
-                      // sx={{
-                      //   bgcolor: 'error.dark',
-                      //   '&:hover': { bgcolor: 'error.darker' },
-                      // }}
                     >
                       Leave Event
                     </Button>

@@ -147,7 +147,7 @@ export const action = (mode: 'light' | 'dark'): Partial<TypeAction> => ({
 const pastelsBase = {
   purple: {
     lighter: '#F3EFFF',
-    light: '#d4ccff',
+    light: '#d9d2ff',
     // light: '#B5A8FF',
     main: '#B5A8FF',
     dark: '#9B8EF1',
@@ -156,7 +156,7 @@ const pastelsBase = {
   },
   yellow: {
     lighter: '#FFF8E1',
-    light: '#ffe591',
+    light: '#ffe89b',
     // light: '#FFDE70',
     main: '#FFDE70',
     dark: '#E8C550',
@@ -165,7 +165,7 @@ const pastelsBase = {
   },
   red: {
     lighter: '#FFE5EC',
-    light: '#ffbacd',
+    light: '#ffc7d7',
     // light: '#FF99A8',
     main: '#FF99A8',
     dark: '#EE8092',
@@ -174,7 +174,7 @@ const pastelsBase = {
   },
   green: {
     lighter: '#E8F5E9',
-    light: '#a0f3b3',
+    light: '#a8ffbc',
     // light: '#8CE09F',
     main: '#8CE09F',
     dark: '#74D28A',

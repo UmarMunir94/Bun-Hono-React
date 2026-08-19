@@ -139,8 +139,8 @@ export function EventDetailsView({ id }: Props) {
               Join Event
             </Button>
           ) : event.attendees.find((a: any) => a.userId === user?.id)?.status === 'approved' ? (
-            <Button variant="outlined" disabled>
-              Joined
+            <Button variant="contained" color="error" onClick={handleLeave}>
+              Leave Event
             </Button>
           ) : (
             <Button variant="contained" color="warning" onClick={handleLeave}>
@@ -277,11 +277,11 @@ export function EventDetailsView({ id }: Props) {
                       </Button>
                     </>
                   )}
-                  {!isCreator && attendee.userId === user?.id && (
+                  {/* {!isCreator && attendee.userId === user?.id && (
                     <Button size="small" variant="outlined" color="warning" onClick={handleLeave}>
                       Cancel
                     </Button>
-                  )}
+                  )} */}
                 </Stack>
               ))}
             </Stack>
