@@ -30,8 +30,8 @@ export default function PastelCard({ color, title, value, percent, chart }: Past
   const theme = useTheme();
   const { mode } = useColorScheme();
   
-  const shade = mode === 'dark' ? 'light' : 'main';
-  const backgroundColor = theme.vars.palette.pastels?.[color]?.[shade] || '#FFFFFF';
+  const shade = mode === 'dark' ? 'dark' : 'main';
+  const backgroundColor = theme.palette.pastels?.[color]?.[shade] || '#FFFFFF';
 
   const chartOptions = useChart({
     chart: { sparkline: { enabled: true } },
