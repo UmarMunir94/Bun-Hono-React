@@ -136,15 +136,15 @@ function RowItem({ row }: RowItemProps) {
           <Label
             sx={{
               ...(row.status === 'progress' && {
-                bgcolor: theme.palette.pastels.purple,
+                bgcolor: theme.vars.palette.pastels.purple,
                 color: '#1A1A1A',
               }),
               ...(row.status === 'out of date' && {
-                bgcolor: theme.palette.pastels.yellow,
+                bgcolor: theme.vars.palette.pastels.yellow,
                 color: '#1A1A1A',
               }),
               ...(row.status === 'paid' && {
-                bgcolor: theme.palette.pastels.green,
+                bgcolor: theme.vars.palette.pastels.green,
                 color: '#1A1A1A',
               }),
             }}

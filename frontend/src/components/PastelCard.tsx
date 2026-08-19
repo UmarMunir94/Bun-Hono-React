@@ -27,7 +27,7 @@ export interface PastelCardProps {
 
 export default function PastelCard({ color, title, value, percent, chart }: PastelCardProps) {
   const theme = useTheme();
-  const backgroundColor = theme.palette.pastels?.[color] || '#FFFFFF';
+  const backgroundColor = theme.vars.palette.pastels?.[color] || '#FFFFFF';
 
   const chartOptions = useChart({
     chart: { sparkline: { enabled: true } },

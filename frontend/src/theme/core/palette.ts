@@ -145,15 +145,24 @@ export const action = (mode: 'light' | 'dark'): Partial<TypeAction> => ({
  * ➤
  */
 export const pastels = {
-  purple: '#B5A8FF',
-  yellow: '#FFDE70',
-  red: '#FF99A8',
-  green: '#8CE09F',
-  dark: '#1E1E1E',
+  light: {
+    purple: '#B5A8FF',
+    yellow: '#FFDE70',
+    red: '#FF99A8',
+    green: '#8CE09F',
+    dark: '#1E1E1E',
+  },
+  dark: {
+    purple: '#9B8EF1',
+    yellow: '#E8C550',
+    red: '#EE8092',
+    green: '#74D28A',
+    dark: '#F0F0F0',
+  },
 };
 
 export const extendPalette: PaletteExtend = {
-  pastels,
+  pastels: pastels.light,
   shared: {
     inputUnderline: varAlpha(grey['500Channel'], opacity.inputUnderline),
     inputOutlined: varAlpha(grey['500Channel'], 0.2),
@@ -190,12 +199,14 @@ export const palette: SchemesRecord<ColorSystemOptions['palette']> = {
     text: text.light,
     background: background.light,
     action: action('light'),
+    pastels: pastels.light,
   },
   dark: {
     ...basePalette,
     text: text.dark,
     background: background.dark,
     action: action('dark'),
+    pastels: pastels.dark,
   },
 };
 
