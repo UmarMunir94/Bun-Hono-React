@@ -55,8 +55,15 @@ const containedVariants = [
   ...(colorKeys.palette.map((colorKey) => ({
     props: (props) => props.variant === 'contained' && props.color === colorKey,
     style: ({ theme }) => ({
+      [theme.getColorSchemeSelector('dark')]: {
+        backgroundColor: theme.vars.palette[colorKey].dark,
+        color: theme.vars.palette[colorKey].contrastText,
+      },
       '&:hover': {
         boxShadow: theme.vars.customShadows[colorKey],
+        [theme.getColorSchemeSelector('dark')]: {
+          backgroundColor: theme.vars.palette[colorKey].darker,
+        },
       },
     }),
   })) satisfies ButtonVariants),
@@ -89,6 +96,17 @@ const outlinedVariants = [
       color: theme.vars.palette.common[colorKey],
     }),
   })) satisfies ButtonVariants),
+  ...(colorKeys.palette.map((colorKey) => ({
+    props: (props) => props.variant === 'outlined' && props.color === colorKey,
+    style: ({ theme }) => ({
+      [theme.getColorSchemeSelector('light')]: {
+        color: theme.vars.palette[colorKey].dark,
+      },
+      [theme.getColorSchemeSelector('dark')]: {
+        color: theme.vars.palette[colorKey].light,
+      },
+    }),
+  })) satisfies ButtonVariants),
 ] satisfies ButtonVariants;
 
 const textVariants = [
@@ -112,6 +130,17 @@ const textVariants = [
     props: (props) => props.variant === 'text' && props.color === colorKey,
     style: ({ theme }) => ({
       color: theme.vars.palette.common[colorKey],
+    }),
+  })) satisfies ButtonVariants),
+  ...(colorKeys.palette.map((colorKey) => ({
+    props: (props) => props.variant === 'text' && props.color === colorKey,
+    style: ({ theme }) => ({
+      [theme.getColorSchemeSelector('light')]: {
+        color: theme.vars.palette[colorKey].dark,
+      },
+      [theme.getColorSchemeSelector('dark')]: {
+        color: theme.vars.palette[colorKey].light,
+      },
     }),
   })) satisfies ButtonVariants),
 ] satisfies ButtonVariants;

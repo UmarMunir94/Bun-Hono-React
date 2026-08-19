@@ -212,14 +212,14 @@ export function EventListView() {
                 </Box>
 
                 {/* Meta */}
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="caption" color="text.primary">
                   📅 {new Date(event.dateAndTime).toLocaleString()}
                 </Typography>
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="caption" color="text.primary">
                   📍 {event.location}
                 </Typography>
                 {event.description && (
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                  <Typography variant="body2" color="text.primary" sx={{ mt: 0.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                     {event.description}
                   </Typography>
                 )}
@@ -227,10 +227,10 @@ export function EventListView() {
                 {/* Slots bar */}
                 <Box sx={{ mt: 1 }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-                    <Typography variant="caption" color="text.secondary">
+                    <Typography variant="caption" color="text.primary">
                       {event.attendeeCount ?? 0} going
                     </Typography>
-                    <Typography variant="caption" color={isFull ? 'error.main' : 'text.secondary'}>
+                    <Typography variant="caption" color={isFull ? 'error.main' : 'text.primary'}>
                       {isFull ? 'Full' : `${slotsLeft} spot${slotsLeft === 1 ? '' : 's'} left`}
                     </Typography>
                   </Box>
