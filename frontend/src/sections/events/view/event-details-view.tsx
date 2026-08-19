@@ -3,6 +3,7 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Link from '@mui/material/Link';
+// import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,7 +15,7 @@ import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import { DashboardContent } from 'src/layouts/dashboard';
-import { joinEvent, updateEventAttendee, getEventByIdQueryOptions } from 'src/lib/api';
+import { joinEvent, leaveEvent, updateEventAttendee, getEventByIdQueryOptions } from 'src/lib/api';
 
 import { toast } from 'src/components/snackbar';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
@@ -60,6 +61,18 @@ export function EventDetailsView({ id }: Props) {
     },
   });
 
+  const leaveMutation = useMutation({
+    mutationFn: leaveEvent,
+    onSuccess: () => {
+      toast.success('Request cancelled successfully.');
+      refetch();
+    },
+    onError: (error) => {
+      toast.error('Failed to cancel request.');
+      console.error(error);
+    },
+  });
+
   if (isLoading) {
     return (
       <DashboardContent>
@@ -83,6 +96,11 @@ export function EventDetailsView({ id }: Props) {
 
   const requestedAttendees = event.attendees.filter((a: any) => a.status === 'requested');
   const approvedAttendees = event.attendees.filter((a: any) => a.status === 'approved');
+  
+  const organizerAttendee = approvedAttendees.find((a: any) => a.userId === event.userId);
+  const activeAttendees = approvedAttendees.filter((a: any) => a.userId !== event.userId);
+
+  const isFull = approvedAttendees.length >= event.slots;
 
   const hasJoinedOrRequested = event.attendees.some((a: any) => a.userId === user?.id);
 
@@ -92,6 +110,10 @@ export function EventDetailsView({ id }: Props) {
 
   const handleJoin = () => {
     joinMutation.mutate({ id: event.id });
+  };
+
+  const handleLeave = () => {
+    leaveMutation.mutate({ id: event.id });
   };
 
   return (
@@ -116,11 +138,13 @@ export function EventDetailsView({ id }: Props) {
             <Button variant="contained" onClick={handleJoin}>
               Join Event
             </Button>
-          ) : (
+          ) : event.attendees.find((a: any) => a.userId === user?.id)?.status === 'approved' ? (
             <Button variant="outlined" disabled>
-              {event.attendees.find((a: any) => a.userId === user?.id)?.status === 'approved'
-                ? 'Joined'
-                : 'Requested'}
+              Joined
+            </Button>
+          ) : (
+            <Button variant="contained" color="warning" onClick={handleLeave}>
+              Cancel Request
             </Button>
           )
         }
@@ -159,50 +183,40 @@ export function EventDetailsView({ id }: Props) {
       <Typography variant="h6" sx={{ mb: 2 }}>Attendees</Typography>
 
       <Card sx={{ p: 3 }}>
-        {isCreator && requestedAttendees.length > 0 && (
+        {organizerAttendee && (
           <Box sx={{ mb: 4 }}>
-            <Typography variant="subtitle1" gutterBottom color="warning.main">
-              Join Requests ({requestedAttendees.length})
+            <Typography variant="subtitle1" gutterBottom color="primary">
+              Organizer(s)
             </Typography>
-            <Stack spacing={2}>
-              {requestedAttendees.map((attendee: any) => (
-                <Stack key={attendee.id} direction="row" alignItems="center" spacing={2}>
-                  <Avatar src={attendee.user?.image ?? undefined} alt={attendee.user?.name} />
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Link
-                      component={RouterLink}
-                      href={paths.dashboard.user.public(attendee.userId)}
-                      variant="subtitle2"
-                      color="text.primary"
-                      underline="hover"
-                    >
-                      {attendee.user?.name}
-                    </Link>
-                    <Typography variant="caption" color="text.secondary" display="block">
-                      Requested {new Date(attendee.createdAt).toLocaleDateString()}
-                    </Typography>
-                  </Box>
-                  <Button size="small" variant="contained" color="success" onClick={() => handleUpdateStatus(attendee.id, 'approved')}>
-                    Approve
-                  </Button>
-                  <Button size="small" variant="outlined" color="error" onClick={() => handleUpdateStatus(attendee.id, 'rejected')}>
-                    Decline
-                  </Button>
-                </Stack>
-              ))}
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Avatar src={organizerAttendee.user?.image ?? undefined} alt={organizerAttendee.user?.name} />
+              <Box sx={{ flexGrow: 1 }}>
+                <Link
+                  component={RouterLink}
+                  href={paths.dashboard.user.public(organizerAttendee.userId)}
+                  variant="subtitle2"
+                  color="text.primary"
+                  underline="hover"
+                >
+                  {organizerAttendee.user?.name}
+                </Link>
+                <Typography variant="caption" color="text.secondary" display="block">
+                  Host
+                </Typography>
+              </Box>
             </Stack>
-            <Divider sx={{ my: 3 }} />
+            <Divider sx={{ mt: 3 }} />
           </Box>
         )}
 
         <Typography variant="subtitle1" gutterBottom color="success.main">
-          Approved Participants ({approvedAttendees.length})
+          Active Participants ({activeAttendees.length})
         </Typography>
-        {approvedAttendees.length === 0 ? (
-          <Typography variant="body2" color="text.secondary">No participants yet.</Typography>
+        {activeAttendees.length === 0 ? (
+          <Typography variant="body2" color="text.secondary">No active participants yet.</Typography>
         ) : (
           <Stack spacing={2}>
-            {approvedAttendees.map((attendee: any) => (
+            {activeAttendees.map((attendee: any) => (
               <Stack key={attendee.id} direction="row" alignItems="center" spacing={2}>
                 <Avatar src={attendee.user?.image ?? undefined} alt={attendee.user?.name} />
                 <Box sx={{ flexGrow: 1 }}>
@@ -227,6 +241,51 @@ export function EventDetailsView({ id }: Props) {
               </Stack>
             ))}
           </Stack>
+        )}
+
+        {requestedAttendees.length > 0 && (
+          <Box sx={{ mt: 4 }}>
+            <Divider sx={{ mb: 3 }} />
+            <Typography variant="subtitle1" gutterBottom color="warning.main">
+              {event.autoApprove ? `Interested (${requestedAttendees.length})` : `Join Requests (${requestedAttendees.length})`}
+            </Typography>
+            <Stack spacing={2}>
+              {requestedAttendees.map((attendee: any) => (
+                <Stack key={attendee.id} direction="row" alignItems="center" spacing={2}>
+                  <Avatar src={attendee.user?.image ?? undefined} alt={attendee.user?.name} />
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Link
+                      component={RouterLink}
+                      href={paths.dashboard.user.public(attendee.userId)}
+                      variant="subtitle2"
+                      color="text.primary"
+                      underline="hover"
+                    >
+                      {attendee.user?.name}
+                    </Link>
+                    <Typography variant="caption" color="text.secondary" display="block">
+                      Requested {new Date(attendee.createdAt).toLocaleDateString()}
+                    </Typography>
+                  </Box>
+                  {isCreator && (
+                    <>
+                      <Button size="small" variant="outlined" color="success" onClick={() => handleUpdateStatus(attendee.id, 'approved')} disabled={isFull}>
+                        {isFull ? 'Full' : 'Approve'}
+                      </Button>
+                      <Button size="small" variant="outlined" color="error" onClick={() => handleUpdateStatus(attendee.id, 'rejected')}>
+                        Decline
+                      </Button>
+                    </>
+                  )}
+                  {!isCreator && attendee.userId === user?.id && (
+                    <Button size="small" variant="outlined" color="warning" onClick={handleLeave}>
+                      Cancel
+                    </Button>
+                  )}
+                </Stack>
+              ))}
+            </Stack>
+          </Box>
         )}
       </Card>
     </DashboardContent>

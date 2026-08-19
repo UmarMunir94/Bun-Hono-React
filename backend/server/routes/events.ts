@@ -22,8 +22,10 @@ const BaseEventItemSchema = selectEventSchema.extend({
 
 const EventListItemSchema = BaseEventItemSchema.extend({
   attendeeCount: z.number().int(),
+  interestedCount: z.number().int(),
   slotsLeft: z.number().int(),
   myStatus: z.enum(["none", "requested", "approved"]),
+  organizerName: z.string().nullable(),
 }).openapi("EventListItem");
 
 const EventAttendeeItemSchema = selectEventAttendeeSchema.extend({
@@ -234,6 +236,10 @@ const updateAttendee = createRoute({
       content: { "application/json": { schema: z.object({ attendee: EventAttendeeItemSchema.nullable() }) } },
       description: "Updated attendee",
     },
+    400: {
+      content: { "application/json": { schema: ValidationErrorSchema } },
+      description: "Validation error",
+    },
     401: {
       content: { "application/json": { schema: UnauthorizedSchema } },
       description: "Unauthorized",
@@ -264,6 +270,10 @@ const leaveEvent = createRoute({
       content: { "application/json": { schema: z.object({ success: z.boolean() }) } },
       description: "Left event",
     },
+    400: {
+      content: { "application/json": { schema: ValidationErrorSchema } },
+      description: "Validation error",
+    },
     401: {
       content: { "application/json": { schema: UnauthorizedSchema } },
       description: "Unauthorized",
@@ -280,7 +290,14 @@ export const eventsRoute = app
     const user = c.var.user;
     const tab = c.req.valid("query").tab;
 
-    let query = db.select().from(eventsTable).$dynamic();
+    let query = db
+      .select({
+        ...getTableColumns(eventsTable),
+        organizerName: userTable.name,
+      })
+      .from(eventsTable)
+      .leftJoin(userTable, eq(eventsTable.userId, userTable.id))
+      .$dynamic();
 
     if (tab === "all") {
       query = query.where(eq(eventsTable.isPrivate, false));
@@ -310,7 +327,7 @@ export const eventsRoute = app
         status: eventAttendeesTable.status,
       })
       .from(eventAttendeesTable)
-      .where(and(inArray(eventAttendeesTable.eventId, eventIds), eq(eventAttendeesTable.status, "approved")));
+      .where(inArray(eventAttendeesTable.eventId, eventIds));
 
     // Fetch current user's status for each event
     const myAttendances = await db
@@ -322,8 +339,13 @@ export const eventsRoute = app
       .where(and(inArray(eventAttendeesTable.eventId, eventIds), eq(eventAttendeesTable.userId, user.id)));
 
     const attendeeCountMap = new Map<number, number>();
+    const interestedCountMap = new Map<number, number>();
     for (const a of allAttendees) {
-      attendeeCountMap.set(a.eventId, (attendeeCountMap.get(a.eventId) ?? 0) + 1);
+      if (a.status === "approved") {
+        attendeeCountMap.set(a.eventId, (attendeeCountMap.get(a.eventId) ?? 0) + 1);
+      } else if (a.status === "requested") {
+        interestedCountMap.set(a.eventId, (interestedCountMap.get(a.eventId) ?? 0) + 1);
+      }
     }
 
     const myStatusMap = new Map<number, "requested" | "approved">();
@@ -338,8 +360,10 @@ export const eventsRoute = app
         dateAndTime: e.dateAndTime instanceof Date ? e.dateAndTime.toISOString() : String(e.dateAndTime),
         createdAt: e.createdAt ? (e.createdAt instanceof Date ? e.createdAt.toISOString() : String(e.createdAt)) : null,
         attendeeCount,
+        interestedCount: interestedCountMap.get(e.id) ?? 0,
         slotsLeft: Math.max(0, e.slots - attendeeCount),
         myStatus: (myStatusMap.get(e.id) ?? "none") as "none" | "requested" | "approved",
+        organizerName: e.organizerName,
       };
     });
 
@@ -365,6 +389,24 @@ export const eventsRoute = app
       .from(eventAttendeesTable)
       .leftJoin(userTable, eq(eventAttendeesTable.userId, userTable.id))
       .where(eq(eventAttendeesTable.eventId, id));
+
+    const isOrganizerIncluded = attendees.some(a => a.userId === event.userId);
+    if (!isOrganizerIncluded) {
+      const [organizer] = await db.select().from(userTable).where(eq(userTable.id, event.userId)).limit(1);
+      if (organizer) {
+        const [newAttendee] = await db.insert(eventAttendeesTable).values({
+          eventId: id,
+          userId: event.userId,
+          status: "approved",
+        }).returning();
+        
+        attendees.push({
+          ...newAttendee,
+          userName: organizer.name,
+          userImage: organizer.image,
+        });
+      }
+    }
 
     const mappedEvent = {
       ...event,
@@ -399,6 +441,12 @@ export const eventsRoute = app
       })
       .returning();
 
+    await db.insert(eventAttendeesTable).values({
+      eventId: result.id,
+      userId: user.id,
+      status: "approved",
+    });
+
     const mapped = {
       ...result,
       dateAndTime: result.dateAndTime instanceof Date ? result.dateAndTime.toISOString() : String(result.dateAndTime),
@@ -415,6 +463,16 @@ export const eventsRoute = app
     const updateData: any = { ...body };
     if (updateData.dateAndTime) {
       updateData.dateAndTime = new Date(updateData.dateAndTime);
+    }
+
+    if (updateData.slots !== undefined) {
+      const approvedAttendees = await db
+        .select()
+        .from(eventAttendeesTable)
+        .where(and(eq(eventAttendeesTable.eventId, id), eq(eventAttendeesTable.status, "approved")));
+      if (updateData.slots < approvedAttendees.length) {
+        return c.json({ success: false, error: "Cannot reduce slots below the number of currently joined participants" }, 400);
+      }
     }
 
     const [updated] = await db
@@ -469,7 +527,12 @@ export const eventsRoute = app
       return c.json({ success: false, error: "Validation error / Already joined" }, 400);
     }
 
-    const status = event.autoApprove ? "approved" : "requested";
+    const approvedList = await db.select().from(eventAttendeesTable).where(and(eq(eventAttendeesTable.eventId, id), eq(eventAttendeesTable.status, "approved")));
+    
+    let status = event.autoApprove ? "approved" : "requested";
+    if (approvedList.length >= event.slots) {
+      status = "requested"; // Force waitlist if full
+    }
 
     const [attendee] = await db
       .insert(eventAttendeesTable)
@@ -500,21 +563,31 @@ export const eventsRoute = app
       return c.json({ error: "Forbidden" }, 403);
     }
 
+    const [targetAttendee] = await db.select().from(eventAttendeesTable).where(and(eq(eventAttendeesTable.id, attendeeId), eq(eventAttendeesTable.eventId, eventId))).limit(1);
+    if (!targetAttendee) return c.json({ error: "Not Found" }, 404);
+
     if (status === "rejected") {
+      if (targetAttendee.userId === event.userId) {
+        return c.json({ success: false, error: "Cannot remove the organizer" }, 400);
+      }
       const [deleted] = await db
         .delete(eventAttendeesTable)
-        .where(and(eq(eventAttendeesTable.id, attendeeId), eq(eventAttendeesTable.eventId, eventId)))
+        .where(eq(eventAttendeesTable.id, attendeeId))
         .returning();
-      if (!deleted) return c.json({ error: "Not Found" }, 404);
       return c.json({ attendee: null }, 200);
     } else {
+      if (status === "approved" && targetAttendee.status !== "approved") {
+        const approvedList = await db.select().from(eventAttendeesTable).where(and(eq(eventAttendeesTable.eventId, eventId), eq(eventAttendeesTable.status, "approved")));
+        if (approvedList.length >= event.slots) {
+          return c.json({ success: false, error: "Event is full" }, 400);
+        }
+      }
+
       const [updated] = await db
         .update(eventAttendeesTable)
         .set({ status })
-        .where(and(eq(eventAttendeesTable.id, attendeeId), eq(eventAttendeesTable.eventId, eventId)))
+        .where(eq(eventAttendeesTable.id, attendeeId))
         .returning();
-      if (!updated) return c.json({ error: "Not Found" }, 404);
-      
       return c.json({
         attendee: {
           ...updated,
@@ -526,6 +599,12 @@ export const eventsRoute = app
   .openapi(leaveEvent, async (c) => {
     const id = Number.parseInt(c.req.valid("param").id);
     const user = c.var.user;
+    const [event] = await db.select().from(eventsTable).where(eq(eventsTable.id, id)).limit(1);
+    if (!event) return c.json({ error: "Not Found" }, 404);
+
+    if (event.userId === user.id) {
+      return c.json({ success: false, error: "Organizer cannot leave the event" }, 400);
+    }
 
     const [deleted] = await db
       .delete(eventAttendeesTable)

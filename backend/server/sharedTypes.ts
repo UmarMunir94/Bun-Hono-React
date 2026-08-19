@@ -118,7 +118,7 @@ export const createEventSchema = insertEventSchema
   .extend({
     name: insertEventSchema.shape.name.describe("Name of the event (min 2 characters)"),
     location: insertEventSchema.shape.location.describe("Location of the event (min 2 characters)"),
-    slots: insertEventSchema.shape.slots.describe("Number of available slots"),
+    slots: z.number().int().min(2).max(100).describe("Number of available slots"),
     description: insertEventSchema.shape.description.describe("Event description"),
     dateAndTime: z.string().describe("Date and time of the event in ISO string format"),
     isPrivate: z.boolean().optional().default(false).describe("Whether the event is private"),

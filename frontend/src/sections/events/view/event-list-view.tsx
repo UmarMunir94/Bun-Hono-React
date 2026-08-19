@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Chip from '@mui/material/Chip';
+import Link from '@mui/material/Link';
 import Tabs from '@mui/material/Tabs';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -35,15 +36,15 @@ function getHighlight(event: any, userId: string | undefined): EventCardHighligh
 
 const highlightStyles: Record<EventCardHighlight, object> = {
   mine: {
-    backgroundColor: (theme: any) => theme.vars.palette.pastels?.purple?.main || theme.vars.palette.primary.main,
+    backgroundColor: (theme: any) => theme.vars.palette.pastels?.red?.light || theme.vars.palette.error.main,
     border: 'none',
   },
   joined: {
-    backgroundColor: (theme: any) => theme.vars.palette.pastels?.green?.main || theme.vars.palette.success.main,
+    backgroundColor: (theme: any) => theme.vars.palette.pastels?.green?.light || theme.vars.palette.success.main,
     border: 'none',
   },
   requested: {
-    backgroundColor: (theme: any) => theme.vars.palette.pastels?.yellow?.main || theme.vars.palette.warning.main,
+    backgroundColor: (theme: any) => theme.vars.palette.pastels?.yellow?.light || theme.vars.palette.warning.main,
     border: 'none',
   },
   none: {
@@ -203,7 +204,7 @@ export function EventListView() {
               >
                 {/* Header */}
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 1 }}>
-                  <Typography variant="subtitle1" fontWeight="bold" sx={{ flexGrow: 1 }}>
+                  <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
                     {event.name}
                   </Typography>
                   {chip && (
@@ -212,12 +213,23 @@ export function EventListView() {
                 </Box>
 
                 {/* Meta */}
-                <Typography variant="caption" color="text.primary">
-                  📅 {new Date(event.dateAndTime).toLocaleString()}
+                <Typography variant="caption" color="text.primary" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <Iconify icon="solar:calendar-date-bold" width={16} /> {new Date(event.dateAndTime).toLocaleString()}
                 </Typography>
-                <Typography variant="caption" color="text.primary">
-                  📍 {event.location}
+                <Typography variant="caption" color="text.primary" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <Iconify icon="solar:flag-bold" width={16} /> {event.location}
                 </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mt: 0.5 }}>
+                  <Link
+                    component={RouterLink}
+                    href={paths.dashboard.user.public(event.userId)}
+                    variant="caption"
+                    color="text.secondary"
+                    underline="hover"
+                  >
+                    <Chip size="small" icon={<Iconify icon="solar:user-rounded-bold" width={14} /> } label={event.organizerName || 'Unknown User'} color="primary" variant="soft" sx={{ height: 20 }} />
+                  </Link>
+                </Box>
                 {event.description && (
                   <Typography variant="body2" color="text.primary" sx={{ mt: 0.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                     {event.description}
@@ -230,9 +242,16 @@ export function EventListView() {
                     <Typography variant="caption" color="text.primary">
                       {event.attendeeCount ?? 0} going
                     </Typography>
-                    <Typography variant="caption" color={isFull ? 'error.main' : 'text.primary'}>
-                      {isFull ? 'Full' : `${slotsLeft} spot${slotsLeft === 1 ? '' : 's'} left`}
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      {event.interestedCount > 0 && (
+                        <Typography variant="caption" color="text.primary">
+                          {event.interestedCount} interested
+                        </Typography>
+                      )}
+                      <Typography variant="caption" color={isFull ? 'error.main' : 'text.primary'}>
+                        {isFull ? 'Full' : `${slotsLeft} spot${slotsLeft === 1 ? '' : 's'} left`}
+                      </Typography>
+                    </Box>
                   </Box>
                   <LinearProgress
                     variant="determinate"
@@ -256,7 +275,7 @@ export function EventListView() {
                 </Box>
 
                 {/* Actions */}
-                <Box sx={{ display: 'flex', gap: 1, mt: 1, flexWrap: 'wrap' }}>
+                <Box sx={{ display: 'flex', gap: 1, mt: 'auto', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
                   <Button
                     component={RouterLink}
                     href={paths.dashboard.events.details(event.id.toString())}
@@ -292,14 +311,14 @@ export function EventListView() {
                   {/* All Events tab actions */}
                   {currentTab === 'all' && event.userId !== user?.id && (
                     <>
-                      {event.myStatus === 'none' && !isFull && (
+                      {event.myStatus === 'none' && (
                         <Button
-                          variant="contained"
+                          variant="outlined"
                           size="small"
                           color="primary"
                           onClick={() => handleJoin(event.id)}
                         >
-                          {event.autoApprove ? 'Join' : 'Request to Join'}
+                          {isFull ? 'Interested' : event.autoApprove ? 'Join' : 'Request to Join'}
                         </Button>
                       )}
                       {event.myStatus === 'requested' && (
@@ -312,19 +331,21 @@ export function EventListView() {
                           Cancel Request
                         </Button>
                       )}
-                      {isFull && event.myStatus === 'none' && (
-                        <Chip size="small" label="Full" color="error" variant="soft" />
-                      )}
+                      {/* Removed Full badge because button is now clickable for interest */}
                     </>
                   )}
 
                   {/* Joined Events tab actions */}
                   {currentTab === 'joined' && (
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       size="small"
                       color="error"
                       onClick={() => handleLeave(event.id)}
+                      // sx={{
+                      //   bgcolor: 'error.dark',
+                      //   '&:hover': { bgcolor: 'error.darker' },
+                      // }}
                     >
                       Leave Event
                     </Button>

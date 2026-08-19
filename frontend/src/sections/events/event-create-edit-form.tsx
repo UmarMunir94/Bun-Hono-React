@@ -23,7 +23,7 @@ import { Form, Field } from 'src/components/hook-form';
 export const EventSchema = zod.object({
   name: zod.string().min(2, { message: 'Name must be at least 2 characters!' }),
   location: zod.string().min(2, { message: 'Location must be at least 2 characters!' }),
-  slots: zod.number().int().min(1, { message: 'Slots must be at least 1!' }),
+  slots: zod.number().int().min(2, { message: 'Slots must be at least 2!' }).max(100, { message: 'Slots cannot exceed 100!' }),
   dateAndTime: zod.string().min(1, { message: 'Date and time is required!' }),
   description: zod.string().max(1000).nullable().optional(),
   isPrivate: zod.boolean(),
@@ -138,6 +138,7 @@ export function EventCreateEditForm({ currentData }: Props) {
                 name="slots"
                 label="Number of Slots"
                 type="number"
+                inputProps={{ min: 2, max: 100 }}
                 onChange={(e) => methods.setValue('slots', parseInt(e.target.value) || 0)}
               />
               

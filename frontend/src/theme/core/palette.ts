@@ -147,7 +147,8 @@ export const action = (mode: 'light' | 'dark'): Partial<TypeAction> => ({
 const pastelsBase = {
   purple: {
     lighter: '#F3EFFF',
-    light: '#EBDDFF',
+    light: '#d4ccff',
+    // light: '#B5A8FF',
     main: '#B5A8FF',
     dark: '#9B8EF1',
     darker: '#2E244C',
@@ -155,7 +156,8 @@ const pastelsBase = {
   },
   yellow: {
     lighter: '#FFF8E1',
-    light: '#FFF5D1',
+    light: '#ffe591',
+    // light: '#FFDE70',
     main: '#FFDE70',
     dark: '#E8C550',
     darker: '#423719',
@@ -163,7 +165,8 @@ const pastelsBase = {
   },
   red: {
     lighter: '#FFE5EC',
-    light: '#FFE5E8',
+    light: '#ffbacd',
+    // light: '#FF99A8',
     main: '#FF99A8',
     dark: '#EE8092',
     darker: '#4C242C',
@@ -171,7 +174,8 @@ const pastelsBase = {
   },
   green: {
     lighter: '#E8F5E9',
-    light: '#D9F2E1',
+    light: '#a0f3b3',
+    // light: '#8CE09F',
     main: '#8CE09F',
     dark: '#74D28A',
     darker: '#1B3B26',
@@ -198,7 +202,7 @@ export const pastels = {
   dark: {
     purple: createPaletteChannel({
       lighter: pastelsBase.purple.main,
-      light: pastelsBase.purple.dark,
+      light: pastelsBase.purple.darker,
       main: pastelsBase.purple.darker,
       dark: pastelsBase.purple.darker,
       darker: pastelsBase.purple.darker,
@@ -206,7 +210,7 @@ export const pastels = {
     }),
     yellow: createPaletteChannel({
       lighter: pastelsBase.yellow.main,
-      light: pastelsBase.yellow.dark,
+      light: pastelsBase.yellow.darker,
       main: pastelsBase.yellow.darker,
       dark: pastelsBase.yellow.darker,
       darker: pastelsBase.yellow.darker,
@@ -214,7 +218,7 @@ export const pastels = {
     }),
     red: createPaletteChannel({
       lighter: pastelsBase.red.main,
-      light: pastelsBase.red.dark,
+      light: pastelsBase.red.darker,
       main: pastelsBase.red.darker,
       dark: pastelsBase.red.darker,
       darker: pastelsBase.red.darker,
@@ -222,7 +226,7 @@ export const pastels = {
     }),
     green: createPaletteChannel({
       lighter: pastelsBase.green.main,
-      light: pastelsBase.green.dark,
+      light: pastelsBase.green.darker,
       main: pastelsBase.green.darker,
       dark: pastelsBase.green.darker,
       darker: pastelsBase.green.darker,

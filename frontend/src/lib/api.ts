@@ -261,7 +261,10 @@ export async function updateEvent({ id, value }: { id: number; value: UpdateEven
     param: { id: id.toString() },
     json: value,
   });
-  if (!res.ok) throw new Error("server error");
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => null);
+    throw new Error((errorData as any)?.error || "server error");
+  }
   return res.json();
 }
 
