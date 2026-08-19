@@ -199,12 +199,14 @@ export const palette: SchemesRecord<ColorSystemOptions['palette']> = {
     text: text.light,
     background: background.light,
     action: action('light'),
+    pastels: pastels.light,
   },
   dark: {
     ...basePalette,
     text: text.dark,
     background: background.dark,
     action: action('dark'),
+    pastels: pastels.dark,
   },
 };
 
