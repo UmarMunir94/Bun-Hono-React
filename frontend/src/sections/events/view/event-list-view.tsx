@@ -188,6 +188,14 @@ export function EventListView() {
             const isFull = slotsLeft <= 0;
             const fillPct = Math.min(100, ((event.attendeeCount ?? 0) / event.slots) * 100);
 
+            const now = new Date();
+            const start = new Date(event.startTime);
+            const end = event.endTime ? new Date(event.endTime) : new Date(event.autoEndTime);
+            const cutoff = event.cutoffTime ? new Date(event.cutoffTime) : start;
+            const isCompleted = now > end;
+            const isOngoing = now >= start && now <= end;
+            const canJoinOrLeave = now < cutoff && !isCompleted;
+
             return (
               <Box
                 key={event.id}
@@ -214,8 +222,18 @@ export function EventListView() {
 
                 {/* Meta */}
                 <Typography variant="caption" color="text.primary" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                  <Iconify icon="solar:calendar-date-bold" width={16} /> {new Date(event.dateAndTime).toLocaleString()}
+                  <Iconify icon="solar:calendar-date-bold" width={16} /> {isOngoing || isCompleted ? 'Started at:' : 'Starts at:'} {start.toLocaleString()}
                 </Typography>
+                {(event.endTime || isCompleted) && (
+                  <Typography variant="caption" color="text.primary" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    <Iconify icon="solar:calendar-date-bold" width={16} /> {isCompleted ? 'Ended at:' : 'Ends at:'} {end.toLocaleString()}
+                  </Typography>
+                )}
+                {event.cutoffTime && (
+                  <Typography variant="caption" color="text.primary" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    <Iconify icon={"solar:clock-circle-bold" as any} width={16} /> Join by: {cutoff.toLocaleString()}
+                  </Typography>
+                )}
                 <Typography variant="caption" color="text.primary" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                   <Iconify icon="solar:flag-bold" width={16} /> {event.location}
                 </Typography>
@@ -245,7 +263,7 @@ export function EventListView() {
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                       {event.interestedCount > 0 && (
                         <Typography variant="caption" color="text.primary">
-                          {event.interestedCount} interested
+                          {isCompleted ? `${event.interestedCount} total interested` : `${event.interestedCount} interested`}
                         </Typography>
                       )}
                       <Typography variant="caption" color={isFull ? 'error.main' : 'text.primary'} fontWeight="medium">
@@ -272,6 +290,14 @@ export function EventListView() {
                   {!event.isPrivate && event.autoApprove && (
                     <Chip size="small" variant="soft" color="success" label="Auto-approve" />
                   )}
+                  {isCompleted ? (
+                    <Chip size="small" variant="soft" color="default" label="Completed" />
+                  ) : isOngoing ? (
+                    <Chip size="small" variant="soft" color="primary" label="Ongoing" />
+                  ) : null}
+                  {event.updatedAt && event.createdAt && new Date(event.updatedAt) > new Date(event.createdAt) && (
+                    <Chip size="small" variant="outlined" color="default" label="Edited" />
+                  )}
                 </Box>
 
                 {/* Actions */}
@@ -288,15 +314,17 @@ export function EventListView() {
                   {/* Managed Events tab actions */}
                   {currentTab === 'managed' && (
                     <>
-                      <Button
-                        component={RouterLink}
-                        href={paths.dashboard.events.edit(event.id.toString())}
-                        variant="outlined"
-                        // color="primary"
-                        size="small"
-                      >
-                        Edit
-                      </Button>
+                      {now < start && (
+                        <Button
+                          component={RouterLink}
+                          href={paths.dashboard.events.edit(event.id.toString())}
+                          variant="outlined"
+                          // color="primary"
+                          size="small"
+                        >
+                          Edit
+                        </Button>
+                      )}
                       <Button
                         color="error"
                         variant="soft"
@@ -316,6 +344,7 @@ export function EventListView() {
                           variant="soft"
                           size="small"
                           color="primary"
+                          disabled={!canJoinOrLeave}
                           onClick={() => handleJoin(event.id)}
                         >
                           {isFull ? 'Interested' : event.autoApprove ? 'Join' : 'Request to Join'}
@@ -326,6 +355,7 @@ export function EventListView() {
                           variant="soft"
                           size="small"
                           color="warning"
+                          disabled={!canJoinOrLeave}
                           onClick={() => handleLeave(event.id)}
                         >
                           Cancel Request
@@ -341,6 +371,7 @@ export function EventListView() {
                       variant="soft"
                       size="small"
                       color="error"
+                      disabled={!canJoinOrLeave}
                       onClick={() => handleLeave(event.id)}
                     >
                       Leave Event

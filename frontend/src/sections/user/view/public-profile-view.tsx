@@ -114,7 +114,7 @@ export function PublicProfileView({ id }: Props) {
           >
             <Typography variant="subtitle1" fontWeight="bold">{event.name}</Typography>
             <Typography variant="body2" color="text.secondary">
-              {new Date(event.dateAndTime).toLocaleString()}
+              {new Date(event.startTime).toLocaleString()}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               <strong>Location:</strong> {event.location}

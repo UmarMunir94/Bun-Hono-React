@@ -17,12 +17,16 @@ export const events = pgTable(
     userId: text("user_id").notNull(),
     name: text("name").notNull(),
     location: text("location").notNull(),
-    dateAndTime: timestamp("date_and_time").notNull(),
+    startTime: timestamp("start_time").notNull(),
+    endTime: timestamp("end_time"),
+    cutoffTime: timestamp("cutoff_time"),
+    autoEndTime: timestamp("auto_end_time").notNull(),
     slots: integer("slots").notNull(),
     description: text("description"),
     isPrivate: boolean("is_private").notNull().default(false),
     autoApprove: boolean("auto_approve").notNull().default(false),
     createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at"),
   },
   (table) => ({
     userIdIndex: index("events_user_id_idx").on(table.userId),
@@ -50,7 +54,9 @@ export const insertEventSchema = createInsertSchema(events, {
   location: z.string().min(2, { message: "Location must be at least 2 characters" }),
   slots: z.number().int().min(1, { message: "Must have at least 1 slot" }),
   description: z.string().max(1000).nullable().optional(),
-  dateAndTime: z.union([z.date(), z.string().datetime()]), // allow ISO strings
+  startTime: z.union([z.date(), z.string().datetime()]), // allow ISO strings
+  endTime: z.union([z.date(), z.string().datetime()]).nullable().optional(),
+  cutoffTime: z.union([z.date(), z.string().datetime()]).nullable().optional(),
 });
 
 export const selectEventSchema = createSelectSchema(events);

@@ -24,7 +24,10 @@ const PublicProfileSchema = z.object({
   joinedEvents: z.array(
     selectEventSchema.extend({
       createdAt: z.string().nullable(),
-      dateAndTime: z.string(),
+      startTime: z.string(),
+      endTime: z.string().nullable().optional(),
+      cutoffTime: z.string().nullable().optional(),
+      autoEndTime: z.string(),
     })
   ),
 }).openapi("PublicProfile");
@@ -76,12 +79,16 @@ export const usersRoute = app.openapi(getPublicProfile, async (c) => {
       userId: eventsTable.userId,
       name: eventsTable.name,
       location: eventsTable.location,
-      dateAndTime: eventsTable.dateAndTime,
+      startTime: eventsTable.startTime,
+      endTime: eventsTable.endTime,
+      cutoffTime: eventsTable.cutoffTime,
+      autoEndTime: eventsTable.autoEndTime,
       slots: eventsTable.slots,
       description: eventsTable.description,
       isPrivate: eventsTable.isPrivate,
       autoApprove: eventsTable.autoApprove,
       createdAt: eventsTable.createdAt,
+      updatedAt: eventsTable.updatedAt,
     })
     .from(eventAttendeesTable)
     .innerJoin(eventsTable, eq(eventAttendeesTable.eventId, eventsTable.id))
@@ -92,7 +99,7 @@ export const usersRoute = app.openapi(getPublicProfile, async (c) => {
         eq(eventsTable.isPrivate, false)
       )
     )
-    .orderBy(desc(eventsTable.dateAndTime));
+    .orderBy(desc(eventsTable.startTime));
 
   const profile = {
     id: user.id,
@@ -106,8 +113,12 @@ export const usersRoute = app.openapi(getPublicProfile, async (c) => {
     } : null,
     joinedEvents: joinedEvents.map(e => ({
       ...e,
-      dateAndTime: e.dateAndTime instanceof Date ? e.dateAndTime.toISOString() : String(e.dateAndTime),
+      startTime: e.startTime instanceof Date ? e.startTime.toISOString() : String(e.startTime),
+      endTime: e.endTime ? (e.endTime instanceof Date ? e.endTime.toISOString() : String(e.endTime)) : null,
+      cutoffTime: e.cutoffTime ? (e.cutoffTime instanceof Date ? e.cutoffTime.toISOString() : String(e.cutoffTime)) : null,
+      autoEndTime: e.autoEndTime instanceof Date ? e.autoEndTime.toISOString() : String(e.autoEndTime),
       createdAt: e.createdAt ? (e.createdAt instanceof Date ? e.createdAt.toISOString() : String(e.createdAt)) : null,
+      updatedAt: e.updatedAt ? (e.updatedAt instanceof Date ? e.updatedAt.toISOString() : String(e.updatedAt)) : null,
     })),
   };
 

@@ -309,6 +309,14 @@ export async function updateEventAttendee({
   return res.json();
 }
 
+export async function completeEvent({ id }: { id: number }) {
+  const res = await api.events[":id{[0-9]+}"].complete.$post({
+    param: { id: id.toString() },
+  });
+  if (!res.ok) throw new Error("server error");
+  return res.json();
+}
+
 // ── Users (Public Profile) ──────────────────────────────────────────────────
 
 export async function getPublicProfile({ userId }: { userId: string }) {

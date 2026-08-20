@@ -17,7 +17,10 @@ import { user as userTable } from "../db/schema/auth";
 
 const BaseEventItemSchema = selectEventSchema.extend({
   createdAt: z.string().nullable(),
-  dateAndTime: z.string(),
+  startTime: z.string(),
+  endTime: z.string().nullable().optional(),
+  cutoffTime: z.string().nullable().optional(),
+  autoEndTime: z.string(),
 }).openapi("BaseEventItem");
 
 const EventListItemSchema = BaseEventItemSchema.extend({
@@ -285,6 +288,40 @@ const leaveEvent = createRoute({
   },
 });
 
+const completeEvent = createRoute({
+  method: "post",
+  path: "/:id{[0-9]+}/complete",
+  tags: ["Events"],
+  middleware: [getUser] as const,
+  request: {
+    params: z.object({
+      id: z.string().openapi({ description: "Event ID" }),
+    }),
+  },
+  responses: {
+    200: {
+      content: { "application/json": { schema: z.object({ success: z.boolean(), endTime: z.string() }) } },
+      description: "Marked as completed",
+    },
+    400: {
+      content: { "application/json": { schema: z.object({ error: z.string() }) } },
+      description: "Bad Request",
+    },
+    401: {
+      content: { "application/json": { schema: UnauthorizedSchema } },
+      description: "Unauthorized",
+    },
+    403: {
+      content: { "application/json": { schema: z.object({ error: z.string() }) } },
+      description: "Forbidden",
+    },
+    404: {
+      content: { "application/json": { schema: NotFoundSchema } },
+      description: "Not Found",
+    },
+  },
+});
+
 export const eventsRoute = app
   .openapi(listEvents, async (c) => {
     const user = c.var.user;
@@ -357,8 +394,12 @@ export const eventsRoute = app
       const attendeeCount = attendeeCountMap.get(e.id) ?? 0;
       return {
         ...e,
-        dateAndTime: e.dateAndTime instanceof Date ? e.dateAndTime.toISOString() : String(e.dateAndTime),
+        startTime: e.startTime instanceof Date ? e.startTime.toISOString() : String(e.startTime),
+        endTime: e.endTime ? (e.endTime instanceof Date ? e.endTime.toISOString() : String(e.endTime)) : null,
+        cutoffTime: e.cutoffTime ? (e.cutoffTime instanceof Date ? e.cutoffTime.toISOString() : String(e.cutoffTime)) : null,
+        autoEndTime: e.autoEndTime instanceof Date ? e.autoEndTime.toISOString() : String(e.autoEndTime),
         createdAt: e.createdAt ? (e.createdAt instanceof Date ? e.createdAt.toISOString() : String(e.createdAt)) : null,
+        updatedAt: e.updatedAt ? (e.updatedAt instanceof Date ? e.updatedAt.toISOString() : String(e.updatedAt)) : null,
         attendeeCount,
         interestedCount: interestedCountMap.get(e.id) ?? 0,
         slotsLeft: Math.max(0, e.slots - attendeeCount),
@@ -410,8 +451,12 @@ export const eventsRoute = app
 
     const mappedEvent = {
       ...event,
-      dateAndTime: event.dateAndTime instanceof Date ? event.dateAndTime.toISOString() : String(event.dateAndTime),
+      startTime: event.startTime instanceof Date ? event.startTime.toISOString() : String(event.startTime),
+      endTime: event.endTime ? (event.endTime instanceof Date ? event.endTime.toISOString() : String(event.endTime)) : null,
+      cutoffTime: event.cutoffTime ? (event.cutoffTime instanceof Date ? event.cutoffTime.toISOString() : String(event.cutoffTime)) : null,
+      autoEndTime: event.autoEndTime instanceof Date ? event.autoEndTime.toISOString() : String(event.autoEndTime),
       createdAt: event.createdAt ? (event.createdAt instanceof Date ? event.createdAt.toISOString() : String(event.createdAt)) : null,
+      updatedAt: event.updatedAt ? (event.updatedAt instanceof Date ? event.updatedAt.toISOString() : String(event.updatedAt)) : null,
       attendees: attendees.map(a => ({
         id: a.id,
         eventId: a.eventId,
@@ -432,12 +477,18 @@ export const eventsRoute = app
     const body = c.req.valid("json");
     const user = c.var.user;
 
+    const startTimeDate = new Date(body.startTime);
+    const autoEndTimeDate = body.endTime ? new Date(body.endTime) : new Date(startTimeDate.getTime() + 24 * 60 * 60 * 1000);
+
     const [result] = await db
       .insert(eventsTable)
       .values({
         ...body,
         userId: user.id,
-        dateAndTime: new Date(body.dateAndTime),
+        startTime: startTimeDate,
+        endTime: body.endTime ? new Date(body.endTime) : null,
+        cutoffTime: body.cutoffTime ? new Date(body.cutoffTime) : null,
+        autoEndTime: autoEndTimeDate,
       })
       .returning();
 
@@ -449,8 +500,12 @@ export const eventsRoute = app
 
     const mapped = {
       ...result,
-      dateAndTime: result.dateAndTime instanceof Date ? result.dateAndTime.toISOString() : String(result.dateAndTime),
+      startTime: result.startTime instanceof Date ? result.startTime.toISOString() : String(result.startTime),
+      endTime: result.endTime ? (result.endTime instanceof Date ? result.endTime.toISOString() : String(result.endTime)) : null,
+      cutoffTime: result.cutoffTime ? (result.cutoffTime instanceof Date ? result.cutoffTime.toISOString() : String(result.cutoffTime)) : null,
+      autoEndTime: result.autoEndTime instanceof Date ? result.autoEndTime.toISOString() : String(result.autoEndTime),
       createdAt: result.createdAt ? (result.createdAt instanceof Date ? result.createdAt.toISOString() : String(result.createdAt)) : null,
+      updatedAt: result.updatedAt ? (result.updatedAt instanceof Date ? result.updatedAt.toISOString() : String(result.updatedAt)) : null,
     };
 
     return c.json(mapped, 201);
@@ -460,9 +515,28 @@ export const eventsRoute = app
     const user = c.var.user;
     const body = c.req.valid("json");
 
-    const updateData: any = { ...body };
-    if (updateData.dateAndTime) {
-      updateData.dateAndTime = new Date(updateData.dateAndTime);
+    const [currentEvent] = await db.select().from(eventsTable).where(eq(eventsTable.id, id)).limit(1);
+    if (!currentEvent) return c.json({ error: "Not Found" }, 404);
+
+    if (new Date() >= currentEvent.startTime) {
+      return c.json({ success: false, error: "Event can no longer be edited after it has started" }, 400);
+    }
+
+    const updateData: any = { ...body, updatedAt: new Date() };
+    if (updateData.startTime) {
+      updateData.startTime = new Date(updateData.startTime);
+    }
+    if (updateData.endTime !== undefined) {
+      updateData.endTime = updateData.endTime ? new Date(updateData.endTime) : null;
+    }
+    if (updateData.cutoffTime !== undefined) {
+      updateData.cutoffTime = updateData.cutoffTime ? new Date(updateData.cutoffTime) : null;
+    }
+
+    if (updateData.startTime !== undefined || updateData.endTime !== undefined) {
+      const newStartTime = updateData.startTime || currentEvent.startTime;
+      const newEndTime = updateData.endTime !== undefined ? updateData.endTime : currentEvent.endTime;
+      updateData.autoEndTime = newEndTime ? new Date(newEndTime) : new Date(newStartTime.getTime() + 24 * 60 * 60 * 1000);
     }
 
     if (updateData.slots !== undefined) {
@@ -485,8 +559,12 @@ export const eventsRoute = app
 
     const mapped = {
       ...updated,
-      dateAndTime: updated.dateAndTime instanceof Date ? updated.dateAndTime.toISOString() : String(updated.dateAndTime),
+      startTime: updated.startTime instanceof Date ? updated.startTime.toISOString() : String(updated.startTime),
+      endTime: updated.endTime ? (updated.endTime instanceof Date ? updated.endTime.toISOString() : String(updated.endTime)) : null,
+      cutoffTime: updated.cutoffTime ? (updated.cutoffTime instanceof Date ? updated.cutoffTime.toISOString() : String(updated.cutoffTime)) : null,
+      autoEndTime: updated.autoEndTime instanceof Date ? updated.autoEndTime.toISOString() : String(updated.autoEndTime),
       createdAt: updated.createdAt ? (updated.createdAt instanceof Date ? updated.createdAt.toISOString() : String(updated.createdAt)) : null,
+      updatedAt: updated.updatedAt ? (updated.updatedAt instanceof Date ? updated.updatedAt.toISOString() : String(updated.updatedAt)) : null,
     };
 
     return c.json({ event: mapped }, 200);
@@ -504,7 +582,10 @@ export const eventsRoute = app
 
     const mapped = {
       ...deleted,
-      dateAndTime: deleted.dateAndTime instanceof Date ? deleted.dateAndTime.toISOString() : String(deleted.dateAndTime),
+      startTime: deleted.startTime instanceof Date ? deleted.startTime.toISOString() : String(deleted.startTime),
+      endTime: deleted.endTime ? (deleted.endTime instanceof Date ? deleted.endTime.toISOString() : String(deleted.endTime)) : null,
+      cutoffTime: deleted.cutoffTime ? (deleted.cutoffTime instanceof Date ? deleted.cutoffTime.toISOString() : String(deleted.cutoffTime)) : null,
+      autoEndTime: deleted.autoEndTime instanceof Date ? deleted.autoEndTime.toISOString() : String(deleted.autoEndTime),
       createdAt: deleted.createdAt ? (deleted.createdAt instanceof Date ? deleted.createdAt.toISOString() : String(deleted.createdAt)) : null,
     };
 
@@ -516,6 +597,12 @@ export const eventsRoute = app
 
     const [event] = await db.select().from(eventsTable).where(eq(eventsTable.id, id)).limit(1);
     if (!event) return c.json({ error: "Not Found" }, 404);
+
+    const now = new Date();
+    const effectiveCutoff = event.cutoffTime ? event.cutoffTime : event.startTime;
+    if (now >= effectiveCutoff) {
+      return c.json({ success: false, error: "Joining and leaving is disabled for this event" }, 400);
+    }
 
     const [existing] = await db
       .select()
@@ -602,6 +689,12 @@ export const eventsRoute = app
     const [event] = await db.select().from(eventsTable).where(eq(eventsTable.id, id)).limit(1);
     if (!event) return c.json({ error: "Not Found" }, 404);
 
+    const now = new Date();
+    const effectiveCutoff = event.cutoffTime ? event.cutoffTime : event.startTime;
+    if (now >= effectiveCutoff) {
+      return c.json({ success: false, error: "Joining and leaving is disabled for this event" }, 400);
+    }
+
     if (event.userId === user.id) {
       return c.json({ success: false, error: "Organizer cannot leave the event" }, 400);
     }
@@ -614,4 +707,34 @@ export const eventsRoute = app
     if (!deleted) return c.json({ error: "Not Found" }, 404);
 
     return c.json({ success: true }, 200);
+  })
+  .openapi(completeEvent, async (c) => {
+    const id = Number.parseInt(c.req.valid("param").id);
+    const user = c.var.user;
+    
+    const [event] = await db.select().from(eventsTable).where(eq(eventsTable.id, id)).limit(1);
+    if (!event) return c.json({ error: "Not Found" }, 404);
+    
+    if (event.userId !== user.id) {
+      return c.json({ error: "Forbidden" }, 403);
+    }
+    
+    const now = new Date();
+    
+    if (now < event.startTime) {
+      return c.json({ error: "Cannot complete an event before it has started" }, 400);
+    }
+    
+    const endTimeObj = event.endTime ? new Date(event.endTime) : new Date(event.autoEndTime);
+    if (now > endTimeObj) {
+      return c.json({ error: "Event is already completed" }, 400);
+    }
+    const [updated] = await db
+      .update(eventsTable)
+      .set({ endTime: now, autoEndTime: now })
+      .where(eq(eventsTable.id, id))
+      .returning();
+      
+    return c.json({ success: true, endTime: updated.endTime!.toISOString() }, 200);
   });
+

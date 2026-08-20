@@ -113,27 +113,52 @@ export type GeneralInfo = Omit<z.infer<typeof selectGeneralInfoSchema>, "created
 
 import { insertEventSchema, selectEventSchema, insertEventAttendeeSchema, selectEventAttendeeSchema } from "./db/schema/events";
 
-export const createEventSchema = insertEventSchema
-  .omit({ userId: true, createdAt: true, id: true })
+const baseCreateEventSchema = insertEventSchema
+  .omit({ userId: true, createdAt: true, id: true, autoEndTime: true })
   .extend({
     name: insertEventSchema.shape.name.describe("Name of the event (min 2 characters)"),
     location: insertEventSchema.shape.location.describe("Location of the event (min 2 characters)"),
     slots: z.number().int().min(2).max(100).describe("Number of available slots"),
     description: insertEventSchema.shape.description.describe("Event description"),
-    dateAndTime: z.string().describe("Date and time of the event in ISO string format"),
+    startTime: z.string().describe("Start date and time of the event in ISO string format"),
+    endTime: z.string().nullable().optional().describe("End date and time of the event in ISO string format"),
+    cutoffTime: z.string().nullable().optional().describe("Cutoff date and time for joining in ISO string format"),
     isPrivate: z.boolean().optional().default(false).describe("Whether the event is private"),
     autoApprove: z.boolean().optional().default(false).describe("Whether to automatically approve requests"),
   });
 
+const eventTimeRefinement = (data: any, ctx: z.RefinementCtx) => {
+  if (data.startTime && data.cutoffTime && new Date(data.cutoffTime) > new Date(data.startTime)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "RSVP Deadline cannot be after Start Time",
+      path: ["cutoffTime"],
+    });
+  }
+  if (data.startTime && data.endTime && new Date(data.endTime) < new Date(data.startTime)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "End Time cannot be before Start Time",
+      path: ["endTime"],
+    });
+  }
+};
+
+export const createEventSchema = baseCreateEventSchema.superRefine(eventTimeRefinement);
+
 export type CreateEvent = z.infer<typeof createEventSchema>;
 
-export const updateEventSchema = createEventSchema.partial();
+export const updateEventSchema = baseCreateEventSchema.partial().superRefine(eventTimeRefinement);
 
 export type UpdateEvent = z.infer<typeof updateEventSchema>;
 
-export type Event = Omit<z.infer<typeof selectEventSchema>, "createdAt" | "dateAndTime"> & {
+export type Event = Omit<z.infer<typeof selectEventSchema>, "createdAt" | "updatedAt" | "startTime" | "endTime" | "cutoffTime" | "autoEndTime"> & {
   createdAt: string | null;
-  dateAndTime: string;
+  updatedAt: string | null;
+  startTime: string;
+  endTime: string | null;
+  cutoffTime: string | null;
+  autoEndTime: string;
 };
 
 export type EventAttendee = Omit<z.infer<typeof selectEventAttendeeSchema>, "createdAt"> & {

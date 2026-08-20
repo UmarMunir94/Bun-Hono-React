@@ -24,10 +24,27 @@ export const EventSchema = zod.object({
   name: zod.string().min(2, { message: 'Name must be at least 2 characters!' }),
   location: zod.string().min(2, { message: 'Location must be at least 2 characters!' }),
   slots: zod.number().int().min(2, { message: 'Slots must be at least 2!' }).max(100, { message: 'Slots cannot exceed 100!' }),
-  dateAndTime: zod.string().min(1, { message: 'Date and time is required!' }),
+  startTime: zod.string().min(1, { message: 'Start time is required!' }),
+  endTime: zod.string().nullable().optional().or(zod.literal('')),
+  cutoffTime: zod.string().nullable().optional().or(zod.literal('')),
   description: zod.string().max(1000).nullable().optional(),
   isPrivate: zod.boolean(),
   autoApprove: zod.boolean(),
+}).superRefine((data, ctx) => {
+  if (data.cutoffTime && new Date(data.cutoffTime) > new Date(data.startTime)) {
+    ctx.addIssue({
+      code: zod.ZodIssueCode.custom,
+      message: 'RSVP Deadline cannot be after Start Time',
+      path: ['cutoffTime'],
+    });
+  }
+  if (data.endTime && new Date(data.endTime) < new Date(data.startTime)) {
+    ctx.addIssue({
+      code: zod.ZodIssueCode.custom,
+      message: 'End Time cannot be before Start Time',
+      path: ['endTime'],
+    });
+  }
 });
 
 // Use zod.output to get the resolved (post-transform) type
@@ -40,7 +57,9 @@ export type EventCurrentData = {
   name: string;
   location: string;
   slots: number;
-  dateAndTime: string;
+  startTime: string;
+  endTime?: string | null;
+  cutoffTime?: string | null;
   description?: string | null;
   isPrivate: boolean;
   autoApprove: boolean;
@@ -59,7 +78,9 @@ export function EventCreateEditForm({ currentData }: Props) {
     name: currentData?.name ?? '',
     location: currentData?.location ?? '',
     slots: currentData?.slots ?? 10,
-    dateAndTime: currentData?.dateAndTime ?? new Date().toISOString(),
+    startTime: currentData?.startTime ?? new Date().toISOString(),
+    endTime: currentData?.endTime ?? null,
+    cutoffTime: currentData?.cutoffTime ?? null,
     description: currentData?.description ?? '',
     isPrivate: currentData?.isPrivate ?? false,
     autoApprove: currentData?.autoApprove ?? false,
@@ -143,8 +164,26 @@ export function EventCreateEditForm({ currentData }: Props) {
               />
               
               <Field.DateTimePicker
-                name="dateAndTime"
-                label="Date and Time"
+                name="startTime"
+                label="Starts at"
+                slotProps={{
+                  textField: {
+                    fullWidth: true,
+                  },
+                }}
+              />
+              <Field.DateTimePicker
+                name="endTime"
+                label="Ends at"
+                slotProps={{
+                  textField: {
+                    fullWidth: true,
+                  },
+                }}
+              />
+              <Field.DateTimePicker
+                name="cutoffTime"
+                label="RSVP Deadline"
                 slotProps={{
                   textField: {
                     fullWidth: true,

@@ -2,8 +2,8 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+import Chip from '@mui/material/Chip';
 import Link from '@mui/material/Link';
-// import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -15,7 +15,7 @@ import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import { DashboardContent } from 'src/layouts/dashboard';
-import { joinEvent, leaveEvent, updateEventAttendee, getEventByIdQueryOptions } from 'src/lib/api';
+import { joinEvent, leaveEvent, completeEvent, updateEventAttendee, getEventByIdQueryOptions } from 'src/lib/api';
 
 import { toast } from 'src/components/snackbar';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
@@ -64,11 +64,23 @@ export function EventDetailsView({ id }: Props) {
   const leaveMutation = useMutation({
     mutationFn: leaveEvent,
     onSuccess: () => {
-      toast.success('Request cancelled successfully.');
+      toast.success('Action successful.');
       refetch();
     },
     onError: (error) => {
-      toast.error('Failed to cancel request.');
+      toast.error('Failed action.');
+      console.error(error);
+    },
+  });
+
+  const completeMutation = useMutation({
+    mutationFn: completeEvent,
+    onSuccess: () => {
+      toast.success('Event marked as completed.');
+      refetch();
+    },
+    onError: (error) => {
+      toast.error('Failed to complete event.');
       console.error(error);
     },
   });
@@ -104,6 +116,14 @@ export function EventDetailsView({ id }: Props) {
 
   const hasJoinedOrRequested = event.attendees.some((a: any) => a.userId === user?.id);
 
+  const now = new Date();
+  const start = new Date(event.startTime);
+  const end = event.endTime ? new Date(event.endTime) : new Date(event.autoEndTime);
+  const cutoff = event.cutoffTime ? new Date(event.cutoffTime) : start;
+  const isCompleted = now > end;
+  const isOngoing = now >= start && now <= end;
+  const canJoinOrLeave = now < cutoff && !isCompleted;
+
   const handleUpdateStatus = (attendeeId: number, status: 'approved' | 'rejected') => {
     updateStatusMutation.mutate({ eventId: event.id, attendeeId, status });
   };
@@ -116,6 +136,12 @@ export function EventDetailsView({ id }: Props) {
     leaveMutation.mutate({ id: event.id });
   };
 
+  const handleComplete = () => {
+    if (window.confirm('Are you sure you want to mark this event as completed early?')) {
+      completeMutation.mutate({ id: event.id });
+    }
+  };
+
   return (
     <DashboardContent>
       <CustomBreadcrumbs
@@ -126,27 +152,36 @@ export function EventDetailsView({ id }: Props) {
           { name: event.name },
         ]}
         action={
-          isCreator ? (
-            <Button
-              component={RouterLink}
-              href={paths.dashboard.events.edit(event.id.toString())}
-              variant="contained"
-            >
-              Edit Event
-            </Button>
-          ) : !hasJoinedOrRequested ? (
-            <Button variant="contained" onClick={handleJoin}>
-              Join Event
-            </Button>
-          ) : event.attendees.find((a: any) => a.userId === user?.id)?.status === 'approved' ? (
-            <Button variant="contained" color="error" onClick={handleLeave}>
-              Leave Event
-            </Button>
-          ) : (
-            <Button variant="contained" color="warning" onClick={handleLeave}>
-              Cancel Request
-            </Button>
-          )
+          <Stack direction="row" spacing={1}>
+            {isCreator && isOngoing && (
+              <Button variant="outlined" color="primary" onClick={handleComplete}>
+                Mark as Completed
+              </Button>
+            )}
+            {isCreator ? (
+              now < start && (
+                <Button
+                  component={RouterLink}
+                  href={paths.dashboard.events.edit(event.id.toString())}
+                  variant="contained"
+                >
+                  Edit Event
+                </Button>
+              )
+            ) : !hasJoinedOrRequested ? (
+              <Button variant="contained" disabled={!canJoinOrLeave} onClick={handleJoin}>
+                Join Event
+              </Button>
+            ) : event.attendees.find((a: any) => a.userId === user?.id)?.status === 'approved' ? (
+              <Button variant="contained" color="error" disabled={!canJoinOrLeave} onClick={handleLeave}>
+                Leave Event
+              </Button>
+            ) : (
+              <Button variant="contained" color="warning" disabled={!canJoinOrLeave} onClick={handleLeave}>
+                Cancel Request
+              </Button>
+            )}
+          </Stack>
         }
         sx={{ mb: { xs: 3, md: 5 } }}
       />
@@ -157,15 +192,38 @@ export function EventDetailsView({ id }: Props) {
           {event.description || 'No description provided.'}
         </Typography>
 
-        <Stack direction="row" spacing={3} sx={{ mt: 3 }}>
+        <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
+          {isCompleted ? (
+            <Chip size="small" variant="soft" color="default" label="Completed" />
+          ) : isOngoing ? (
+            <Chip size="small" variant="soft" color="primary" label="Ongoing" />
+          ) : null}
+          {event.updatedAt && event.createdAt && new Date(event.updatedAt) > new Date(event.createdAt) && (
+            <Chip size="small" variant="outlined" color="default" label="Edited" />
+          )}
+        </Box>
+
+        <Stack direction="row" spacing={3} sx={{ mt: 3, flexWrap: 'wrap', gap: 2 }}>
           <Box>
             <Typography variant="subtitle2" color="text.secondary">Location</Typography>
             <Typography variant="body1">{event.location}</Typography>
           </Box>
           <Box>
-            <Typography variant="subtitle2" color="text.secondary">Date & Time</Typography>
-            <Typography variant="body1">{new Date(event.dateAndTime).toLocaleString()}</Typography>
+            <Typography variant="subtitle2" color="text.secondary">{isOngoing || isCompleted ? 'Started at' : 'Starts at'}</Typography>
+            <Typography variant="body1">{start.toLocaleString()}</Typography>
           </Box>
+          {(event.endTime || isCompleted) && (
+            <Box>
+              <Typography variant="subtitle2" color="text.secondary">{isCompleted ? 'Ended at' : 'Ends at'}</Typography>
+              <Typography variant="body1">{end.toLocaleString()} {event.endTime ? `(${Math.round((end.getTime() - start.getTime()) / 3600000)}h duration)` : ''}</Typography>
+            </Box>
+          )}
+          {event.cutoffTime && (
+            <Box>
+              <Typography variant="subtitle2" color="text.secondary">Join by</Typography>
+              <Typography variant="body1">{cutoff.toLocaleString()}</Typography>
+            </Box>
+          )}
           <Box>
             <Typography variant="subtitle2" color="text.secondary">Slots</Typography>
             <Typography variant="body1">{approvedAttendees.length} / {event.slots}</Typography>
@@ -247,7 +305,7 @@ export function EventDetailsView({ id }: Props) {
           <Box sx={{ mt: 4 }}>
             <Divider sx={{ mb: 3 }} />
             <Typography variant="subtitle1" gutterBottom color="warning.main">
-              {event.autoApprove ? `Interested (${requestedAttendees.length})` : `Join Requests (${requestedAttendees.length})`}
+              {isCompleted ? `Interested (${requestedAttendees.length})` : (event.autoApprove ? `Interested (${requestedAttendees.length})` : `Join Requests (${requestedAttendees.length})`)}
             </Typography>
             <Stack spacing={2}>
               {requestedAttendees.map((attendee: any) => (
@@ -267,7 +325,7 @@ export function EventDetailsView({ id }: Props) {
                       Requested {new Date(attendee.createdAt).toLocaleDateString()}
                     </Typography>
                   </Box>
-                  {isCreator && (
+                  {isCreator && !isCompleted && (
                     <>
                       <Button size="small" variant="outlined" color="success" onClick={() => handleUpdateStatus(attendee.id, 'approved')} disabled={isFull}>
                         {isFull ? 'Full' : 'Approve'}
