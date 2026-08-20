@@ -77,6 +77,7 @@ export type PaletteExtend = {
     red: PaletteColorWithChannels;
     green: PaletteColorWithChannels;
     dark: PaletteColorWithChannels;
+    completed: PaletteColorWithChannels;
   };
   shared: {
     inputOutlined: string;
@@ -189,6 +190,14 @@ const pastelsBase = {
     darker: '#0A0A0A',
     contrastText: '#FFFFFF',
   },
+  grey: {
+    lighter: '#F5F5F5',
+    light: '#EEEEEE',
+    main: '#9E9E9E',
+    dark: '#616161',
+    darker: '#212121',
+    contrastText: '#FFFFFF',
+  },
 };
 
 export const pastels = {
@@ -198,6 +207,7 @@ export const pastels = {
     red: createPaletteChannel(pastelsBase.red),
     green: createPaletteChannel(pastelsBase.green),
     dark: createPaletteChannel(pastelsBase.dark),
+    completed: createPaletteChannel(pastelsBase.grey),
   },
   dark: {
     purple: createPaletteChannel({
@@ -239,6 +249,14 @@ export const pastels = {
       dark: pastelsBase.dark.darker,
       darker: pastelsBase.dark.darker,
       contrastText: pastelsBase.dark.contrastText,
+    }),
+    grey: createPaletteChannel({
+      lighter: pastelsBase.grey.main,
+      light: pastelsBase.grey.darker,
+      main: pastelsBase.grey.darker,
+      dark: pastelsBase.grey.darker,
+      darker: pastelsBase.grey.darker,
+      contrastText: pastelsBase.grey.contrastText,
     }),
   },
 };

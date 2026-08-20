@@ -208,6 +208,11 @@ export function EventListView() {
                   transition: 'box-shadow 0.2s',
                   '&:hover': { boxShadow: 4 },
                   ...highlightStyles[highlight],
+                  ...(isCompleted
+                    ? { backgroundColor: (theme: any) => theme.vars.palette.pastels.red.light }
+                    : isOngoing
+                    ? { border: '2px solid', borderColor: 'primary.main' }
+                    : {}),
                 }}
               >
                 {/* Header */}

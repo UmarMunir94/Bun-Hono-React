@@ -268,7 +268,7 @@ export function EventDetailsView({ id }: Props) {
         )}
 
         <Typography variant="subtitle1" gutterBottom color="success.main">
-          Active Participants ({activeAttendees.length})
+          Participants ({activeAttendees.length})
         </Typography>
         {activeAttendees.length === 0 ? (
           <Typography variant="body2" color="text.secondary">No active participants yet.</Typography>
